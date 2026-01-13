@@ -11,7 +11,7 @@
 1. [Design Philosophy](#design-philosophy)
 2. [Agent Collaboration Patterns](#agent-collaboration-patterns)
 3. [The Document-Driven Workflow](#the-document-driven-workflow)
-4. [Flowbaby Memory Integration](#flowbaby-memory-integration)
+4. [Project Memory System](#project-memory-system)
 5. [Agent Deep Dives](#agent-deep-dives)
 6. [Customization Guide](#customization-guide)
 7. [Troubleshooting & FAQ](#troubleshooting--faq)
@@ -288,126 +288,70 @@ When handing off between agents:
 
 ---
 
-## Flowbaby Memory Integration
+## Project Memory System
 
-### What is Flowbaby?
+### What is Project Memory?
 
-[Flowbaby](https://github.com/groupzer0/flowbaby) is a VS Code extension that provides **workspace-scoped long-term memory** for GitHub Copilot. Unlike chat history (which is lost between sessions), Flowbaby stores memories in a local knowledge graph that persists across sessions.
+Project Memory is a simple, robust system for giving AI agents long-term memory using **Markdown files** stored in your repository. Instead of relying on proprietary extensions or hidden databases, we store context exactly where it belongs: in your project.
 
-**Key Features**:
-- **Hybrid Graph-Vector Search**: Combines knowledge graph structure with vector similarity
-- **Workspace Isolation**: Each workspace has separate memory
-- **Privacy-First**: All data stays local; no cloud services
-- **Agent Tools**: Exposes `#flowbabyStoreSummary` and `#flowbabyRetrieveMemory` for agents
+**Core Principles**:
+- **Transparency**: Memory is just a file you can read (`agent-output/memory/`).
+- **Portability**: Works with any AI tool that can read files (GitHub Copilot, Continue, Claude Dev, etc.).
+- **Simplicity**: No servers, no API keys, no cloud logins.
 
-### Why Flowbaby is Unique
+### How it Works
 
-Most "memory" solutions for AI agents fall into traps:
-
-| Approach | Problem |
-|----------|---------|
-| Chat history | Lost between sessions, grows unbounded |
-| Vector DB only | No structure, poor at relationships |
-| Manual notes | Requires human effort, inconsistent |
-| RAG on files | Noisy, retrieves irrelevant context |
-
-**Flowbaby's approach**:
-- **Structured summaries**: Agents store decisions, not raw logs
-- **Knowledge graph**: Captures relationships between concepts
-- **Semantic search**: Finds relevant context even with different wording
-- **Automatic + Manual**: Can store automatically or on demand
-
-### Installation
-
-1. **Install from VS Code Marketplace**:
-   - Open Extensions (`Ctrl+Shift+X`)
-   - Search "Flowbaby"
-   - Click Install
-
-  Or install via command line:
-  ```bash
-  ext install flowbaby.flowbaby
-  ```
-
-2. **Initialize Workspace**:
-   - Command Palette (`Ctrl+Shift+P`)
-   - Run "Flowbaby: Initialize Workspace"
-
-3. **Set API Key**:
-   - Command Palette
-   - Run "Flowbaby: Set API Key"
-   - Enter your OpenAI/Anthropic key (used for local summarization)
-
-**Links**:
-- GitHub: https://github.com/groupzer0/flowbaby
-- Marketplace: https://marketplace.visualstudio.com/items?itemName=flowbaby.flowbaby
+1.  **Storage**: When an agent wants to "remember" something for the future, it creates a file in `agent-output/memory/`.
+2.  **Retrieval**: When an agent needs context, it uses the workspace search or `@codebase` feature to find relevant memory files.
 
 ### Memory Contract for Agents
 
-All agents load the **`memory-contract` skill** which defines when and how to use Flowbaby memory. Agents function without Flowbaby but greatly benefit from its cross-session context.
+All agents load the **`memory-contract` skill** which defines the standard format for these memory files.
 
 > [!TIP]
-> The full memory contract is in `vs-code-agents/skills/memory-contract/SKILL.md`. See [memory-contract-example.md](vs-code-agents/memory-contract-example.md) for usage examples.
+> The full memory contract is in `vs-code-agents/skills/memory-contract/SKILL.md`.
 
-**Core principles**:
+**When to Store Memory**:
+1.  **Milestones**: "Auth system planning complete"
+2.  **Decisions**: "Chose Redis over Memcached because..."
+3.  **Correction**: "Don't use the `legacy_api` wrapper, it's deprecated."
 
-1. **Retrieve at decision points**: Before making assumptions or choosing between options
-2. **Store at value boundaries**: After decisions, completions, or discoveries
-3. **Specific queries**: Ask hypothesis-driven questions, not vague category requests
-4. **Acknowledge memory**: When retrieved memory influences response, say so
+### Memory File Format
+
+Memory files are named `YYYY-MM-DD-short-topic.md` and use this structure:
+
+```markdown
+---
+type: memory
+topic: Auth System Decision
+status: active
+id: mem-2025-01-15-01
+---
+
+# Auth System Decision
+
+**Context**: We evaluated Auth0 vs Firebase vs Custom.
+
+**Decision**: We chose **Auth0**.
+
+**Rationale**:
+- Firebase lock-in concern (roadmap item #45)
+- Custom auth is security risk (per Security Agent)
+- Auth0 has the specific enterprise SSO features we need
+
+**Related Artifacts**:
+- agent-output/planning/001-auth-plan.md
+```
 
 ### Retrieval Patterns
 
-**Good retrieval queries** are specific and contextual:
+When you ask an agent to do work, it should proactively search for context.
 
-```json
-#flowbabyRetrieveMemory {
-  "query": "Previous decisions about authentication flow and security requirements for user login",
-  "maxResults": 3
-}
-```
+**Good Agent Query**:
+> "Searching `@codebase` for memory files related to 'authentication decisions'..."
 
-**Bad queries** are vague:
-```json
-#flowbabyRetrieveMemory {
-  "query": "auth stuff",
-  "maxResults": 3
-}
-```
-
-### Storage Patterns
-
-**Store when**:
-- Completing a task or phase
-- Making a significant decision
-- Discovering a constraint or dead end
-- Every 5 turns (even without milestone)
-
-**Include**:
-- Goal: What you were trying to do
-- Outcome: What happened
-- Decisions: What was decided
-- Rationale: Why
-- Artifacts: File paths to detailed docs
-
-```json
-#flowbabyStoreSummary {
-  "topic": "Auth plan review complete",
-  "context": "Completed critique of Plan 001 (user authentication). Found 2 critical issues: missing rate limiting and no threat model for password reset. Plan BLOCKED until addressed. See agent-output/critiques/001-auth-critique.md.",
-  "decisions": [
-    "Rate limiting required on all auth endpoints",
-    "Threat model needed for password reset flow"
-  ],
-  "rationale": [
-    "Without rate limiting, credential stuffing attacks are trivial",
-    "Password reset is a common attack vector requiring explicit analysis"
-  ],
-  "metadata": {
-    "status": "Active",
-    "artifact": "agent-output/critiques/001-auth-critique.md"
-  }
-}
-```
+**Bad Agent Query**:
+> "Searching for 'auth'..." (Too vague)
 
 ### Memory Enables Agent Collaboration
 

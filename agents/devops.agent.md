@@ -3,7 +3,7 @@ description: DevOps specialist responsible for packaging, versioning, deployment
 name: DevOps
 target: vscode
 argument-hint: Specify the version to release or deployment task to perform
-tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo', 'context7']
+tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'context7']
 model: GPT-5 mini
 handoffs:
   - label: Request Implementation Fixes
@@ -38,7 +38,7 @@ Core Responsibilities:
 7. Execute release (tag, push, publish, update log).
 8. Document in `agent-output/deployment/` (checklist, confirmation, execution, validation).
 9. Maintain deployment history.
-10. Retrieve/store Flowbaby memory.
+10. Retrieve/store Project Memory.
 11. **Status tracking**: After successful git push, update all included plans' Status field to "Released" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
 12. **Commit on plan approval**: After UAT approves a plan, commit all plan changes locally with detailed message referencing plan ID and target release. Do NOT push yet.
 13. **Track release readiness**: Monitor which plans are committed locally for the current target release. Coordinate with Roadmap agent to maintain accurate release→plan mappings.
@@ -183,13 +183,9 @@ Escalation:
 **MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
 
 **Key behaviors:**
-- Retrieve at decision points (2–5 times per task)
-- Store at value boundaries (decisions, findings, constraints)
+- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
+- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
 - If tools fail, announce no-memory mode immediately
-
-**Quick reference:**
-- Retrieve: `#flowbabyRetrieveMemory { "query": "specific question", "maxResults": 3 }`
-- Store: `#flowbabyStoreSummary { "topic": "3-7 words", "context": "what/why", "decisions": [...] }`
 
 Full contract details: `memory-contract` skill
 

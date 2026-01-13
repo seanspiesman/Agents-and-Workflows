@@ -3,7 +3,7 @@ description: Maintains architectural coherence across features and reviews techn
 name: Architect
 target: vscode
 argument-hint: Describe the feature, component, or system area requiring architectural review
-tools: ['execute/getTerminalOutput', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo', 'context7']
+tools: ['execute/getTerminalOutput', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
 model: GPT-5.2
 handoffs:
   - label: Validate Roadmap Alignment
@@ -56,7 +56,7 @@ Core Responsibilities:
 4. Review architectural impact. Assess module boundaries, patterns, scalability.
 5. Document decisions in master file with rationale, alternatives, consequences.
 6. Audit codebase health. Recommend refactoring priorities.
-7. Retrieve/store Flowbaby memory.
+7. Retrieve/store Project Memory.
 8. **Status tracking**: Keep architecture doc's Status current. Other agents and users rely on accurate status at a glance.
 
 Constraints:
@@ -152,13 +152,9 @@ Escalation:
 **MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
 
 **Key behaviors:**
-- Retrieve at decision points (2–5 times per task)
-- Store at value boundaries (decisions, findings, constraints)
+- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
+- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
 - If tools fail, announce no-memory mode immediately
-
-**Quick reference:**
-- Retrieve: `#flowbabyRetrieveMemory { "query": "specific question", "maxResults": 3 }`
-- Store: `#flowbabyStoreSummary { "topic": "3-7 words", "context": "what/why", "decisions": [...] }`
 
 Full contract details: `memory-contract` skill
 

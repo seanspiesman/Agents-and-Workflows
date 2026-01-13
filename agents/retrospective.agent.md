@@ -3,7 +3,7 @@ description: Captures lessons learned, architectural decisions, and patterns aft
 name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
-tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo', 'context7']
+tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'context7']
 model: Gemini 3 Pro (Preview)
 handoffs:
   - label: Update Architecture
@@ -32,7 +32,7 @@ Core Responsibilities:
 5. Measure against objectives: value delivery, cost, drift timing
 6. Document technical patterns as secondary (clearly marked)
 7. Build knowledge base; recommend next actions
-8. Use Flowbaby memory for continuity
+8. Use Project Memory for continuity
 9. **Status tracking**: Keep retrospective doc's Status current. Other agents and users rely on accurate status at a glance.
 
 Constraints:
@@ -174,13 +174,9 @@ Status: Active
 **MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
 
 **Key behaviors:**
-- Retrieve at decision points (2–5 times per task)
-- Store at value boundaries (decisions, findings, constraints)
+- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
+- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
 - If tools fail, announce no-memory mode immediately
-
-**Quick reference:**
-- Retrieve: `#flowbabyRetrieveMemory { "query": "specific question", "maxResults": 3 }`
-- Store: `#flowbabyStoreSummary { "topic": "3-7 words", "context": "what/why", "decisions": [...] }`
 
 Full contract details: `memory-contract` skill
 

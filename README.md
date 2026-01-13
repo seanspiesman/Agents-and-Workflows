@@ -79,11 +79,11 @@ Create a plan for adding user authentication
 
 ### 4. (Recommended) Enable Memory
 
-Install [Flowbaby](https://marketplace.visualstudio.com/items?itemName=flowbaby.flowbaby) for cross-session memory:
+Agens use a **Project Memory** system to store decisions and context across sessions.
 
-1. VS Code Extensions → Search "Flowbaby" → Install
-2. Command Palette → "Flowbaby: Initialize Workspace"
-3. Command Palette → "Flowbaby: Set API Key"
+1. Create a `agent-output/memory/` directory in your workspace.
+2. Agents will automatically create markdown files here to store context.
+3. Use the `@codebase` feature in Continue (or your LLM tool's equivalent) to allow agents to "read" this memory.
 
 ### 5. (Optional) Use with GitHub Copilot CLI
 
@@ -138,7 +138,7 @@ Agents produce Markdown documents in `agent-output/`. Every decision is recorded
 Critic reviews plans. Security audits code. QA verifies tests. Nothing ships without checks.
 
 ### 🧠 Robust Memory
-With [Flowbaby](https://github.com/groupzer0/flowbaby), agents remember decisions across sessions.
+Agents use a **Project Memory** system (markdown files in `agent-output/memory/`) to remember decisions across sessions.
 
 ### 🔄 Handoffs
 Agents hand off to each other with context. No lost information between phases.
@@ -156,39 +156,19 @@ Pre-defined agent choreographies for common tasks:
 
 ---
 
-## Flowbaby Memory Integration
+## Project Memory System
 
-[Flowbaby](https://github.com/groupzer0/flowbaby) is a VS Code extension that provides **workspace-scoped long-term memory** for GitHub Copilot.
+Agents use a simple, robust **Project Memory** system to maintain context across sessions without external dependencies.
 
-### Why Flowbaby?
-
-Most AI memory solutions don't work well:
-
-| Approach | Problem |
-|----------|---------|
-| Chat history | Lost between sessions |
-| Vector DB alone | No structure, poor relationships |
-| Manual notes | Inconsistent, requires effort |
-| RAG on files | Noisy, retrieves irrelevant content |
-
-**Flowbaby's approach**:
-- **Hybrid Graph-Vector Search**: Combines knowledge graphs with vector similarity
-- **Structured Summaries**: Stores decisions and reasoning, not raw logs
-- **Workspace Isolation**: Each project has separate memory
-- **Privacy-First**: All data stays local
+### How it Works
+1.  **Storage**: Agents write structured summaries to `agent-output/memory/YYYY-MM-DD-topic.md`.
+2.  **Retrieval**: Agents read these files using your AI assistant's context features (like `@codebase` in Continue).
 
 ### Key Features
+- **Zero Dependencies**: Just markdown files.
+- **Privacy-First**: Your data never leaves your machine (unless you use a cloud LLM).
+- **Human Readable**: You can read and edit the memory files yourself.
 
-- **Automatic memory search**: Flowbaby detects when context is needed
-- **Automatic memory storage**: Stores key decisions and milestones
-- **@flowbaby participant**: Query memory directly in chat
-- **Agent tools**: `#flowbabyStoreSummary` and `#flowbabyRetrieveMemory`
-
-### Links
-
-- **GitHub**: https://github.com/groupzer0/flowbaby
-- **VS Code Marketplace**: https://marketplace.visualstudio.com/items?itemName=flowbaby.flowbaby
-- **Documentation**: See the GitHub README for full setup guide
 
 ---
 
@@ -273,7 +253,7 @@ Agents now use **Claude Skills**—modular, reusable instruction sets that load 
 
 | Skill | Purpose |
 |-------|---------|
-| `memory-contract` | Unified Flowbaby memory retrieval/storage contract |
+| `memory-contract` | Unified Project Memory retrieval/storage contract |
 | `analysis-methodology` | Confidence levels, gap tracking, investigation techniques |
 | `architecture-patterns` | ADR templates, patterns, anti-pattern detection |
 | `code-review-checklist` | Pre/post-implementation review criteria |
@@ -323,7 +303,7 @@ This keeps active plans visible while archiving completed work for traceability.
 
 ### Previous Updates
 
-- **Refined Flowbaby memory contract (2025-12-16)**: All core agents share a unified memory contract. Agents function without Flowbaby but greatly benefit from its use.
+- **Refined memory contract (2025-12-16)**: All core agents share a unified memory contract.
 - **Aligned agent tool names with VS Code APIs (2025-12-16)**: Agent `tools` definitions now use official VS Code agent tool identifiers.
 - **Added subagent usage patterns (2025-12-15)**: Planner, Implementer, QA, Analyst, and Security document how to invoke each other as scoped subagents.
 - **Background Implementer mode (2025-12-15)**: Implementation can run as local chat or background agent in isolated Git worktree.
@@ -344,7 +324,8 @@ This repository also runs an automatic **Markdown lint** check in GitHub Actions
 ## Requirements
 
 - VS Code with GitHub Copilot
-- For memory: [Flowbaby extension](https://marketplace.visualstudio.com/items?itemName=flowbaby.flowbaby) + Python 3.10+
+- VS Code with GitHub Copilot or Continue
+- For memory: `agent-output/memory/` directory
 
 ---
 
@@ -357,6 +338,6 @@ MIT License - see [LICENSE](LICENSE)
 ## Related Resources
 
 - [GitHub Copilot Agents Documentation](https://code.visualstudio.com/docs/copilot/copilot-agents)
-- [Flowbaby Extension](https://github.com/groupzer0/flowbaby)
+- [Continue Extension](https://marketplace.visualstudio.com/items?itemName=Continue.continue)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)

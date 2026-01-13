@@ -3,7 +3,7 @@ description: Analyzes retrospectives and systematically improves agent workflows
 name: ProcessImprovement
 target: vscode
 argument-hint: Reference the retrospective or process area to analyze
-tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo', 'context7']
+tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
 model: GPT-5.2
 handoffs:
   - label: Start New Plan
@@ -188,13 +188,9 @@ Create `agent-output/process-improvement/NNN-agent-instruction-updates.md` with:
 **MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
 
 **Key behaviors:**
-- Retrieve at decision points (2–5 times per task)
-- Store at value boundaries (decisions, findings, constraints)
+- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
+- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
 - If tools fail, announce no-memory mode immediately
-
-**Quick reference:**
-- Retrieve: `#flowbabyRetrieveMemory { "query": "specific question", "maxResults": 3 }`
-- Store: `#flowbabyStoreSummary { "topic": "3-7 words", "context": "what/why", "decisions": [...] }`
 
 Full contract details: `memory-contract` skill
 
