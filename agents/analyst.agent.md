@@ -3,7 +3,7 @@ description: Research and analysis specialist for code-level investigation and d
 name: Analyst
 target: vscode
 argument-hint: Describe the technical question, API, or system behavior to investigate
-tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo']
+tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo', 'context7']
 model: GPT-5.1-Codex-Max
 handoffs:
   - label: Create Plan
@@ -98,5 +98,14 @@ Status: Active
 - Retrieve: `#flowbabyRetrieveMemory { "query": "specific question", "maxResults": 3 }`
 - Store: `#flowbabyStoreSummary { "topic": "3-7 words", "context": "what/why", "decisions": [...] }`
 
+
 Full contract details: `memory-contract` skill
+
+# Tool Usage Guidelines
+
+## context7
+**Usage**: context7 provides real-time, version-specific documentation and code examples.
+- **When to use**: Use `context7` during research to verify library capabilities, find correct versions, and get accurate code examples.
+- **Best Practice**: Be specific about library versions if known.
+
 

@@ -26,6 +26,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 - **Mandatory MCP Usage**:
   - Use `view_file` to read the actual code of entry points and controllers.
   - Use `view_code_item` to inspect key classes/functions involved in the flow.
+  - Use `context7` to verify framework behavior (e.g., implicit lifecycle methods).
   - **Golden Rule**: If you didn't read the file, you cannot document it.
 - **Output**: An interaction flow document in `agent-output/analysis/` (e.g., `002-interaction-flows.md`) containing step-by-step logic for:
   - Initialization/Startup

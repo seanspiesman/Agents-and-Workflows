@@ -2,7 +2,7 @@
 
 Purpose: This document centralizes language- and framework-specific vulnerability patterns the Security agent may reference during **Phase 2: Code Security Review**. It is intentionally kept separate from the main agent spec for easier maintenance.
 
-When using this reference, always prioritize **current, authoritative sources** (OWASP, vendor security guides) when deeper details are needed.
+When using this reference, always prioritize **current, authoritative sources** (OWASP, vendor security guides) when deeper details are needed. Use **context7** to fetch the latest documentation for specific versions of libraries in use.
 
 ---
 

@@ -2,7 +2,7 @@
 description: Master Project Manager and Orchestrator. The central executive that drives the entire software development lifecycle (SDLC) by coordinating specialist agents.
 name: Orchestrator
 target: vscode
-tools: ['execute', 'read', 'edit', 'search', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo']
+tools: ['execute', 'read', 'edit', 'search', 'flowbaby.flowbaby/flowbabyStoreSummary', 'flowbaby.flowbaby/flowbabyRetrieveMemory', 'todo', 'context7']
 model: claude-3-5-sonnet-20241022
 handoffs:
   - label: Strategic Planning
@@ -175,3 +175,9 @@ Your persona is **Professional, Organized, and Forward-Lookng**.
 ## Mandatory Skills
 *   `document-lifecycle`: For managing `agent-output/` organization.
 *   `memory-contract`: For maintaining workspace integrity.
+
+## Tool Usage Guidelines
+
+### context7
+**Usage**: context7 provides real-time, version-specific documentation and code examples.
+- **When to use**: Use during Inception or Analysis phases to quickly verify tool capabilities.

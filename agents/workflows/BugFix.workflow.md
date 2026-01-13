@@ -17,6 +17,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Mandatory MCP Usage**:
   - Use `grep_search` to trace the error log.
   - Use `view_file` to find the buggy logic.
+  - Use `context7` to verify library behavior against documentation if external libraries are involved.
 - **Output**: Root Cause Analysis in `agent-output/analysis/`.
 - **Handoff**: Passed to Planner.
 
@@ -44,6 +45,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Mandatory MCP Usage**:
   - Use `playwright` to verify web bug fixes.
   - Use `ios-simulator` to verify mobile bug fixes. **(Always check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) first)**
+  - Use `context7` to verify fix implementation against library documentation.
 - **Iteration Loop**:
   - **FAIL**: Bug persists or regression found. Return to **Analyst** (if reproduction was wrong) or **Implementer**.
   - **PASS**: Bug Squashed.

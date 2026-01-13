@@ -24,17 +24,18 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
   - Target release version (aligned with roadmap)
 - **Handoff**: The plan is submitted to the Critic agent for review.
 - **Validation**: Planner ensures the plan aligns with the Master Product Objective and architectural guidelines.
+- **Mandatory Tools**: Use `context7` to research capabilities if external libraries are involved.
 
 ### 3. Plan Review (Critic Agent)
 - **Agent**: Critic
 - **Action**: The Critic agent reviews the plan for clarity, completeness, and alignment with architectural guidelines.
 - **Output**: A critique document in `agent-output/critiques/` with:
   - Findings (Critical/Medium/Low)
-  - Questions or concernsArchitect for architectural validation. If not, it is sent back to the Planner for revisions.
-- **Validation**: Critic ensures the plan addresses all open questions and risks before approval
+  - Questions or concerns
   - Recommendations for improvement
 - **Handoff**: If the plan is approved, it is handed off to the Implementer agent. If not, it is sent back to the Planner for revisions.
-Architectural Validation (Architect Agent)
+
+### 4. Architectural Validation (Architect Agent)
 - **Agent**: Architect
 - **Action**: The Architect agent validates the plan's architectural alignment and identifies potential risks or improvements.
 - **Output**: Architectural review document with:

@@ -15,6 +15,7 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 - **Mandatory MCP Usage**:
   - Use `find_by_name` and `grep_search` to map dependencies.
   - Use `view_file` to assess code readability and cyclomatic complexity.
+  - Use `context7` to understand library patterns in legacy code.
 - **Output**: A Refactoring Opportunity Doc in `agent-output/analysis/` defining *what* to refactor and *why*.
 - **Handoff**: Passed to Architect.
 
@@ -52,6 +53,7 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 - **Mandatory MCP Usage**:
   - Use `run_command` to execute test suites.
   - Use `playwright` (Web) or `ios-simulator` (Mobile) to verify UI behavior if applicable. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**
+  - Use `context7` to verify refactored code usage against library documentation.
   - Use `view_code_item` to manually verify signatures if needed.
 - **Iteration Loop**:
   - **FAIL**: Return to **Implementer**. The refactoring broke something. Revert or Fix.
