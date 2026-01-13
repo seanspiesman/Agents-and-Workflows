@@ -43,7 +43,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Action**: Verify the fix and run regression suite.
 - **Mandatory MCP Usage**:
   - Use `playwright` to verify web bug fixes.
-  - Use `ios-simulator` to verify mobile bug fixes.
+  - Use `ios-simulator` to verify mobile bug fixes. **(Always check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) first)**
 - **Iteration Loop**:
   - **FAIL**: Bug persists or regression found. Return to **Analyst** (if reproduction was wrong) or **Implementer**.
   - **PASS**: Bug Squashed.

@@ -39,7 +39,7 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 - **Action**: Run the full regression suite.
 - **Mandatory MCP Usage**:
   - Use `run_command` to execute tests.
-  - Use `playwright` or `ios-simulator` for UI/mobile verification.
+  - Use `playwright` or `ios-simulator` for UI/mobile verification. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**
 - **Iteration Loop**:
   - **FAIL**: Tests fail or build breaks. Return to **Implementer** (for fixes) or **Planner** (if strategy needs rethinking).
   - **PASS**: Upgrade successful.

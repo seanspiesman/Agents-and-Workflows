@@ -39,7 +39,7 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 - **Action**: Run tests and check coverage metrics.
 - **Mandatory MCP Usage**:
   - Use `run_command` to execute tests with coverage.
-  - Use `playwright` or `ios-simulator` if implementing UI/E2E tests.
+  - Use `playwright` or `ios-simulator` if implementing UI/E2E tests. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**
 - **Iteration Loop**:
   - **FAIL**: Coverage target missed or tests fail. Return to **Implementer**.
   - **PASS**: Coverage improved.

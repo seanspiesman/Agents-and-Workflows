@@ -51,7 +51,7 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 - **Action**: Run the full regression suite. Verify no behavior changes.
 - **Mandatory MCP Usage**:
   - Use `run_command` to execute test suites.
-  - Use `playwright` (Web) or `ios-simulator` (Mobile) to verify UI behavior if applicable.
+  - Use `playwright` (Web) or `ios-simulator` (Mobile) to verify UI behavior if applicable. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**
   - Use `view_code_item` to manually verify signatures if needed.
 - **Iteration Loop**:
   - **FAIL**: Return to **Implementer**. The refactoring broke something. Revert or Fix.

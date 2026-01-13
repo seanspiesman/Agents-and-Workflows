@@ -310,5 +310,11 @@ Status: Active
 - Retrieve: `#flowbabyRetrieveMemory { "query": "specific question", "maxResults": 3 }`
 - Store: `#flowbabyStoreSummary { "topic": "3-7 words", "context": "what/why", "decisions": [...] }`
 
+
 Full contract details: `memory-contract` skill
+
+# Tool Usage Guidelines
+
+## ios-simulator
+**MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
 
