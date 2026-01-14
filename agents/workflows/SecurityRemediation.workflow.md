@@ -51,6 +51,14 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
   - **FAIL**: Fix is ineffective or incomplete. Return to **Analyst** (if root cause wrong) or **Implementer** (if implementation flawed).
   - **PASS**: Issue Resolved.
 
+### 6. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -59,6 +67,7 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 | **Analyst** | Root Cause | `agent-output/analysis/` |
 | **Planner** | Plan Fix | `agent-output/planning/` |
 | **Implementer** | Apply Fix | Codebase |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -72,4 +81,6 @@ flowchart TD
     F -->|Fix Failed| E
     F -->|Root Cause Missed| C
     F -->|Verified| G[Resolved]
+    G --> H[Project Completion]
+    H --> I[End]
 ```

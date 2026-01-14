@@ -67,7 +67,7 @@ agent-output/
 
 - **Auditability**: See what was decided and why
 - **Handoff context**: Next agent reads the artifacts
-- **Memory anchors**: Flowbaby stores references to documents
+- **Memory anchors**: Project Memory stores references to documents
 - **Version control**: Track evolution of decisions
 
 ---
@@ -659,7 +659,7 @@ This means agents can have access to many skills without consuming context until
 
 | Skill | Purpose | Key Content |
 |-------|---------|-------------|
-| `memory-contract` | Unified Flowbaby memory contract | When/how to retrieve and store, anti-patterns |
+| `memory-contract` | Unified Project Memory contract | When/how to retrieve and store, anti-patterns |
 | `analysis-methodology` | Investigation techniques | Confidence levels, gap tracking, POC guidance |
 | `architecture-patterns` | ADR templates, patterns, anti-patterns | Layered architecture, repository pattern, STRIDE |
 | `code-review-checklist` | Pre/post-implementation review criteria | Value statement assessment, security checklist |
@@ -784,10 +784,8 @@ You can have project-specific agent variants:
 ### Memory Issues
 
 **Q: Memory not working**
-- Is Flowbaby installed? Check Extensions
-- Is workspace initialized? Run "Flowbaby: Initialize Workspace"
-- Is API key set? Run "Flowbaby: Set API Key"
-- Check Output panel for Flowbaby errors
+- Is workspace initialized? Check `task.md` exists.
+- Check Output panel for agent errors
 
 **Q: Retrievals return nothing**
 - Broadens query: be less specific
@@ -820,8 +818,9 @@ You can have project-specific agent variants:
 **Q: Do I need all 13 agents?**
 No. Start with Planner + Implementer. Add others as needed.
 
-**Q: Can I use this without Flowbaby?**
-Yes, but agents won't remember across sessions. Each conversation starts fresh.
+**Q: Can I use this without dependencies?**
+Yes. The system is designed to be tool-agnostic. While it defaults to using local `agent-output/memory/` files, it works with any LLM client (LM Studio, Continue, Cursor) that can read/write files.
+
 
 **Q: Why separate QA and UAT?**
 - QA = Technical quality (tests pass, coverage adequate)

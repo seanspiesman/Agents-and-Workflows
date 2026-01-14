@@ -50,6 +50,14 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
   - **FAIL**: Bug persists or regression found. Return to **Analyst** (if reproduction was wrong) or **Implementer**.
   - **PASS**: Bug Squashed.
 
+### 5. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -58,6 +66,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 | **Planner** | Fix Strategy | `agent-output/planning/` |
 | **Implementer** | Fix & Test | Codebase |
 | **QA** | Verify | `agent-output/qa/` |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -71,4 +80,6 @@ flowchart TD
     E -->|Fix Failed| D
     E -->|Regression| C
     E -->|Verified| F[Released]
+    F --> G[Project Completion]
+    G --> H[End]
 ```

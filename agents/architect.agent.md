@@ -4,7 +4,7 @@ name: Architect
 target: vscode
 argument-hint: Describe the feature, component, or system area requiring architectural review
 tools: ['execute/getTerminalOutput', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
-model: GPT-5.2
+model: devstral-OC-3090
 handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap
@@ -42,7 +42,7 @@ Session Start Protocol:
 1. **Scan for recently completed work**:
    - Check `agent-output/planning/` for plans with Status: "Implemented" or "Completed"
    - Check `agent-output/implementation/` for recently completed implementations
-   - Query Flowbaby memory for recent architectural decisions or changes
+   - Query Project Memory for recent architectural decisions or changes
 2. **Reconcile architecture docs**:
    - Update `system-architecture.md` to reflect implemented changes as CURRENT state (not proposed)
    - Add changelog entries: "[DATE] Reconciled from Plan-NNN implementation"
@@ -64,6 +64,10 @@ Constraints:
 - Edit only `agent-output/architecture/` files: `system-architecture.md`, one diagram, `NNN-[topic]-architecture-findings.md`.
 - Integrate ADRs into master doc, not separate files.
 - Focus on system-level design, not implementation details.
+- **Mermaid Type Safety**: YOU MUST ONLY USE `flowchart`. Do NOT use `sequenceDiagram`, `classDiagram`, etc.
+- **Mermaid Syntax Safety**: ALWAYS quote node labels containing special characters (e.g., `id["func()"]`). NEVER leave unescaped brackets `[]` or `()` in labels.
+- **Syntax Consistency**: Use `{}` for decisions. Do NOT use `alt` or `loop`.
+- **Diagram Clarity**: Structure diagrams to be readable. Avoid "spaghetti" links.
 
 Review Process:
 

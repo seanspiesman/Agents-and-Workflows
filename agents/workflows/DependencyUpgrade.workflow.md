@@ -44,6 +44,14 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
   - **FAIL**: Tests fail or build breaks. Return to **Implementer** (for fixes) or **Planner** (if strategy needs rethinking).
   - **PASS**: Upgrade successful.
 
+### 5. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -52,6 +60,7 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 | **Planner** | Strategy | `agent-output/planning/` |
 | **Implementer** | Execute Upgrade | Codebase |
 | **QA** | Regression | `agent-output/qa/` |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -64,4 +73,6 @@ flowchart TD
     E -->|Failure| D
     E -->|Major Break| C
     E -->|Success| F[Done]
+    F --> G[Project Completion]
+    G --> H[End]
 ```

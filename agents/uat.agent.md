@@ -4,7 +4,7 @@ name: UAT
 target: vscode
 argument-hint: Reference the implementation or plan to validate (e.g., plan 002)
 tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator', 'playwright', 'context7']
-model: Claude Sonnet 4.5
+model: devstral-OC-3090
 handoffs:
   - label: Report UAT Failure
     agent: Planner
@@ -48,8 +48,10 @@ Core Responsibilities:
 8. Synthesize final release decision: "APPROVED FOR RELEASE" or "NOT APPROVED" with rationale
 9. Recommend versioning and release notes
 10. Focus on whether implementation delivers stated value
-11. Use Project Memory for continuity
-12. **Status tracking**: When UAT passes, update the plan's Status field to "UAT Approved" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
+11. **User Representation via Tools (MANDATORY)**: You MUST use MCP tools (`browser_subagent`, `ios-simulator`, `run_command`) to act as the user and simulate the journey. Reviewing code/docs is insufficient.
+12. **Blockade**: You are FORBIDDEN from marking "UAT Complete" without proof of active tool-based validation (e.g., interaction logs, screenshots).
+13. Use Project Memory for continuity
+14. **Status tracking**: When UAT passes, update the plan's Status field to "UAT Approved" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
 
 Constraints:
 
@@ -211,6 +213,14 @@ Full contract details: `memory-contract` skill
 
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
+
+## run_command / execute
+- **Safe Execution (Non-Blocking)**:
+  - For any command expected to take >5 seconds (builds, test suites), YOU MUST set `WaitMsBeforeAsync: 2000` to run in background.
+  - **Polling Loop**: You MUST check up on the command incrementally.
+    1. Loop: Call `command_status` every 10-30 seconds.
+    2. Check output: Is it still making progress?
+  - **Timeout Protocol**: Default timeout is **200 seconds**. If command runs longer than 200s without completing, you MUST terminate it using `send_command_input` with `Terminate: true` and retry or report error. Only exceed 200s if output confirms active progress.
 
 ## context7
 **Usage**: context7 provides real-time, version-specific documentation and code examples.

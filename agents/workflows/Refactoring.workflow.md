@@ -59,6 +59,14 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
   - **FAIL**: Return to **Implementer**. The refactoring broke something. Revert or Fix.
   - **PASS**: Refactor successful.
 
+### 6. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -68,6 +76,7 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 | **Planner** | Atomic Steps | `agent-output/planning/` |
 | **Implementer** | Execute Refactor | Codebase |
 | **QA** | Regression Test | `agent-output/qa/` |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -80,4 +89,6 @@ flowchart TD
     E -->|Code Change| F[QA Regression]
     F -->|Tests Fail| E
     F -->|Tests Pass| G[Success]
+    G --> H[Project Completion]
+    H --> I[End]
 ```

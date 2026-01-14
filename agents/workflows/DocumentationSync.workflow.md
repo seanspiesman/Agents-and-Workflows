@@ -37,6 +37,14 @@ Drift between code and documentation is a major source of confusion. This workfl
   - **FAIL**: Inaccurate or unclear. Return to **Implementer**.
   - **PASS**: Docs are synced.
 
+### 4. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -44,6 +52,7 @@ Drift between code and documentation is a major source of confusion. This workfl
 | **Analyst** | Detect Drift | `agent-output/analysis/` |
 | **Implementer** | Write Docs | Documentation Files |
 | **Critic** | Verify Accuracy | `agent-output/critiques/` |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -54,4 +63,6 @@ flowchart TD
     C -->|Doc Changes| D[Critic Verification]
     D -->|Inaccurate| C
     D -->|Synced| E[End]
+    E --> F[Project Completion]
+    F --> G[End]
 ```

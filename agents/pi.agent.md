@@ -4,7 +4,7 @@ name: ProcessImprovement
 target: vscode
 argument-hint: Reference the retrospective or process area to analyze
 tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
-model: GPT-5.2
+model: devstral-OC-3090
 handoffs:
   - label: Start New Plan
     agent: Planner
@@ -26,7 +26,7 @@ Review retrospectives to identify repeatable process improvements, validate agai
 4. Resolve challenges: propose solutions to conflicts/logical issues
 5. Update agent instructions: implement approved improvements across affected agents
 6. Document changes: create clear records of what changed and why
-7. Retrieve/store Flowbaby memory
+7. Retrieve/store Project Memory
 8. **Status tracking**: Keep process improvement doc's Status current. Other agents and users rely on accurate status at a glance.
 
 ## Constraints

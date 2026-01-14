@@ -38,9 +38,19 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 - **Input**: Interaction Flow document.
 - **Action**: Transform text findings into **detailed** Mermaid.js diagrams. "High-level" boxes are not enough; diagrams must be useful for developers.
 - **Visual Requirements**:
-  - **Class Diagrams**: Must show public methods and key properties. Connections must imply cardinality where known.
-  - **Sequence Diagrams**: Must show the happy path AND at least one error path/branch. Use `alt` and `opt` blocks.
-  - **State Diagrams**: Required if the system manages complex state (e.g., Order Status, Connection State).
+  - **UNIVERSAL DIAGRAM RULE**: **ALL** diagrams must use `flowchart` syntax (e.g., `flowchart TD` or `LR`).
+  - **PROHIBITED SYNTAX**: Do NOT use `sequenceDiagram`, `classDiagram`, `stateDiagram`, `erDiagram`, or `gantt`.
+  - **CRITICAL SYNTAX RULES**:
+    - **Escape Everything**: Node labels containing `[]`, `()`, `{}`, quotes, or special chars MUST be double-quoted. Example: `id["List<String>"]`.
+    - **No Mixing Syntax**: Never use `alt`, `opt`, `loop` (these are for sequence diagrams). Use Decision Nodes `{}`.
+  - **Structural Flowcharts** (replacing Class Diagrams):
+    - Use nodes for classes/components.
+    - Use labeled arrows for relationships/cardinality (e.g., `ClassA -->|1..*| ClassB`).
+  - **Sequence Flowcharts** (replacing Sequence Diagrams):
+    - Use numbered edges to show order of operations (e.g., `Caller -->|1. Request| API`).
+    - Use Decision Nodes `{}` for branching logic.
+  - **State Flowcharts** (replacing State Diagrams):
+    - Use nodes for states and arrows for transitions (e.g., `Idle -->|Start| Running`).
 - **Output**: An architecture definition in `agent-output/architecture/` (e.g., `003-system-architecture.md`).
 - **Handoff**: Passed to Critic for Review.
 

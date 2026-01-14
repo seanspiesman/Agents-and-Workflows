@@ -4,7 +4,7 @@ name: Implementer
 target: vscode
 argument-hint: Reference the approved plan to implement (e.g., plan 002)
 tools: ['vscode/vscodeAPI', 'execute', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator', 'playwright', 'context7']
-model: Claude Opus 4.5
+model: devstral-OC-3090
 handoffs:
   - label: Request Analysis
     agent: Analyst
@@ -317,4 +317,12 @@ Full contract details: `memory-contract` skill
 **Usage**: context7 provides real-time, version-specific documentation and code examples.
 - **When to use**: Before implementing features ensuring external libraries, use `context7` to fetch correct syntax and examples.
 - **Best Practice**: Be specific about library versions if known.
+
+## run_command (Safe Mode)
+- **Safe Execution (Non-Blocking)**:
+  - For any command expected to take >5 seconds (builds, app starts), YOU MUST set `WaitMsBeforeAsync: 2000` to run in background.
+  - **Polling Loop**: You MUST check up on the command incrementally.
+    1. Loop: Call `command_status` every 10-30 seconds.
+    2. Check output: Is it still making progress?
+  - **Timeout Protocol**: Default timeout is **200 seconds**. If the command runs longer than 200s without completing, you MUST terminate it using `send_command_input` with `Terminate: true` and retry or report error. Only exceed 200s if the output confirms active progress (e.g., percentage bars moving).
 

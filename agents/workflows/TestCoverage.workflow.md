@@ -44,6 +44,14 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
   - **FAIL**: Coverage target missed or tests fail. Return to **Implementer**.
   - **PASS**: Coverage improved.
 
+### 5. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -51,6 +59,7 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 | **QA** | Identify Gaps | `agent-output/qa/` |
 | **Analyst** | Spec Behavior | `agent-output/analysis/` |
 | **Implementer** | Write Tests | Test Files |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -62,4 +71,6 @@ flowchart TD
     D -->|New Tests| E[QA Verification]
     E -->|Target Missed| D
     E -->|Coverage Up| F[Success]
+    F --> G[Project Completion]
+    G --> H[End]
 ```

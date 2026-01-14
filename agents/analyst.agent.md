@@ -4,7 +4,7 @@ name: Analyst
 target: vscode
 argument-hint: Describe the technical question, API, or system behavior to investigate
 tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
-model: GPT-5.1-Codex-Max
+model: devstral-OC-3090
 handoffs:
   - label: Create Plan
     agent: Planner
@@ -65,7 +65,7 @@ Document Naming: `NNN-plan-name-analysis.md` (or `NNN-topic-analysis.md` for sta
 **MANDATORY**: Load `document-lifecycle` skill. You are an **originating agent**.
 
 **Creating new documents**:
-1. Read `agent-output/.next-id` (create with value `1` if missing)
+1. Read `agent-output/.next-id` (if missing, create `agent-output/.next-id` with value `1`)
 2. Use that value as your document ID
 3. Increment and write back: `echo $((ID + 1)) > agent-output/.next-id`
 

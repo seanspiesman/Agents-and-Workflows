@@ -93,6 +93,14 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
   - Updated workflows or guidelines
 - **Handoff**: The workflow is complete.
 
+### 10. Project Completion (Orchestrator)
+- **Agent**: Orchestrator
+- **Action**: Archive artifacts and generate final report.
+- **Output**:
+  - Move terminal artifacts to `agent-output/closed/`
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - **STOP** (End of Workflow)
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -105,6 +113,7 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 | UAT | Validate user-facing changes | `agent-output/uat/` |
 | Retrospective | Capture lessons learned | `agent-output/retrospectives/` |
 | PI | Improve workflows | `agent-output/process-improvement/` |
+| **Orchestrator** | Final Report | `agent-output/completion/` |
 
 ## Workflow Diagram
 
@@ -120,3 +129,6 @@ flowchart TD
     F -->|Passed| G[Retrospective]
     F -->|Failed| B
     G --> H[Process Improvement]
+    H --> I[Project Completion]
+    I --> J[End]
+```

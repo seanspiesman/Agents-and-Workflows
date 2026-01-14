@@ -4,7 +4,7 @@ name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
 tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'context7']
-model: Gemini 3 Pro (Preview)
+model: devstral-OC-3090
 handoffs:
   - label: Update Architecture
     agent: Architect

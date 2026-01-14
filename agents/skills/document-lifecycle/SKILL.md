@@ -82,7 +82,11 @@ When a document reaches terminal status:
 2. **Add changelog entry**: `| YYYY-MM-DD | [Agent] | Document closed | Status: [status] |`
 3. **Create closed folder** if needed: `mkdir -p agent-output/<domain>/closed/`
 4. **Move file**: `mv agent-output/<domain>/NNN-name.md agent-output/<domain>/closed/`
+4. **Move file**: `mv agent-output/<domain>/NNN-name.md agent-output/<domain>/closed/`
 5. **Log action**: "Closed document NNN-name.md (Status: [status])"
+
+### Completion Reports
+Completion reports are final artifacts stored in `agent-output/completion/`. They inherit the ID from the project or use a new ID if standalone. Naming convention: `[ID]-completion-report.md`.
 
 ### Cross-Reference Handling
 
@@ -129,7 +133,9 @@ Roadmap agent performs comprehensive sweep when reviewing roadmap:
 | PI | N/A | Self-closes own analysis |
 | Architect | N/A | Evergreen docs, no closure |
 | Roadmap | N/A | Orphan sweep responsibility |
+| Roadmap | N/A | Orphan sweep responsibility |
 | Security | Inherit | Self-check only |
+| Completion | Inherit | Final artifact, usually no closure |
 
 ---
 

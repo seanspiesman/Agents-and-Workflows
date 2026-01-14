@@ -4,7 +4,7 @@ name: Critic
 target: vscode
 argument-hint: Reference the plan or architecture document to critique (e.g., plan 002)
 tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'context7']
-model: Claude Opus 4.5
+model: devstral-OC-3090
 handoffs:
   - label: Revise Plan
     agent: Planner

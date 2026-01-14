@@ -4,7 +4,7 @@ name: Planner
 target: vscode
 argument-hint: Describe the feature, epic, or change to plan
 tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'context7']
-model: GPT-5.2
+model: devstral-OC-3090
 handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap
@@ -153,7 +153,7 @@ Actions: If ambiguous, respond with questions, wait for direction. If technical 
 **MANDATORY**: Load `document-lifecycle` skill. You are an **originating agent** (or inherit from analysis).
 
 **Creating plan from user request (no analysis)**:
-1. Read `agent-output/.next-id` (create with value `1` if missing)
+1. Read `agent-output/.next-id` (if missing, create `agent-output/.next-id` with value `1`)
 2. Use that value as your document ID
 3. Increment and write back: `echo $((ID + 1)) > agent-output/.next-id`
 
