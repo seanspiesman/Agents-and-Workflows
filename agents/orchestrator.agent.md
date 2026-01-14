@@ -26,9 +26,9 @@ handoffs:
   - label: User Acceptance
     agent: UAT
     prompt: QA passed. Please conduct user acceptance testing.
-  - label: Deployment & Ops
-    agent: DevOps
-    prompt: Feature verified. Please proceed with release/deployment.
+  # - label: Deployment & Ops
+  #   agent: DevOps
+  #   prompt: Feature verified. Please proceed with release/deployment.
   - label: Security Review
     agent: Security
     prompt: Security audit required. Please review for vulnerabilities.
@@ -65,6 +65,9 @@ handoffs:
   - label: Architecture Creation
     agent: Architect
     prompt: Architecture documentation missing/outdated. Please initiate the Create Architecture Readme Workflow.
+  - label: Functionality Analysis
+    agent: Analyst
+    prompt: Functionality analysis requested. Please initiate the Functionality Analysis Workflow (Phase 1: Scope Definition).
 ---
 
 ## Purpose
@@ -165,6 +168,8 @@ You have access to defined workflows that standardize complex processes. Use the
     -   *Use when*: Systematically exploring the app to find/fix bugs (Blocking & Non-Blocking) until clean.
 -   **Widget Testing (ExB)**: `workflows/WidgetTesting.workflow.md`
     -   *Use when*: Deeply verifying ArcGIS Experience Builder custom widgets with combinatorial test matrices (fields, popups, variable combos).
+-   **Functionality Analysis**: `workflows/functionality_analysis.workflow.md`
+    -   *Use when*: Deeply analyzing specific functionality (structure, critique, diagrams, improvements).
 
 ## Escalation & Conflict Protocols
 
