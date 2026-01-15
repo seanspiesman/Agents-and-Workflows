@@ -21,7 +21,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Reviewer**: Critic
 - **Goal**: Define *what* to build and *why* it matters, refined to perfection.
 - **Actions**:
-    1.  **Market Research (Navigator)**: Explore current trends and "best-in-class" examples.
+    1.  **Context Analysis (Roadmap)**: Analyze any user-provided attachments (Readmes, existing code) as *input* for the vision.
+    2.  **Market Research (Navigator)**: Explore current trends and "best-in-class" examples.
     2.  **Vision Definition (Roadmap)**: Synthesize research into a Product Vision.
     3.  **Feature Mapping (Roadmap)**: Define Epics and Value Statements.
     4.  **Critique Loop (Critic)**:

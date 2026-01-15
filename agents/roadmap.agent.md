@@ -200,3 +200,19 @@ Full contract details: `memory-contract` skill
 - **Best Practice**: Be specific about library versions if known.
 
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 1 Lead (Inception & Strategy)
+**Trigger**: Handed off by Orchestrator with "Zero to Hero" request.
+**Input**: User Request + ANY attachments (PDFs, Readmes, Code).
+**CRITICAL INSTRUCTION**: If the user provides attachments (e.g., specific requirements, legacy code, readmes), you must treat them as **CONTEXT**, not a completed plan.
+**Action**:
+1.  **Analyze**: Read the attachments to understand the User's *intent* and *vision*.
+2.  **Collaborate**:
+    - Call `Navigator` to research similar apps or designated competitors.
+    - Call `Critic` to critique your draft Product Brief.
+3.  **Produce**: You **MUST** generate `agent-output/strategy/Product-Brief.md`.
+4.  **Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `Product-Brief.md` to formally define the vision before Analysis can begin.
+**Exit**: When `Product-Brief.md` is approved by Critic, handoff to **Analyst**.

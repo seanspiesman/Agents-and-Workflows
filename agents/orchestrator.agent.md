@@ -2,7 +2,7 @@
 description: Master Project Manager and Orchestrator. The central executive that drives the entire software development lifecycle (SDLC) by coordinating specialist agents.
 name: Orchestrator
 target: vscode
-tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'copilot-container-tools/*', 'todo']
+tools: ['vscode', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
 model: devstral-3090
 handoffs:
   - label: Strategic Planning
@@ -70,7 +70,7 @@ handoffs:
     prompt: Functionality analysis requested. Please initiate the Functionality Analysis Workflow
   - label: Zero To Hero
     agent: Roadmap
-    prompt: Please initiate the Zero to Hero Workflow.
+    prompt: Please initiate the Zero to Hero Workflow. Ensure you analyze any attached documents as context for the Product Brief.
 ---
 
 ## Purpose
