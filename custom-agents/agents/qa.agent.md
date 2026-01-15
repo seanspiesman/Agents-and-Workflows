@@ -68,6 +68,8 @@ Constraints:
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Visual Test Planning**: Load `mermaid-diagramming` skill if visualizing test strategies.
 **Completeness**: Load `workflow-adherence` skill. Do not stop testing until all strategy items are executed.
+**Web Testing**: Load `skills/webapp-testing` and `instructions/playwright-typescript.instructions.md` for web test strategies.
+**Security Verification**: Load `instructions/security-and-owasp.instructions.md` for security compliance checks.
 **Execution Safety**: Load `non-blocking-execution` skill when running test servers.
 
 ### TDD Workflow

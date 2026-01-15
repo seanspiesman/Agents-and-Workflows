@@ -36,6 +36,10 @@ Process Control: Load `workflow-adherence` skill. Execute entire release checkli
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
 Safe Execution: Load `non-blocking-execution` skill. Handle long builds asynchronously.
 
+### DevOps Resources
+- **Packaging**: Load `skills/nuget-manager` for reliable package management.
+- **Test Context**: Load `instructions/playwright-dotnet.instructions.md` to understand test pipeline requirements.
+
 Core Responsibilities:
 1. Read roadmap BEFORE deployment. Confirm release aligns with milestones/epic targets.
 2. Read UAT BEFORE deployment. Verify "APPROVED FOR RELEASE".

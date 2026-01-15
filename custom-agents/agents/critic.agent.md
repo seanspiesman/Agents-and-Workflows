@@ -83,6 +83,11 @@ Collaboration: Load `collaboration-tracking` skill to check global context and l
 **Persistence**: Load `workflow-adherence` skill. Complete all review sections before halting.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs. Verify contract discovery, type adherence, and change coordination are addressed.
 
+### Review Resources
+- **Code Review**: Load `instructions/code-review-generic.instructions.md` for general quality standards.
+- **Security Check**: Load `instructions/security-and-owasp.instructions.md` to flag security oversights.
+- **UI Guidelines**: Load `instructions/html-css-style-color-guide.instructions.md` for interface critiques.
+
 Core Responsibilities:
 1. Identify review target (Plan/ADR/Roadmap). Apply appropriate criteria.
 2. Establish context: Plans (read roadmap + architecture), Architecture (read roadmap), Roadmap (read architecture).

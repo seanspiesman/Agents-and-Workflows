@@ -41,6 +41,10 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Process**: Load `workflow-adherence` skill. Ensure plans are comprehensive and agents are instructed to initiate next steps.
 
+### Planning Resources
+- **Best Practices**: Load `collections/project-planning.md` for standard planning patterns.
+- **Technical Context**: Load `instructions/dotnet-maui.instructions.md` and `instructions/reactjs.instructions.md` to ensure plans align with stack capabilities.
+
 ## Core Responsibilities
 
 1. Read roadmap/architecture BEFORE planning. Understand strategic epic outcomes, architectural constraints.

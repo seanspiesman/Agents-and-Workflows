@@ -59,6 +59,12 @@ handoffs:
 - Collaboration — load `collaboration-tracking` skill to check global context and log handoffs
 - Design patterns, clean code, test pyramid
 
+### Technology Stack Resources
+
+- **React/Frontend**: When implementing UI, load `instructions/reactjs.instructions.md` and `skills/web-design-reviewer`.
+- **.NET/Maui**: When implementing .NET, load `instructions/dotnet-maui.instructions.md` and `skills/nuget-manager`.
+- **Testing**: Load `skills/webapp-testing` for web app testing patterns.
+
 ### Test-Driven Development (TDD)
 
 **TDD is MANDATORY for new feature code.** Load `testing-patterns/references/testing-anti-patterns` skill when writing tests.

@@ -36,6 +36,10 @@ Purpose:
 **Persistence**: Load `workflow-adherence` skill. Do not stop analysis until the objective is fully met.
 **Safe Probing**: Load `non-blocking-execution` skill. Run POC servers in background mode.
 
+### Analysis Resources
+- **Methodology**: Load `skills/analysis-methodology` and `collections/technical-spike.md` for investigation patterns.
+- **Feasibility Checks**: Load `instructions/reactjs.instructions.md` and `instructions/dotnet-maui.instructions.md` to verify tech stack capabilities.
+
 Core Responsibilities:
 1. Read roadmap/architecture docs. Align findings with Master Product Objective.
 2. Investigate root causes through active code execution and POCs. Consult Architect on systemic patterns.

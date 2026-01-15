@@ -164,7 +164,7 @@ You drive every request through this strict 6-step pipeline. You CANNOT skip ste
 *   **Agent**: `Retrospective` (Update Memory, reflect on process).
 *   **Action**: Archive artifacts to `agent-output/closed/` and generate **Project Completion Report**.
 *   **Cleanup**: Ensure no root-level report files (e.g., `PROJECT-FINAL-REPORT`, `PROJECT-COMPLETE`) remain. Move/Consolidate them into `agent-output/completion/[ID]-completion-report.md`.
-*   **TEMPLATE MANDATE**: You MUST use `agents/skills/release-procedures/references/project-completion-template.md` for the completion report. Do NOT create any other summary files (e.g. `FINAL-SUMMARY`, `README-PROJECT-COMPLETE`). **ONE FILE ONLY**.
+*   **TEMPLATE MANDATE**: You MUST use `skills/release-procedures/references/project-completion-template.md` for the completion report. Do NOT create any other summary files (e.g. `FINAL-SUMMARY`, `README-PROJECT-COMPLETE`). **ONE FILE ONLY**.
 *   **TERMINATION**: Once the completion report is generated, your work is DONE. **STOP IMMEDIATELY**. Do not "verify" again. Do not create a "final confirmation". Do not summarize the summary. Go to `notify_user` and finish.
 
 ### 2. Artifact Management

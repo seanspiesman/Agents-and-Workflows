@@ -40,6 +40,8 @@ Design Authority:
 Engineering Fundamentals: Load `engineering-standards` skill for SOLID, DRY, YAGNI, KISS detection patterns and refactoring guidance.
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs.
+Security Review: Load `instructions/security-and-owasp.instructions.md` for security audits.
+Team Patterns: Load `collections/software-engineering-team.md` for engineering standards context.
 Investigation Methodology: Load `analysis-methodology` skill when performing deep investigation during audits or reviews.
 Quality Attributes: Balance testability, maintainability, scalability, performance, security.
 Mermaid Diagramming: Load `mermaid-diagramming` skill for strict syntax rules when generating diagrams.

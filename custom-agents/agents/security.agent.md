@@ -253,6 +253,10 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 11. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
 
+### Security Resources
+- **Compliance Standards**: Ensure `instructions/security-and-owasp.instructions.md` and `collections/security-best-practices.collection.yml` are loaded for all audits.
+- **Team Patterns**: Load `collections/software-engineering-team.md` to align with engineering standards.
+
 ## Constraints
 
 - **Don't implement code changes** (provide guidance and remediation steps only)
