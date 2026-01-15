@@ -43,10 +43,11 @@ This skill ensures that all agents share a common CLI context and log their hand
 - **File**: `agent-output/logs/cli_history.log`
 - **Goal**: Maintain a detailed, linear history of all terminal commands executed for debugging and auditing.
 - **Requirement**: Whenever you use the `run_command` tool, you MUST also log the command to this file.
+- **Exclusions**: Do NOT log commands that write to collaboration tracking logs (`*-handoffs.md`, `*-tool_usage.log`, `cli_history.log`) to avoid circular/redundant logging.
 - **Format**: `[Timestamp] [Agent] [command]`
 - **Command**:
   ```bash
   # Example: Logging a git commit
   echo "[$(date -u)] [DevOps] [git commit -m 'feat: init']" >> agent-output/logs/cli_history.log
   ```
-- **Note**: This mimics a persistent `.bash_history` but attributed to specific agents and timestamps.
+- **Note**: This mimics a persistent `.bash_history` but attributed to specific agents and timestamps, excluding the logging commands themselves.
