@@ -3,7 +3,7 @@ description: DevOps specialist responsible for packaging, versioning, deployment
 name: DevOps
 target: vscode
 argument-hint: Specify the version to release or deployment task to perform
-tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
 model: devstral-3090
 handoffs:
   - label: Request Implementation Fixes

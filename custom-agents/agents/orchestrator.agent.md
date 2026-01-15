@@ -2,7 +2,7 @@
 description: Master Project Manager and Orchestrator. The central executive that drives the entire software development lifecycle (SDLC) by coordinating specialist agents.
 name: Orchestrator
 target: vscode
-tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
+tools: ['vscode', 'execute/*', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
 model: devstral-3090
 handoffs:
   - label: Strategic Planning

@@ -3,7 +3,7 @@ description: Captures lessons learned, architectural decisions, and patterns aft
 name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
-tools: ['vscode', 'agent', 'read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
 model: devstral-3090
 handoffs:
   - label: Update Architecture

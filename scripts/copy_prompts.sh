@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Define source and destination
-SOURCE_DIR="./agents"
+# Resolve absolute path to custom-agents
+SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/custom-agents"
 DEST_DIR="/Users/work/Library/Application Support/Code - Insiders/User/prompts"
 
 # Check if source directory exists
@@ -16,13 +17,16 @@ if [ ! -d "$DEST_DIR" ]; then
     mkdir -p "$DEST_DIR"
 fi
 
-# Copy contents
-echo "Copying contents from $SOURCE_DIR to $DEST_DIR..."
-cp -R "$SOURCE_DIR/" "$DEST_DIR/"
+# Sync contents using rsync to preserve structure and update efficiently
+echo "Syncing contents from $SOURCE_DIR to $DEST_DIR..."
+# -a: archive mode (preserves permissions, timestamps, etc.)
+# -v: verbose
+# --delete: remove files in dest that are not in source (clean sync)
+rsync -av --delete "$SOURCE_DIR/" "$DEST_DIR/"
 
 if [ $? -eq 0 ]; then
-    echo "Successfully copied agents to prompts directory."
+    echo "Successfully synced custom-agents to prompts directory."
 else
-    echo "Error: Failed to copy files."
+    echo "Error: Failed to sync files."
     exit 1
 fi

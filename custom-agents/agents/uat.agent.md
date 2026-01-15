@@ -3,7 +3,7 @@ description: Product Owner conducting UAT to verify implementation delivers stat
 name: UAT
 target: vscode
 argument-hint: Reference the implementation or plan to validate (e.g., plan 002)
-tools: ['vscode', 'agent', 'execute/testFailure', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*']
 model: devstral-3090
 handoffs:
   - label: Report UAT Failure

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sync Agents Script
-# Syncs the custom-agents folder from Agents-and-Workflows to all .github/agents folders in Documents
+# Syncs the custom-agents folder from Agents-and-Workflows to all .github folders in Documents
 
 set -e
 
@@ -29,16 +29,18 @@ if [ ! -d "$SOURCE_DIR" ]; then
     exit 1
 fi
 
-# Find all .github/agents directories in Documents
-echo -e "${YELLOW}Searching for .github/agents folders...${NC}"
+# Find all .github directories in Documents
+# We want to find the .github folder itself.
+echo -e "${YELLOW}Searching for .github folders...${NC}"
 TARGET_DIRS=()
+# Simpler find command: find directories named .github, exclude node_modules
 while IFS= read -r -d '' dir; do
     TARGET_DIRS+=("$dir")
-done < <(find "$DOCUMENTS_DIR" -type d -path "*/.github/agents" -print0 2>/dev/null)
+done < <(find "$DOCUMENTS_DIR" -type d -name ".github" -not -path "*/node_modules/*" -print0 2>/dev/null)
 
 # Display found directories
 if [ ${#TARGET_DIRS[@]} -eq 0 ]; then
-    echo -e "${YELLOW}No .github/agents folders found in Documents.${NC}"
+    echo -e "${YELLOW}No .github folders found in Documents.${NC}"
     exit 0
 fi
 
@@ -66,22 +68,66 @@ for target_dir in "${TARGET_DIRS[@]}"; do
     echo ""
     echo -e "${YELLOW}Syncing to:${NC} $target_dir"
     
-    # Create backup if target exists
-    if [ -d "$target_dir" ]; then
-        backup_dir="${target_dir}.backup.$(date +%Y%m%d_%H%M%S)"
-        echo -e "  Creating backup: ${backup_dir}"
-        cp -R "$target_dir" "$backup_dir"
+    # Parent project directory (dirname of .github)
+    PROJECT_ROOT="$(dirname "$target_dir")"
+    
+    # 1. Update .gitignore
+    GITIGNORE_FILE="$PROJECT_ROOT/.gitignore"
+    if [ ! -f "$GITIGNORE_FILE" ]; then
+        echo -e "  Creating .gitignore and adding .github"
+        echo ".github" > "$GITIGNORE_FILE"
+    else
+        # Check if .github is already ignored
+        if ! grep -q "^.github" "$GITIGNORE_FILE" && ! grep -q "^/.github" "$GITIGNORE_FILE"; then
+            echo -e "  Adding .github to .gitignore"
+            # Ensure newline before appending if file not empty
+            if [ -s "$GITIGNORE_FILE" ] && [ "$(tail -c1 "$GITIGNORE_FILE" | wc -l)" -eq 0 ]; then
+                echo "" >> "$GITIGNORE_FILE"
+            fi
+            echo ".github" >> "$GITIGNORE_FILE"
+        else
+            echo -e "  .github already in .gitignore"
+        fi
     fi
+
+    local_fail=0
     
-    # Create parent directory if needed
-    mkdir -p "$(dirname "$target_dir")"
-    
-    # Sync using rsync (preserves structure, deletes files not in source)
-    if rsync -av --delete "$SOURCE_DIR/" "$target_dir/"; then
-        echo -e "  ${GREEN}✓ Synced successfully${NC}"
+    # 2. Iterate through folders in custom-agents and sync them
+    for item in "$SOURCE_DIR"/*; do
+        basename_item=$(basename "$item")
+        
+        # Skip files in root if any (only sync directories typically)
+        if [ ! -d "$item" ]; then
+            continue
+        fi
+
+        target_sub_dir="$target_dir/$basename_item"
+        mkdir -p "$target_sub_dir"
+
+        if [ "$basename_item" == "workflows" ]; then
+            # SAFE SYNC for workflows: Do NOT delete existing files (GitHub Actions)
+            echo -e "  Syncing ${basename_item} (safe mode)..."
+            if rsync -av "$item/" "$target_sub_dir/"; then
+                echo -e "    ✓ ${basename_item} synced"
+            else
+                echo -e "    ${RED}✗ ${basename_item} sync failed${NC}"
+                local_fail=1
+            fi
+        else
+            # STRICT SYNC for others: Delete unknown files
+            echo -e "  Syncing ${basename_item} (strict mode)..."
+            if rsync -av --delete "$item/" "$target_sub_dir/"; then
+                echo -e "    ✓ ${basename_item} synced"
+            else
+                echo -e "    ${RED}✗ ${basename_item} sync failed${NC}"
+                local_fail=1
+            fi
+        fi
+    done
+
+    if [ $local_fail -eq 0 ]; then
         ((SUCCESS_COUNT++))
     else
-        echo -e "  ${RED}✗ Sync failed${NC}"
         ((FAIL_COUNT++))
     fi
 done
@@ -96,4 +142,3 @@ if [ $FAIL_COUNT -gt 0 ]; then
     echo -e "${RED}Failed: ${FAIL_COUNT}${NC}"
 fi
 echo ""
-echo -e "${YELLOW}Note: Backups were created with .backup.[timestamp] suffix${NC}"

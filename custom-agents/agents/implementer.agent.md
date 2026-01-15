@@ -3,7 +3,7 @@ description: Execution-focused coding agent that implements approved plans.
 name: Implementer
 target: vscode
 argument-hint: Reference the approved plan to implement (e.g., plan 002)
-tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*']
 model: devstral-3090
 handoffs:
   - label: Request Analysis

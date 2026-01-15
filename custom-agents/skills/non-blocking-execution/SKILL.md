@@ -7,24 +7,29 @@ description: Guidelines for running long-lived processes (servers, watchers) wit
 
 Agents often need to run servers (`npm start`), watchers (`npm run watch`), or long builds. Standard execution blocks the agent until the command finishes—which for a server is **never**.
 
-## 1. The Async Pattern
+## 1. The Async Pattern (Preventing the Hang)
 
-**Trigger**: Any command that runs indefinitely or >10 seconds.
-**Tool**: `execute` / `run_command`
+**The Problem**: By default, `run_command` waits for the command to finish. For `npm run dev`, this means the agent **hangs forever** and never gets to Step 3.
+
+**The Solution**: You **MUST** use the `WaitMsBeforeAsync` parameter.
+- This parameter tells the tool: "Run for X milliseconds, then **detach** and give me back control."
+- This is the ONLY way to run a server without killing it or hanging the agent.
 
 ### Mandatory Parameters
 - **`WaitMsBeforeAsync`**: Set to `2000` (2 seconds).
-    - *Why?* Catches immediate startup errors (e.g., "Address in use") while keeping the agent responsive.
-    - *Do NOT* use default (synchronous).
+    - **Effect**: The tool runs the command, waits 2 seconds to catch startup errors, and then **IMMEDIATELY returns** a `CommandId` while the process keeps running in the background.
+    - **Result**: You regain control to perform Step 2 & 3.
 
 ### Example
 ```javascript
-// WRONG - Blocks forever
-run_command({ CommandLine: "npm start" })
+// ❌ WRONG - The agent will HANG FOREVER here.
+// It will never reach the next line of code.
+run_command({ CommandLine: "npm run dev" })
 
-// CORRECT - Returns CommandID after 2 seconds
+// ✅ CORRECT - The agent waits 2 seconds, then wakes up.
+// The server stays running in the background.
 run_command({ 
-    CommandLine: "npm start",
+    CommandLine: "npm run dev",
     WaitMsBeforeAsync: 2000 
 })
 ```
@@ -35,27 +40,69 @@ Async commands return a `CommandId`. You **MUST** verify they are actually runni
 
 1.  **Launch**: Run with `WaitMsBeforeAsync: 2000`.
 2.  **Wait**: Sleep/Tokens (implicit in tool usage).
-3.  **Check Status**: Use `command_status` with the `CommandId`.
+3.  **Check Status**: Use `command_status` with the `CommandId` and `WaitDurationSeconds: 5` (to peek at new output).
     - **Status**: Is it `running`?
     - **Output**: Does it say "Server started on localhost:3000"?
 4.  **Confirm**: Only proceed once output confirms success.
 
-## 3. Clean Termination
+## 3. Clean Termination (Ctrl+C)
 
-**Trigger**: You are done testing the server.
+**Trigger**: You are done testing the server or need to stop a blocking process.
 **Tool**: `send_command_input`
 
 - **Action**: `Terminate: true`
 - **Why?**: Leaving zombie servers eats resources and blocks ports for future agents.
+- **Equivalent**: This is exactly the same as pressing `Ctrl+C` in a terminal.
 
-## 4. Common Blocking Commands (Watchlist)
+**Example**:
+```javascript
+// Stop the server
+send_command_input({
+    CommandId: "previously-returned-uuid",
+    Terminate: true
+})
+```
 
-Apply this skill AUTOMATICALLY for:
-- **Node/JS**: `npm start`, `yarn start`, `npm run dev`, `npm run watch`, `npx expo start`, `npx react-native start`
-- **.NET / C#**: `dotnet watch`, `dotnet run`, `dotnet build -t:Run`
-- **Flutter / Dart**: `flutter run`
-- **Native Mobile**: `./gradlew installDebug`, `xcodebuild -scheme <Schema> run`
-- **Python**: `python manage.py runserver`, `uvicorn`, `flask run`
-- **JVM**: `./gradlew bootRun`, `mvn spring-boot:run`
-- **Rust/Go**: `cargo run`, `cargo watch`, `go run .`
-- **Containers**: `docker-compose up` (without -d)
+## 4. Troubleshooting Blocking Commands
+
+If you accidentally run a blocking command (forgot `WaitMsBeforeAsync`):
+1.  You will likely timeout or be stuck.
+2.  In the next turn, **IMMEDIATELY** use `send_command_input` with `Terminate: true` on the blocking command if you can identify it, or ask the user to kill it.
+3.  **Self-Correction**: Restart the command with `WaitMsBeforeAsync: 2000`.
+
+## 5. Common Blocking Commands (The Block List)
+
+**MANDATORY**: If you see a command in this list OR a compound command containing one of these (e.g., `npm install && npm run dev`), you MUST use `WaitMsBeforeAsync: 2000`.
+
+### Compound Commands (Chains)
+- **Rule**: If a command uses `&&`, `;`, or `|` and *any part* of it is a blocking command, the **entire command** is blocking.
+- **Example**: `npm install && npm start` -> **BLOCKING**. Use async pattern.
+- **Example**: `cd app && python manage.py runserver` -> **BLOCKING**. Use async pattern.
+
+### Web & Node.js
+- `npm start`, `npm run start`, `npm run dev`, `npm run watch`, `npm run serve`, `npm run build:watch`
+- `yarn start`, `yarn dev`, `yarn watch`
+- `pnpm start`, `pnpm dev`
+- `npx next dev`, `npx vite`, `npx webpack serve`, `npx nodemon`
+- `node --watch`
+
+### Mobile (iOS/Android/Cross-Platform)
+- `npx react-native start`, `npx expo start`
+- `flutter run`, `flutter drive`
+- `./gradlew installDebug`, `./gradlew bootRun`
+- `xcodebuild -scheme <Schema> run`
+- `adb logcat` (unless piped/limited)
+
+### Backend & Systems
+- **Python**: `python manage.py runserver`, `uvicorn`, `flask run`, `celery worker`
+- **.NET**: `dotnet watch`, `dotnet run`
+- **Java/JVM**: `./gradlew bootRun`, `mvn spring-boot:run`
+- **Go**: `go run .`, `air` (live reload)
+- **Rust**: `cargo run`, `cargo watch`
+- **Ruby**: `rails server`, `bundle exec sidekiq`
+- **PHP**: `php artisan serve`, `symfony server:start`
+
+### Infrastructure & Tools
+- **Docker**: `docker-compose up` (without `-d`), `docker run` (without `-d` if interactive service)
+- **Database Consoles**: `psql`, `mysql`, `mongo` (interactive shells block)
+- **Terraform/Cloud**: `terraform apply` (can be long/interactive), `kubectl port-forward`, `kubectl logs -f`
