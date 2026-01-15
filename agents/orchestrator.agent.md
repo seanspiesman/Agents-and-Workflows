@@ -40,34 +40,34 @@ handoffs:
     prompt: Please begin autonomous application exploration and bug discovery.
   - label: ExB Widget Testing
     agent: Analyst
-    prompt: Please initiate the Widget Testing workflow for Experience Builder widgets (Phase 1: Analysis).
+    prompt: Please initiate the Widget Testing workflow for Experience Builder widgets
   - label: Feedback Loop
     agent: Planner
-    prompt: New feedback received. Please initiate the Feedback Workflow (Phase 1: Create Action Plan).
+    prompt: New feedback received. Please initiate the Feedback Workflow
   - label: Refactoring
     agent: Analyst
-    prompt: Technical debt identified. Please initiate the Refactoring Workflow (Phase 1: Hotspot Identification).
+    prompt: Technical debt identified. Please initiate the Refactoring Workflow
   - label: Documentation Sync
     agent: Analyst
-    prompt: Documentation drift suspected. Please initiate the Documentation Sync Workflow (Phase 1: Drift Detection).
+    prompt: Documentation drift suspected. Please initiate the Documentation Sync Workflow
   - label: Dependency Upgrade
     agent: Analyst
-    prompt: Dependencies need updates. Please initiate the Dependency Upgrade Workflow (Phase 1: Risk Assessment).
+    prompt: Dependencies need updates. Please initiate the Dependency Upgrade Workflow
   - label: Test Coverage Expansion
     agent: QA
-    prompt: Test coverage is low. Please initiate the Test Coverage Workflow (Phase 1: Gap Analysis).
+    prompt: Test coverage is low. Please initiate the Test Coverage Workflow
   - label: Bug Fix Response
     agent: Analyst
-    prompt: Bug report received. Please initiate the Bug Fix Workflow (Phase 1: Root Cause Analysis).
+    prompt: Bug report received. Please initiate the Bug Fix Workflow
   - label: Security Remediation
     agent: Security
-    prompt: Security vulnerability confirmed. Please initiate the Security Remediation Workflow (Phase 1: Triage & Analysis).
+    prompt: Security vulnerability confirmed. Please initiate the Security Remediation Workflow
   - label: Architecture Creation
     agent: Architect
     prompt: Architecture documentation missing/outdated. Please initiate the Create Architecture Readme Workflow.
   - label: Functionality Analysis
     agent: Analyst
-    prompt: Functionality analysis requested. Please initiate the Functionality Analysis Workflow (Phase 1: Scope Definition).
+    prompt: Functionality analysis requested. Please initiate the Functionality Analysis Workflow
 ---
 
 ## Purpose
@@ -95,7 +95,7 @@ You drive every request through this strict 6-step pipeline. You CANNOT skip ste
     *   Create/Update `agent-output/task.md` (The "Living Source of Truth").
     *   *Decision Point*: Is this a simple "hotfix" (skip to Execution) or a "Project" (Go to Phase 2)?
 
-**Phase 2: Analysis & Architecture (Optional but Recommended)**
+**Phase 2: Analysis & Architecture**
 *   **Goal**: De-risk the project before strictly planning it.
 *   **Agents**: `Analyst` (feasibility), `Architect` (system design), `Roadmap` (alignment).
 *   **Deliverable**: An Analysis or Design Document in `agent-output/analysis/` or `agent-output/architecture/`.

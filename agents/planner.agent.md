@@ -83,9 +83,14 @@ Prefer small, focused scopes delivering value quickly.
 
 **REQUIRED when**: Unknown APIs need experimentation, multiple approaches need comparison, high-risk assumptions, plan blocked without validated constraints.
 
-**OPTIONAL when**: Reasonable assumptions + QA validation sufficient, documented assumptions + escalation trigger, research delays value without reducing risk.
+### Analysis Triggers
+**ALWAYS REQUIRED**.
+**Guidance**: Every plan requires prior analysis. The Analyst must examine the code and providefindings.
+- **Micro-Changes**: Even valid one-line fixes require a "Micro-Analysis" to confirm no unexpected side effects.
+- **Feature Work**: Requires full "Structural Analysis".
+- **Refactoring**: Requires "Dependency Analysis".
 
-**Guidance**: Clearly mark sections requiring analysis ("**REQUIRES ANALYSIS**: [specific investigation]"). Analyst focuses ONLY on marked areas. Specify "REQUIRED before implementation" or "OPTIONAL". Mark as explicit milestone/dependency with clear scope.
+By default, **REJECT** any request to plan without an Analysis Document unless it is a pure documentation change.
 
 ## Process
 
