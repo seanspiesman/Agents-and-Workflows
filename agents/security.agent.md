@@ -246,6 +246,7 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 7. **Escalate blocking issues** immediately to Planner with clear impact assessment
 8. **Acknowledge good security practices** - not just vulnerabilities
 9. **Status tracking**: Keep security doc's Status and Verdict fields current. Other agents and users rely on accurate status at a glance.
+10. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
 
 ## Constraints
 

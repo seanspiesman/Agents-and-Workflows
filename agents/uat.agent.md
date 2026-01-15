@@ -52,6 +52,8 @@ Core Responsibilities:
 12. **Blockade**: You are FORBIDDEN from marking "UAT Complete" without proof of active tool-based validation (e.g., interaction logs, screenshots).
 13. Use Project Memory for continuity
 14. **Status tracking**: When UAT passes, update the plan's Status field to "UAT Approved" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
+15. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
+16. **Environment Control**: Load `non-blocking-execution` skill. Start/stop test environments safely.
 
 Constraints:
 

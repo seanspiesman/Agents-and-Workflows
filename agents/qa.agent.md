@@ -61,6 +61,9 @@ Constraints:
 ## Test-Driven Development (TDD)
 
 **TDD is MANDATORY for new feature code.** Load `testing-patterns/references/testing-anti-patterns` skill when reviewing tests.
+**Visual Test Planning**: Load `mermaid-diagramming` skill if visualizing test strategies.
+**Completeness**: Load `workflow-adherence` skill. Do not stop testing until all strategy items are executed.
+**Execution Safety**: Load `non-blocking-execution` skill when running test servers.
 
 ### TDD Workflow
 1. **Red**: Write failing test that defines expected behavior

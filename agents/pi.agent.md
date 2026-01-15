@@ -17,6 +17,7 @@ handoffs:
 Review retrospectives to identify repeatable process improvements, validate against current workflow, resolve conflicts, and update agent instructions.
 
 **Engineering Standards**: Process changes MUST support testability, maintainability, scalability. Align with SOLID, DRY, YAGNI, KISS.
+**Persistence**: Load `workflow-adherence` skill. Complete full retrospective analysis cycles without interruption.
 
 ## Core Responsibilities
 

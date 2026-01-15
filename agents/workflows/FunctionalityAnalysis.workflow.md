@@ -50,11 +50,8 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 - **Input**: Existing Structure document.
 - **Action**: Generate Mermaid diagrams to visualize the control flow and architecture.
 - **Visual Requirements**:
-  - **UNIVERSAL DIAGRAM RULE**: **ALL** diagrams must use `flowchart` syntax (e.g., `flowchart TD` or `LR`).
-  - **PROHIBITED SYNTAX**: Do NOT use `sequenceDiagram`, `classDiagram`, `stateDiagram`, etc.
-  - **CRITICAL SYNTAX RULES**:
-    - **Escape Everything**: Node labels containing special chars must be double-quoted.
-    - **No Mixing Syntax**: Do not use `alt`, `opt` etc. Use Decision Nodes `{}`.
+  - **Mandatory Skill**: Load `mermaid-diagramming` skill.
+  - **Action**: Follow all syntax rules and best practices defined in the skill to generate error-free diagrams.
 - **Output**: An Architecture Diagrams document in `agent-output/architecture/` (e.g., `004-current-flow-diagrams.md`).
 - **Handoff**: Passed to Planner.
 

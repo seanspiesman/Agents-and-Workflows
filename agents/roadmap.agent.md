@@ -48,6 +48,7 @@ Core Responsibilities:
 17. **Maintain release→plan mappings**: Track which plans are targeted for which release. Update as plans are created, modified, or re-targeted.
 18. **Track release status by plan**: For each release, track: plans targeted, plans UAT-approved, plans committed locally, release approval status.
 19. **Coordinate release timing**: When all plans for a release are committed locally, notify DevOps and user that release is ready for approval.
+20. **Persistence**: Load `workflow-adherence` skill. Complete full roadmap update cycles.
 
 Constraints:
 

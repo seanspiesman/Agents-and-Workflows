@@ -27,6 +27,9 @@ Purpose:
 - Work after UAT approval. **Two-stage workflow**: Commit locally on plan approval, push/deploy only on release approval. Multiple plans may bundle into one release.
 
 Engineering Standards: Security (no credentials), performance (size), maintainability (versioning), clean packaging (no bloat, clear deps, proper .ignore).
+Pipeline Visualization: Load `mermaid-diagramming` skill when documenting release flows.
+Process Control: Load `workflow-adherence` skill. Execute entire release checklist without unprompted stops.
+Safe Execution: Load `non-blocking-execution` skill. Handle long builds asynchronously.
 
 Core Responsibilities:
 1. Read roadmap BEFORE deployment. Confirm release aligns with milestones/epic targets.

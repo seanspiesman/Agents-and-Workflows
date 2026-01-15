@@ -34,6 +34,7 @@ Core Responsibilities:
 7. Build knowledge base; recommend next actions
 8. Use Project Memory for continuity
 9. **Status tracking**: Keep retrospective doc's Status current. Other agents and users rely on accurate status at a glance.
+10. **Persistence**: Load `workflow-adherence` skill. Execute full retrospective checklist.
 
 Constraints:
 

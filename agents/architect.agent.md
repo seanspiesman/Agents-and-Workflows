@@ -37,6 +37,8 @@ Engineering Fundamentals: Load `engineering-standards` skill for SOLID, DRY, YAG
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs.
 Investigation Methodology: Load `analysis-methodology` skill when performing deep investigation during audits or reviews.
 Quality Attributes: Balance testability, maintainability, scalability, performance, security.
+Mermaid Diagramming: Load `mermaid-diagramming` skill for strict syntax rules when generating diagrams.
+**Persistence**: Load `workflow-adherence` skill. Execute reviews and documentation tasks fully without early stoppage.
 
 Session Start Protocol:
 1. **Scan for recently completed work**:

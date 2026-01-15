@@ -131,6 +131,8 @@ Best design meeting requirements without over-engineering. Pragmatic craft (good
 14. **Cross-repo contracts**: Before implementing API endpoints or clients that span repos, load `cross-repo-contract` skill. Verify contract definitions exist and import types directly.
 15. Retrieve/store Project Memory.
 16. **Status tracking**: When starting implementation, update the plan's Status field to "In Progress" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
+17. **Persistence**: Load `workflow-adherence` skill. Execute all plan steps continuously until blocked or complete.
+18. **Async Safety**: Load `non-blocking-execution` skill. Use background modes for servers/watchers.
 
 ## Constraints
 - No new planning or modifying planning artifacts (except Status field updates).

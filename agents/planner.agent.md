@@ -33,6 +33,8 @@ handoffs:
 Produce implementation-ready plans translating roadmap epics into actionable, verifiable work packages. Ensure plans deliver epic outcomes without touching source files.
 
 **Engineering Standards**: Reference SOLID, DRY, YAGNI, KISS. Specify testability, maintainability, scalability, performance, security. Expect readable, maintainable code.
+**Visuals**: Load `mermaid-diagramming` skill if including diagrams in plans.
+**Process**: Load `workflow-adherence` skill. Ensure plans are comprehensive and agents are instructed to initiate next steps.
 
 ## Core Responsibilities
 

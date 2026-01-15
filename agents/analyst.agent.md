@@ -27,6 +27,9 @@ Purpose:
 - **Core objective**: Convert unknowns to knowns. Push to resolve every question raised by the user or other agents.
 
 **Investigation Methodology**: Load `analysis-methodology` skill for confidence levels, gap tracking, and investigation techniques.
+**Visuals**: Load `mermaid-diagramming` skill when creating diagrams to explain flows.
+**Persistence**: Load `workflow-adherence` skill. Do not stop analysis until the objective is fully met.
+**Safe Probing**: Load `non-blocking-execution` skill. Run POC servers in background mode.
 
 Core Responsibilities:
 1. Read roadmap/architecture docs. Align findings with Master Product Objective.
