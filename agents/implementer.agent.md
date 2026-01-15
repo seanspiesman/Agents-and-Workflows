@@ -4,7 +4,7 @@ name: Implementer
 target: vscode
 argument-hint: Reference the approved plan to implement (e.g., plan 002)
 tools: ['vscode/vscodeAPI', 'execute', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator', 'playwright', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Request Analysis
     agent: Analyst
@@ -52,6 +52,7 @@ handoffs:
 ### Engineering Fundamentals
 
 - SOLID, DRY, YAGNI, KISS principles — load `engineering-standards` skill for detection patterns
+- Collaboration — load `collaboration-tracking` skill to check global context and log handoffs
 - Design patterns, clean code, test pyramid
 
 ### Test-Driven Development (TDD)

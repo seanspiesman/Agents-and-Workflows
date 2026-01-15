@@ -4,7 +4,7 @@ name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
 tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Update Architecture
     agent: Architect
@@ -34,7 +34,8 @@ Core Responsibilities:
 7. Build knowledge base; recommend next actions
 8. Use Project Memory for continuity
 9. **Status tracking**: Keep retrospective doc's Status current. Other agents and users rely on accurate status at a glance.
-10. **Persistence**: Load `workflow-adherence` skill. Execute full retrospective checklist.
+10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+11. **Persistence**: Load `workflow-adherence` skill. Execute full retrospective checklist.
 
 Constraints:
 

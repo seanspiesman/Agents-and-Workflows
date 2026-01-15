@@ -4,7 +4,7 @@ name: Planner
 target: vscode
 argument-hint: Describe the feature, epic, or change to plan
 tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap
@@ -34,6 +34,7 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 
 **Engineering Standards**: Reference SOLID, DRY, YAGNI, KISS. Specify testability, maintainability, scalability, performance, security. Expect readable, maintainable code.
 **Visuals**: Load `mermaid-diagramming` skill if including diagrams in plans.
+**Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Process**: Load `workflow-adherence` skill. Ensure plans are comprehensive and agents are instructed to initiate next steps.
 
 ## Core Responsibilities

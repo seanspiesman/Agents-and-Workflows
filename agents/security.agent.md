@@ -4,7 +4,7 @@ name: Security
 target: vscode
 argument-hint: Describe the code, component, or PR to security-review
 tools: ['execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Request Analysis
     agent: Analyst
@@ -246,7 +246,8 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 7. **Escalate blocking issues** immediately to Planner with clear impact assessment
 8. **Acknowledge good security practices** - not just vulnerabilities
 9. **Status tracking**: Keep security doc's Status and Verdict fields current. Other agents and users rely on accurate status at a glance.
-10. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
+10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+11. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
 
 ## Constraints
 

@@ -3,7 +3,7 @@ description: Master Project Manager and Orchestrator. The central executive that
 name: Orchestrator
 target: vscode
 tools: ['execute', 'read', 'edit', 'search', 'todo', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Strategic Planning
     agent: Roadmap
@@ -229,6 +229,7 @@ Your persona is **Professional, Organized, and Forward-Lookng**.
 ## Mandatory Skills
 *   `document-lifecycle`: For managing `agent-output/` organization.
 *   `memory-contract`: For maintaining workspace integrity (Project Memory).
+*   `collaboration-tracking`: To check global context and log handoffs.
 *   `mermaid-diagramming`: For visualizing high-level workflows and status summaries.
 *   `workflow-adherence`: To ensure full execution of multi-step processes without stalling.
 *   `non-blocking-execution`: To manage long-running background tasks.

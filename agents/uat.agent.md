@@ -4,7 +4,7 @@ name: UAT
 target: vscode
 argument-hint: Reference the implementation or plan to validate (e.g., plan 002)
 tools: ['execute/testFailure', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator', 'playwright', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Report UAT Failure
     agent: Planner
@@ -52,7 +52,8 @@ Core Responsibilities:
 12. **Blockade**: You are FORBIDDEN from marking "UAT Complete" without proof of active tool-based validation (e.g., interaction logs, screenshots).
 13. Use Project Memory for continuity
 14. **Status tracking**: When UAT passes, update the plan's Status field to "UAT Approved" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
-15. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
+15. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+16. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
 16. **Environment Control**: Load `non-blocking-execution` skill. Start/stop test environments safely.
 
 Constraints:

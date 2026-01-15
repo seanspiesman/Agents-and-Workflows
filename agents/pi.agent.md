@@ -4,7 +4,7 @@ name: ProcessImprovement
 target: vscode
 argument-hint: Reference the retrospective or process area to analyze
 tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
-model: devstral-OC-3090
+model: devstral-3090
 handoffs:
   - label: Start New Plan
     agent: Planner
@@ -17,6 +17,7 @@ handoffs:
 Review retrospectives to identify repeatable process improvements, validate against current workflow, resolve conflicts, and update agent instructions.
 
 **Engineering Standards**: Process changes MUST support testability, maintainability, scalability. Align with SOLID, DRY, YAGNI, KISS.
+**Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Persistence**: Load `workflow-adherence` skill. Complete full retrospective analysis cycles without interruption.
 
 ## Core Responsibilities
