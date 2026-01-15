@@ -3,7 +3,7 @@ description: Strategic vision holder maintaining outcome-focused product roadmap
 name: Roadmap
 target: vscode
 argument-hint: Describe the epic, feature, or strategic question to address
-tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runTask', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runTask', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
 model: devstral-3090
 handoffs:
   - label: Request Architectural Guidance
