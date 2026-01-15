@@ -23,7 +23,8 @@ The **Navigator** explores the app. If it finds a **Blocking Bug**, it stops imm
 
 ### Scenario B: Batch Non-Blocking Fixes
 1. **Navigator**: Submit `bugs.md` (list of minor issues).
-2. **Orchestrator**: Trigger **BugFix Workflow** (potentially multiple times or batched) to resolve all logged items.
+2. **Critic**: **Detail Verification**. Review `bugs.md` for "lack of detail". Ensure every bug has clear reproduction steps and evidence linkages. If vague, send back to Navigator.
+3. **Orchestrator**: Trigger **BugFix Workflow** (potentially multiple times or batched) to resolve all logged items.
 3. **Orchestrator**: Upon resolution, **RESTART** AppNavigation Workflow from Step 1 (Regression Check).
 
 ### Scenario C: Success

@@ -26,6 +26,19 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Input**: Root Cause Analysis.
 - **Action**: Plan the fix + determine the Regression Test strategy.
 - **Output**: Fix Plan.
+- **Handoff**: Passed to Critic.
+
+### 2a. Plan Critique (Critic Agent)
+- **Agent**: Critic
+- **Input**: Fix Plan.
+- **Action**: Assess technical soundness, regression risks, and completeness.
+- **Iteration Link**: If rejected, return to **Planner**.
+
+### 2b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Fix Plan.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure steps are explicit, context is clear, and no ambiguity exists.
+- **Iteration Link**: If lacking detail, return to **Planner**.
 - **Handoff**: Passed to Implementer.
 
 ### 3. Implementation (Implementer Agent)
@@ -36,6 +49,19 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
   2.  Fix the code.
   3.  Verify the test passes.
 - **Output**: Code changes + New Test.
+- **Handoff**: Passed to QA.
+
+- **Handoff**: Passed to Critic.
+
+### 3b. Code Review & Refinement (Critic Agent)
+- **Agent**: Critic
+- **Input**: Code changes.
+- **Action**: Strict code review against standards (SOLID, DRY, etc.).
+- **Checks**:
+  - Code Style & Standards.
+  - Potential performance issues.
+  - Maintainability & Readability.
+- **Iteration**: Any findings must be addressed by **Implementer** before QA.
 - **Handoff**: Passed to QA.
 
 ### 4. Verification (QA Agent)

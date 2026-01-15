@@ -24,6 +24,19 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
   - Which code paths need modification?
   - What is the rollback plan?
 - **Output**: Upgrade Plan.
+- **Handoff**: Passed to Critic.
+
+### 2a. Plan Critique (Critic Agent)
+- **Agent**: Critic
+- **Input**: Upgrade Plan.
+- **Action**: Assess technical soundness and rollback strategy effectiveness.
+- **Iteration Link**: If rejected, return to **Planner**.
+
+### 2b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Upgrade Plan.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure steps are explicit and context is clear.
+- **Iteration Link**: If lacking detail, return to **Planner**.
 - **Handoff**: Passed to Implementer.
 
 ### 3. Execution (Implementer Agent)
@@ -31,6 +44,18 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 - **Input**: Upgrade Plan.
 - **Action**: Update `package.json` (or equivalent), install, and fix build errors.
 - **Output**: Code changes.
+- **Handoff**: Passed to QA.
+
+- **Handoff**: Passed to Critic.
+
+### 3b. Code Review & Refinement (Critic Agent)
+- **Agent**: Critic
+- **Input**: Code changes.
+- **Action**: Strict code review against standards.
+- **Checks**:
+  - Code Style & Standards.
+  - Maintainability & Readability.
+- **Iteration**: Any findings must be addressed by **Implementer** before QA.
 - **Handoff**: Passed to QA.
 
 ### 4. Regression Testing (QA Agent)

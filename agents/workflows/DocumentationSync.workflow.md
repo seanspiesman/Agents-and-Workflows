@@ -37,6 +37,15 @@ Drift between code and documentation is a major source of confusion. This workfl
   - **FAIL**: Inaccurate or unclear. Return to **Implementer**.
   - **PASS**: Docs are synced.
 
+### 3b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: New Documentation.
+- **Focus**: "Lack of detail".
+- **Action**: Ensure the documentation is not just accurate, but **comprehensive**. Check for missing context, vague descriptions, or assumed knowledge.
+- **Iteration Loop**:
+  - **FAIL**: Return to **Implementer**.
+  - **PASS**: Approved.
+
 ### 4. Project Completion (Orchestrator)
 - **Agent**: Orchestrator
 - **Action**: Archive artifacts and generate final report.

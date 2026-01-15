@@ -27,6 +27,13 @@ Cycle: **Analysis (What is this?) -> Design (Combinatorial Matrix) -> Execution 
 - **Requirement**: Cover "All Combinations" of critical variables.
   - Example: `[Toggle A: On/Off] x [Dropdown B: Option 1/2] x [Map Selection: Yes/No]`
 - **Output**: Combinatorial Test Matrix (Markdown / JSON table).
+- **Handoff**: Passed to Critic.
+
+### 2b. Matrix Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Combinatorial Test Matrix.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail". Ensure all combinations are explicitly listed or algorithmically defined.
+- **Iteration**: Return to **Planner** if vague.
 - **Handoff**: Passed to Navigator.
 
 ### 3. Interactive Verification (Navigator Agent)

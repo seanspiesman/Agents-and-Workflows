@@ -44,54 +44,53 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
   - Recommendations for implementation
 - **Handoff**: If approved, the plan is handed off to the Implementer agent. If not, it is sent back to the Planner for revisions.
 
+### 4b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Approved Plan.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure all acceptance criteria and implementation steps are exhaustive.
+- **Iteration**: If lacking detail, return to **Planner**.
+
+### 5. Implementation (Implementer Agent)
+- **Agent**: Implementer
+- **Action**: Implement the changes defined in the plan.
+- **Output**: Code changes and tests.
+- **Handoff**: Passed to QA.
+
+- **Handoff**: Passed to Critic.
+
+### 5b. Code Review & Refinement (Critic Agent)
+- **Agent**: Critic
+- **Input**: Code changes.
+- **Action**: Strict code review against standards.
+- **Checks**:
+  - Code Style & Standards.
+  - Potential performance issues.
+  - Maintainability & Readability.
+- **Iteration**: Any findings must be addressed by **Implementer** before QA.
+- **Handoff**: Passed to QA.
+
 ### 6. Quality Assurance (QA Agent)
 - **Agent**: QA
 - **Action**: The QA agent verifies the implementation through testing and validation.
-- **Output**: QA report in `agent-output/qa/` with:
-  - Test execution results
-  - Coverage analysis
-  - Issues or failures
+- **Output**: QA report in `agent-output/qa/`.
 - **Handoff**: If QA passes, the implementation is handed off to the UAT agent. If not, it is sent back to the Implementer for fixes.
-- **Validation**: QA ensures all tests pass and coverage meets requirements. TDD compliance is verified
-- **Validation**: Implementer ensures all new functions/classes follow TDD (Test-Driven Development) principles
-- **7. User Acceptance Testing (UAT Agent)
+
+### 7. User Acceptance Testing (UAT Agent)
 - **Agent**: UAT
 - **Action**: The UAT agent validates that the implementation meets user expectations and delivers the intended value.
-- **Output**: UAT report in `agent-output/uat/` with:
-  - User-facing validation
-  - Feedback on usability and functionality
-- **Handoff**: If UAT passes, the workflow is complete. If not, it may loop back to the Planner or Implementer for adjustments.
-- **Validation**: UAT ensures the implementation delivers the stated value and meets acceptance criteria
-  - 8. Retrospective (Retrospective Agent)
-- **Agent**: Retrospective
-- **Action**: The Retrospective agent captures lessons learned from the process.
-- **Output**: Retrospective document in `agent-output/retrospectives/` with:
-  - What went well
-  - Areas for improvement
-  - Process recommendations
-- **Handoff**: Recommendations are sent to the PI agent for process improvements.
-- **Validation**: Retrospective ensures lessons learned are documented and shared
-  - User-facing validation
-  - Feedback on usability and functionality
-- **Handoff**: If UAT passes, the workflow is complete. If not, it may loop back to the Planner or Implementer for adjustments.
+- **Output**: UAT report in `agent-output/uat/`.
+- **Handoff**: If UAT passes, the workflow is complete (to Retrospective).
 
-### 7. Retrospective (Retrospective Agent)
+### 8. Retrospective (Retrospective Agent)
 - **Agent**: Retrospective
-- **Action**: The Retrospective agent captures lessons learned from the process.
-- **Output**: Retrospective document in `agent-output/retrospectives/` with:
-  - What went well
-  - Areas for improvement
-  - 9. Process Improvement (PI Agent)
+- **Action**: The Retrospective agent captures lessons learned.
+- **Output**: Retrospective document in `agent-output/retrospectives/`.
+
+### 9. Process Improvement (PI Agent)
 - **Agent**: PI
-- **Action**: The PI agent analyzes the retrospective and updates workflows or agent instructions as needed.
-- **Output**: Process improvement document in `agent-output/process-improvement/` with:
-  - Changes made to agent instructions
-  - Updated workflows or guidelines
-- **Handoff**: The workflow is complete.
-- **Validation**: PI ensures process improvements are implemented and documentedent in `agent-output/process-improvement/` with:
-  - Changes made to agent instructions
-  - Updated workflows or guidelines
-- **Handoff**: The workflow is complete.
+- **Action**: Updates workflows or agent instructions.
+- **Output**: Process improvement document.
+- **Handoff**: Workflow complete.
 
 ### 10. Project Completion (Orchestrator)
 - **Agent**: Orchestrator

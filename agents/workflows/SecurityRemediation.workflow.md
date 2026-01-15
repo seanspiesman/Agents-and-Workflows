@@ -31,6 +31,19 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 - **Action**: Plan the fix.
 - **Considerations**: patches, library upgrades, or code rewrites. Must consider side effects.
 - **Output**: Remediation Plan.
+- **Handoff**: Passed to Critic.
+
+### 3a. Plan Critique (Critic Agent)
+- **Agent**: Critic
+- **Input**: Remediation Plan.
+- **Action**: Verify the plan addresses the root cause without introducing new vulnerabilities.
+- **Iteration**: Return to **Planner** if insufficient.
+
+### 3b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Remediation Plan.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail". Security fixes cannot be ambiguous.
+- **Iteration Link**: Return to **Planner** if vague.
 - **Handoff**: Passed to Implementer.
 
 ### 4. Application of Fix (Implementer Agent)
@@ -38,6 +51,18 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 - **Input**: Remediation Plan.
 - **Action**: Apply the fix.
 - **Output**: Code changes.
+- **Handoff**: Passed to Security.
+
+- **Handoff**: Passed to Critic.
+
+### 4b. Code Review & Refinement (Critic Agent)
+- **Agent**: Critic
+- **Input**: Security Fix Code.
+- **Action**: Ensure the fix is secure and follows standards.
+- **Checks**:
+  - Secure Coding Patterns.
+  - Maintainability.
+- **Iteration**: Any findings must be addressed by **Implementer** before Verification.
 - **Handoff**: Passed to Security.
 
 ### 5. Verification (Security Agent)

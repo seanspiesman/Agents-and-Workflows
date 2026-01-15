@@ -32,6 +32,19 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 - **Action**: Break the refactoring into atomic, safe steps.
 - **Constraint**: Each step must leave the system in a compiling, passing state.
 - **Output**: A Refactoring Plan in `agent-output/planning/`.
+- **Handoff**: Passed to Critic.
+
+### 3a. Method Critique (Critic Agent)
+- **Agent**: Critic
+- **Input**: Refactoring Plan.
+- **Action**: Verify the plan follows the pattern correctly and maintains safety.
+- **Iteration**: Return to **Planner** if unsafe.
+
+### 3b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Refactoring Plan.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail". Refactoring requires atomic precision. Ensure no step is vague.
+- **Iteration**: Return to **Planner** if lacking detail.
 - **Handoff**: Passed to Implementer.
 
 ### 4. Safe Implementation (Implementer Agent)
@@ -44,6 +57,18 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
   3.  Run tests.
   4.  Commit.
 - **Output**: Code changes.
+- **Handoff**: Passed to QA.
+
+- **Handoff**: Passed to Critic.
+
+### 4b. Code Review & Refinement (Critic Agent)
+- **Agent**: Critic
+- **Input**: Refactored Code.
+- **Action**: Check for regression in code quality or readability.
+- **Checks**:
+  - Code Style & Standards.
+  - Complexity metrics.
+- **Iteration**: Any findings must be addressed by **Implementer** before QA.
 - **Handoff**: Passed to QA.
 
 ### 5. Regression Verification (QA Agent)

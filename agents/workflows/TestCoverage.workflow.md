@@ -23,6 +23,13 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
   - Use `view_file` to read the code.
   - Use `grep_search` to find existing calls (if any).
 - **Output**: Test Case Specification in `agent-output/analysis/` (inputs -> expected outputs).
+- **Handoff**: Passed to Critic.
+
+### 2b. Spec Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Test Case Specification.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail". Ensure test cases are fully defined (Input + Expected Output).
+- **Iteration**: Return to **Analyst** if vague.
 - **Handoff**: Passed to Implementer.
 
 ### 3. Test Implementation (Implementer Agent)
@@ -31,6 +38,18 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 - **Action**: Write unit or integration tests.
 - **Constraint**: **Do NOT modify production code** (unless strictly necessary for testability, e.g., dependency injection).
 - **Output**: New test files.
+- **Handoff**: Passed to QA.
+
+- **Handoff**: Passed to Critic.
+
+### 3b. Code Review & Refinement (Critic Agent)
+- **Agent**: Critic
+- **Input**: New Tests.
+- **Action**: Ensure tests are clean, readable, and not brittle.
+- **Checks**:
+  - Test Patterns (AAAs).
+  - No Hardcoding.
+- **Iteration**: Any findings must be addressed by **Implementer** before Verification.
 - **Handoff**: Passed to QA.
 
 ### 4. Verification (QA Agent)

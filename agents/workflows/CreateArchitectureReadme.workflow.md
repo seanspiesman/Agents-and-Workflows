@@ -77,6 +77,16 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
   - **FAIL (Inaccurate)**: Return to **Analyst** to re-investigate the code (if the understanding was wrong) or **Architect** (if the diagram was lazy).
   - **PASS**: "Trust but Verify" sign-off.
 - **Output**: A verification report in `agent-output/qa/`.
+- **Handoff**: Passed to Critic.
+
+### 5b. Documentation Detail Verification (Critic Agent)
+- **Agent**: Critic
+- **Input**: Verified Architecture Document.
+- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure diagrams are fully explained, decisions have rationale, and system context is rich.
+- **Iteration Loop**:
+- **FAIL (Too Vague)**: Return to **Architect** (for detail expansion).
+- **PASS**: Approved for Final Assembly.
+- **Handoff**: Passed to Implementer.
 
 ### 6. Artifact Assembly (Implementer Agent)
 - **Agent**: Implementer
@@ -84,6 +94,14 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 - **Action**: Compile the verified analysis and diagrams into a user-friendly `README-ARCH.md`.
 - **Output**: `README-ARCH.md` at the repository root.
 - **Validation**: Ensure all Mermaid diagrams render correctly.
+- **Handoff**: Passed to Critic.
+
+### 6b. Artifact Review (Critic Agent)
+- **Agent**: Critic
+- **Input**: Generated `README-ARCH.md`.
+- **Action**: Verify the final artifact styling and formatting.
+- **Iteration**: Return to **Implementer** if issues found.
+- **Handoff**: Passed to Orchestrator.
 
 ## Agent Roles Summary
 
