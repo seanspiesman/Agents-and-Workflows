@@ -3,7 +3,7 @@ description: Execution-focused coding agent that implements approved plans.
 name: Implementer
 target: vscode
 argument-hint: Reference the approved plan to implement (e.g., plan 002)
-tools: ['vscode/vscodeAPI', 'execute', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator', 'playwright', 'context7']
+tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator', 'playwright', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Request Analysis
@@ -299,6 +299,16 @@ Status: Active
 **Closure**: DevOps closes your implementation doc after successful commit.
 
 ---
+
+# Collaboration Contract
+
+**MANDATORY**: Load `collaboration-tracking` skill at session start.
+
+**Key behaviors:**
+- Check `agent-output/cli.md` for global context.
+- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
+- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
+- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
 
 # Memory Contract
 

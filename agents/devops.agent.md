@@ -3,7 +3,7 @@ description: DevOps specialist responsible for packaging, versioning, deployment
 name: DevOps
 target: vscode
 argument-hint: Specify the version to release or deployment task to perform
-tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'context7']
+tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Request Implementation Fixes
@@ -181,6 +181,16 @@ Escalation:
 **Note**: Deployment docs (`deployment/`) may stay open for rollback reference; close only after release is stable.
 
 ---
+
+# Collaboration Contract
+
+**MANDATORY**: Load `collaboration-tracking` skill at session start.
+
+**Key behaviors:**
+- Check `agent-output/cli.md` for global context.
+- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
+- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
+- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
 
 # Memory Contract
 

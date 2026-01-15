@@ -2,7 +2,7 @@
 description: Autonomous explorer that navigates applications, records evidence, and identifies blocking/non-blocking bugs.
 name: Navigator
 target: vscode
-tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator', 'playwright']
+tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator', 'playwright', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Report Blocking Bug
@@ -113,6 +113,16 @@ Status: Active
 
 ---
 
+# Collaboration Contract
+
+**MANDATORY**: Load `collaboration-tracking` skill at session start.
+
+**Key behaviors:**
+- Check `agent-output/cli.md` for global context.
+- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
+- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
+- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
+
 # Memory Contract
 
 **MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
@@ -145,3 +155,8 @@ Full contract details: `memory-contract` skill
     1. Loop: Call `command_status` every 10-30 seconds.
     2. Check output: Is it still making progress?
   - **Timeout Protocol**: Default timeout is **200 seconds**. If the command runs longer than 200s without completing, you MUST terminate it using `send_command_input` with `Terminate: true` and retry or report error. Only exceed 200s if the output confirms active progress.
+
+## context7
+**Usage**: context7 provides real-time, version-specific documentation and code examples.
+- **When to use**: Use to verify correct library usage for testing frameworks (Playwright, Detox, etc.) or when encountering unknown errors.
+- **Best Practice**: Be specific about library versions if known.

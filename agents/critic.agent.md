@@ -3,7 +3,7 @@ description: Constructive reviewer and program manager that stress-tests plannin
 name: Critic
 target: vscode
 argument-hint: Reference the plan or architecture document to critique (e.g., plan 002)
-tools: ['execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'context7']
+tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Revise Plan
@@ -125,6 +125,16 @@ Status: OPEN
 **Self-check on start**: Before starting work, scan `agent-output/critiques/` for docs with Status "Resolved" outside `closed/`. Move them to `closed/` first.
 
 ---
+
+# Collaboration Contract
+
+**MANDATORY**: Load `collaboration-tracking` skill at session start.
+
+**Key behaviors:**
+- Check `agent-output/cli.md` for global context.
+- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
+- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
+- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
 
 # Memory Contract
 

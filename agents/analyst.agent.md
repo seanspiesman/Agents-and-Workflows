@@ -3,7 +3,7 @@ description: Research and analysis specialist for code-level investigation and d
 name: Analyst
 target: vscode
 argument-hint: Describe the technical question, API, or system behavior to investigate
-tools: ['vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'context7']
+tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/runNotebookCell', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Create Plan
@@ -88,6 +88,16 @@ Status: Active
 **Closure**: Planner closes your analysis doc when creating a plan from it.
 
 ---
+
+# Collaboration Contract
+
+**MANDATORY**: Load `collaboration-tracking` skill at session start.
+
+**Key behaviors:**
+- Check `agent-output/cli.md` for global context.
+- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
+- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
+- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
 
 # Memory Contract
 

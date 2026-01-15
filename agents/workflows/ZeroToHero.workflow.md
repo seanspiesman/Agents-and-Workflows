@@ -6,6 +6,14 @@ This workflow represents the ultimate "all-hands-on-deck" process for building a
 
 This is not a linear path; it is a series of refinement cycles. No artifact moves to the next phase until the **Critic** has explicitly approved it. This simulates a rigorous code review / design review culture.
 
+## Trigger & Entry Point (CRITICAL)
+
+**Trigger**: User requests "Zero to Hero" workflow or "Build a new app with Zero to Hero rigor".
+**Orchestrator Responsibility**:
+1.  **ACKNOWLEDGE**: Confirm receipt of request.
+2.  **HANDOFF**: Immediately hand off to **Roadmap Agent** (Phase 1).
+3.  **PROHIBITION**: Do NOT start creating files, running CLI commands, or generating code yourself. The prompt "create the app" defines the *outcome*, but this workflow defines the *process*. You MUST follow the process.
+
 ## Workflow Steps
 
 ### Phase 1: Inception & Strategy (Roadmap, Navigator, Critic)

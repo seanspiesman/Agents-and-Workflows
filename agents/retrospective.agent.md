@@ -3,7 +3,7 @@ description: Captures lessons learned, architectural decisions, and patterns aft
 name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
-tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'context7']
+tools: ['vscode', 'agent', 'read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Update Architecture
@@ -170,6 +170,16 @@ Status: Active
 **Closure**: PI agent closes your retrospective doc after extracting process improvements.
 
 ---
+
+# Collaboration Contract
+
+**MANDATORY**: Load `collaboration-tracking` skill at session start.
+
+**Key behaviors:**
+- Check `agent-output/cli.md` for global context.
+- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
+- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
+- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
 
 # Memory Contract
 
