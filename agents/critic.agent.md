@@ -6,18 +6,70 @@ argument-hint: Reference the plan or architecture document to critique (e.g., pl
 tools: ['vscode', 'agent', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
 model: devstral-3090
 handoffs:
-  - label: Revise Plan
-    agent: Planner
-    prompt: Please revise the plan based on my critique findings.
-    send: false
-  - label: Request Analysis
+  - label: Revise Strategy (Phase 1 Reject)
+    agent: Roadmap
+    prompt: Product Brief needs refinement.
+    send: true
+  - label: Proceed to Analysis (Phase 1 Approve)
     agent: Analyst
-    prompt: Plan reveals research gaps or unverified assumptions. Please investigate.
-    send: false
-  - label: Approve for Implementation
+    prompt: Product Brief approved. Begin technical analysis.
+    send: true
+  - label: Revise Analysis (Phase 2 Reject)
+    agent: Analyst
+    prompt: Analysis is incomplete or flawed. Please reinvestigate.
+    send: true
+  - label: Proceed to Design (Phase 2 Approve)
+    agent: Architect
+    prompt: Analysis approved. Begin architectural design.
+    send: true
+  - label: Revise Design (Phase 3 Reject)
+    agent: Architect
+    prompt: Architecture has flaws. Please redesign.
+    send: true
+  - label: Proceed to Planning (Phase 3 Approve)
+    agent: Planner
+    prompt: Design approved. Create master plan.
+    send: true
+  - label: Revise Plan (Phase 4 Reject)
+    agent: Planner
+    prompt: Plan needs revision.
+    send: true
+  - label: Proceed to Foundation (Phase 4 Approve)
+    agent: DevOps
+    prompt: Plan approved. Setup environment.
+    send: true
+  - label: Revise Foundation (Phase 5 Reject)
+    agent: DevOps
+    prompt: Environment setup is incorrect.
+    send: true
+  - label: Proceed to Implementation (Phase 5 Approve)
     agent: Implementer
-    prompt: Plan is sound and ready for implementation. Please begin implementation now. 
-    send: false
+    prompt: Foundation approved. Begin implementation.
+    send: true
+  - label: Revise Implementation (Phase 6 Reject)
+    agent: Implementer
+    prompt: Code critique failed. Fix issues.
+    send: true
+  - label: Proceed to QA (Phase 6 Approve)
+    agent: QA
+    prompt: Implementation approved. Begin testing.
+    send: true
+  - label: Revise Security (Phase 7 Reject)
+    agent: Security
+    prompt: Audit incomplete. Re-scan.
+    send: true
+  - label: Proceed to UAT (Phase 7 Approve)
+    agent: UAT
+    prompt: Security audit approved. Begin UAT.
+    send: true
+  - label: Revise UAT (Phase 8 Reject)
+    agent: UAT
+    prompt: UAT insufficient. Re-validate.
+    send: true
+  - label: Proceed to Documentation (Phase 8 Approve)
+    agent: Analyst
+    prompt: UAT approved. Finalize documentation.
+    send: true
 ---
 Purpose:
 - Evaluate `planning/` docs (primary), `architecture/`, `roadmap/` (when requested).

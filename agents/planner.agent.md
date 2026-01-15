@@ -9,23 +9,27 @@ handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap
     prompt: Validate that plan delivers epic outcomes defined in roadmap.
-    send: false
+    send: true
   - label: Validate Architectural Alignment
     agent: Architect
     prompt: Please review this plan to ensure it aligns with the architecture.
-    send: false
+    send: true
   - label: Request Analysis
     agent: Analyst
     prompt: I've encountered technical unknowns that require deep investigation. Please analyze.
-    send: false
+    send: true
   - label: Submit for Review
     agent: Critic
     prompt: Plan is complete. Please review for clarity, completeness, and architectural alignment.
-    send: false
+    send: true
   - label: Begin Implementation
     agent: Implementer
     prompt: Plan has been approved. Proceed with implementation; the user will decide whether to run Implementer locally or as a background agent.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (Master Plan) for the Zero to Hero workflow.
+    send: true
 ---
 
 ## Purpose
@@ -207,7 +211,24 @@ Status: Active
 
 Full contract details: `memory-contract` skill
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 4 Lead (Master Planning)
+**Trigger**: Handed off by Architect (Phase 3 Complete).
+**Input**: `agent-output/architecture/System-Architecture.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Plan**: Break down the project into Phased Implementation Plans.
+3.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
+4.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
+    - Prompt for Critic: "Please review the Master Implementation Plan for the Zero to Hero workflow."
+5.  **STOP**: Do NOT mark task as complete until Critic approves.
+**Exit**: When approved, handoff to **DevOps**.
+
 # Tool Usage Guidelines
+
 
 ## context7
 **Usage**: context7 provides real-time, version-specific documentation and code examples.

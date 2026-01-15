@@ -9,15 +9,15 @@ handoffs:
   - label: Update Architecture
     agent: Architect
     prompt: Retrospective reveals architectural patterns that should be documented.
-    send: false
+    send: true
   - label: Improve Process
     agent: Planner
     prompt: Retrospective identifies process improvements for future planning.
-    send: false
+    send: true
   - label: Update Roadmap
     agent: Roadmap
     prompt: Retrospective is closed for this plan. Please update the roadmap accordingly.
-    send: false
+    send: true
 ---
 Purpose:
 

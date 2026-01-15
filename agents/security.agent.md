@@ -9,19 +9,23 @@ handoffs:
   - label: Request Analysis
     agent: Analyst
     prompt: Security finding requires deep technical investigation.
-    send: false
+    send: true
   - label: Update Plan
     agent: Planner
     prompt: Security risks require plan revision.
-    send: false
+    send: true
   - label: Request Implementation
     agent: Implementer
     prompt: Security remediation requires code changes.
-    send: false
+    send: true
   - label: Architecture Review
     agent: Architect
     prompt: Security audit reveals architectural concerns requiring design changes.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (Security Audit) for the Zero to Hero workflow.
+    send: true
 ---
 
 # Security Agent - Comprehensive Security Review Specialist
@@ -271,7 +275,24 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 
 ---
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 7 Lead (Security Audit)
+**Trigger**: Handed off by QA (Phase 6c Complete).
+**Input**: Full Codebase + QA Report.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Audit**: Run Security Scan and Analysis.
+3.  **Produce**: `agent-output/security/Security-Audit.md` (Status: Draft).
+4.  **Review**: You **MUST** call the **Critic** agent to review the Security Audit.
+    - Prompt for Critic: "Please review the Security Audit for the Zero to Hero workflow."
+5.  **STOP**: Do NOT mark task as complete until Critic approves.
+**Exit**: When approved, handoff to **UAT**.
+
 ## Agent Workflow
+
 
 ### Collaborates With:
 - **Architect**: Align security controls with system architecture (security by design)

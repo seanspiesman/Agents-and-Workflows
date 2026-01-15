@@ -9,15 +9,19 @@ handoffs:
   - label: Request Testing Infrastructure
     agent: Planner
     prompt: Testing infrastructure is missing or inadequate. Please update plan to include required test frameworks, libraries, and configuration.
-    send: false
+    send: true
   - label: Request Test Fixes
     agent: Implementer
     prompt: Implementation has test coverage gaps or test failures. Please address.
-    send: false
+    send: true
   - label: Send for Review
     agent: UAT
     prompt: Implementation is completed and QA passed. Please review. 
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (QA Report) for the Zero to Hero workflow.
+    send: true
 ---
 Purpose:
 
@@ -288,7 +292,25 @@ Status: Test Strategy Development
 
 Full contract details: `memory-contract` skill
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 6c Lead (Functional Testing)
+**Trigger**: Handed off by Implementer (Phase 6b Complete).
+**Input**: Implementation Doc + Code.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Test**: Execute comprehensive test suite (Unit/Integration/E2E).
+3.  **Produce**: `agent-output/qa/QA-Report.md` (Status: Verified).
+4.  **Decision**:
+    - **Fail**: Handoff back to **Implementer** with defect list.
+    - **Pass**: Proceed to **Security**.
+5.  **STOP**: Do NOT mark task as complete. Must handoff.
+**Exit**: Pass -> Handoff to **Security**.
+
 # Tool Usage Guidelines
+
 
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.

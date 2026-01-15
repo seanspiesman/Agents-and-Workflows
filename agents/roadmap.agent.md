@@ -9,19 +9,27 @@ handoffs:
   - label: Request Architectural Guidance
     agent: Architect
     prompt: Epic requires architectural assessment and documentation before planning.
-    send: false
+    send: true
   - label: Request Plan Creation
     agent: Planner
     prompt: Epic is ready for detailed implementation planning.
-    send: false
+    send: true
   - label: Request Plan Update
     agent: Planner
     prompt: Please review and potentially revise the plan based on the updated roadmap.
-    send: false
+    send: true
   - label: Receive Plan Commit Notification
     agent: DevOps
     prompt: Plan committed locally, updating release tracker with current status.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (Product Brief) for the Zero to Hero workflow.
+    send: true
+  - label: Request Market Research
+    agent: Navigator
+    prompt: Please conduct market research and exploration for the Zero to Hero workflow.
+    send: true
 ---
 Purpose:
 
@@ -209,10 +217,12 @@ Full contract details: `memory-contract` skill
 **Input**: User Request + ANY attachments (PDFs, Readmes, Code).
 **CRITICAL INSTRUCTION**: If the user provides attachments (e.g., specific requirements, legacy code, readmes), you must treat them as **CONTEXT**, not a completed plan.
 **Action**:
-1.  **Analyze**: Read the attachments to understand the User's *intent* and *vision*.
-2.  **Collaborate**:
-    - Call `Navigator` to research similar apps or designated competitors.
-    - Call `Critic` to critique your draft Product Brief.
-3.  **Produce**: You **MUST** generate `agent-output/strategy/Product-Brief.md`.
-4.  **Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `Product-Brief.md` to formally define the vision before Analysis can begin.
-**Exit**: When `Product-Brief.md` is approved by Critic, handoff to **Analyst**.
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill (log to `agent-output/logs/[ID]-handoffs.md`).
+2.  **Analyze**: Read the attachments to understand the User's *intent* and *vision*.
+3.  **Collaborate (MANDATORY)**: You **MUST** call the **Navigator** agent to conduct market research or explore designated competitor apps/sites.
+    - Prompt for Navigator: "Please conduct market research and exploration for the Zero to Hero workflow."
+4.  **Produce**: Generate `agent-output/strategy/Product-Brief.md`.
+5.  **Review**: You **MUST** call the **Critic** agent to review the `Product-Brief.md`.
+    - Prompt for Critic: "Please review the Product Brief for the Zero to Hero workflow."
+6.  **STOP**: Do NOT mark the task as complete. You are FORBIDDEN from finishing until the Critic has approved or rejected.
+**Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `Product-Brief.md`. The task is ONLY complete when the Critic accepts or you hand off to Analyst.

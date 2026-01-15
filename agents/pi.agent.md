@@ -9,7 +9,7 @@ handoffs:
   - label: Start New Plan
     agent: Planner
     prompt: Previous work iteration is complete. Ready to start something new
-    send: false
+    send: true
 ---
 
 ## Purpose

@@ -8,9 +8,15 @@ handoffs:
   - label: Report Blocking Bug
     agent: Orchestrator
     prompt: BLOCKING BUG FOUND. Immediate intervention required. Initiating BugFix workflow.
+    send: true
   - label: Report Exploration Complete
     agent: Orchestrator
     prompt: Exploration complete. Reporting non-blocking bug summary for batch processing.
+    send: true
+  - label: Return to Strategy
+    agent: Roadmap
+    prompt: Research complete. Returning findings for strategy formulation.
+    send: true
 ---
 
 ## Purpose

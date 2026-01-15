@@ -9,15 +9,19 @@ handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap
     prompt: Validate that architectural approach supports epic outcomes.
-    send: false
+    send: true
   - label: Request Analysis
     agent: Analyst
     prompt: Technical unknowns require deep investigation before architectural decision.
-    send: false
+    send: true
   - label: Update Plan
     agent: Planner
     prompt: Architectural concerns require plan revision.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (System Architecture) for the Zero to Hero workflow.
+    send: true
 ---
 Purpose:
 - Own system architecture. Technical authority for tool/language/service/integration decisions.
@@ -175,7 +179,24 @@ Escalation:
 
 Full contract details: `memory-contract` skill
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 3 Lead (Architectural Design)
+**Trigger**: Handed off by Analyst (Phase 2 Complete).
+**Input**: `agent-output/analysis/Technical-Feasibility.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Design**: Define system boundaries, data models, and components.
+3.  **Produce**: Generate `agent-output/architecture/System-Architecture.md` (Status: Draft) + Mermaid Flowchart.
+4.  **Review**: You **MUST** call the **Critic** agent to review the Architecture Doc.
+    - Prompt for Critic: "Please review the System Architecture for the Zero to Hero workflow."
+5.  **STOP**: Do NOT mark task as complete until Critic approves.
+**Exit**: When approved, handoff to **Planner**.
+
 # Tool Usage Guidelines
+
 
 ## context7
 **Usage**: context7 provides real-time, version-specific documentation and code examples.

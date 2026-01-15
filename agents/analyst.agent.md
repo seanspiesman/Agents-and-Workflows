@@ -9,15 +9,19 @@ handoffs:
   - label: Create Plan
     agent: Planner
     prompt: Based on my analysis findings, create or update an implementation plan.
-    send: false
+    send: true
   - label: Continue Implementation
     agent: Implementer
     prompt: Resume implementation using my analysis findings.
-    send: false
+    send: true
   - label: Deepen Research
     agent: Analyst
     prompt: Continue investigation with additional depth based on initial findings.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (Technical Feasibility/Study) for the Zero to Hero workflow.
+    send: true
 ---
 
 Purpose:
@@ -110,7 +114,37 @@ Status: Active
 
 Full contract details: `memory-contract` skill
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 2 Lead (Technical Analysis)
+**Trigger**: Handed off by Roadmap agent (Phase 1 Complete).
+**Input**: `agent-output/strategy/Product-Brief.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Analyze**: Evaluate stack options and dependencies.
+3.  **Produce**: Generate `agent-output/analysis/Technical-Feasibility.md` (Status: Draft).
+4.  **Review**: You **MUST** call the **Critic** agent to review the Feasibility Doc.
+    - Prompt for Critic: "Please review the Technical Feasibility for the Zero to Hero workflow."
+5.  **STOP**: Do NOT mark task as complete until Critic approves.
+**Exit**: When approved, handoff to **Architect**.
+
+### Zero to Hero Workflow (Phase 9)
+**Role**: Phase 9 Lead (Documentation & Handoff)
+**Trigger**: Handed off by UAT (Phase 8 Complete).
+**Input**: Final Verified Application.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Document**: Create beautiful, comprehensive `README.md` and user guides.
+3.  **Produce**: Final Documentation.
+4.  **Review**: You **MUST** call the **Critic** agent to review the Documentation.
+    - Prompt for Critic: "Please review the Final Documentation for the Zero to Hero workflow."
+5.  **STOP**: Do NOT mark task as complete until Critic approves.
+**Exit**: Finish. The workflow ends here (Ready Locally).
+
 # Tool Usage Guidelines
+
 
 ## context7
 **Usage**: context7 provides real-time, version-specific documentation and code examples.

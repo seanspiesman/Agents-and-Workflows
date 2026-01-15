@@ -9,19 +9,23 @@ handoffs:
   - label: Report UAT Failure
     agent: Planner
     prompt: Implementation does not deliver stated value. Plan revision may be needed.
-    send: false
+    send: true
   - label: Request Value Fixes
     agent: Implementer
     prompt: Implementation has gaps in value delivery. Please address UAT findings.
-    send: false
+    send: true
   - label: Prepare Release
     agent: DevOps
     prompt: Implementation complete with release decision. Please manage release steps.
-    send: false
+    send: true
   - label: Update Roadmap
     agent: Roadmap
     prompt: Retrospective is closed for this plan. Please update the roadmap accordingly.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (Final Acceptance) for the Zero to Hero workflow.
+    send: true
 ---
 Purpose:
 
@@ -222,7 +226,24 @@ Status: Active
 
 Full contract details: `memory-contract` skill
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 8 Lead (User Acceptance)
+**Trigger**: Handed off by Security (Phase 7 Complete).
+**Input**: Working Application + Security Audit.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Validate**: Walk through the "Hero" value statement and user journey.
+3.  **Produce**: `agent-output/uat/Final-Acceptance.md` (Status: Draft).
+4.  **Review**: You **MUST** call the **Critic** agent to review the Final Acceptance.
+    - Prompt for Critic: "Please review the Final Acceptance for the Zero to Hero workflow."
+5.  **STOP**: Do NOT mark task as complete until Critic approves.
+**Exit**: When approved, handoff to **Analyst** (Phase 9 Docs).
+
 # Tool Usage Guidelines
+
 
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.

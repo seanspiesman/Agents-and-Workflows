@@ -9,15 +9,19 @@ handoffs:
   - label: Request Analysis
     agent: Analyst
     prompt: I've encountered technical unknowns during implementation. Please investigate.
-    send: false
+    send: true
   - label: Request Plan Clarification
     agent: Planner
     prompt: The plan has ambiguities or conflicts. Please clarify.
-    send: false
+    send: true
   - label: Submit for QA
     agent: QA
     prompt: Implementation is complete. Please verify test coverage and execute tests.
-    send: false
+    send: true
+  - label: Submit for Critique
+    agent: Critic
+    prompt: Please review my output (Code Implementation) for the Zero to Hero workflow.
+    send: true
 ---
 
 ## Purpose
@@ -321,7 +325,24 @@ Status: Active
 
 Full contract details: `memory-contract` skill
 
+
+## Workflow Responsibilities
+
+### Zero to Hero Workflow
+**Role**: Phase 6a Lead (Implementation Loop)
+**Trigger**: Handed off by DevOps (Phase 5) or QA (Phase 6 Fail).
+**Input**: `Master-Implementation-Plan.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Implement**: Write code for the current Feature Phase.
+3.  **Produce**: Code changes + Implementation Doc `agent-output/implementation/Impl-[Name].md`.
+4.  **Review**: You **MUST** call the **Critic** agent (Code Review) BEFORE QA.
+    - Prompt for Critic: "Please critique this implementation for code quality and matching the Zero to Hero standard."
+5.  **STOP**: Do NOT mark task as complete yourself.
+**Exit**: When Critic approves, handoff to **QA**.
+
 # Tool Usage Guidelines
+
 
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
