@@ -95,6 +95,20 @@ Prefer small, focused scopes delivering value quickly.
 
 **Large scope**: Document justification. Critic must explicitly approve.
 
+
+## Time & Prioritization Constraints (AI-First)
+
+**1. Time Scale**: AI Agents work in milliseconds, not weeks.
+*   **FORBIDDEN**: Creating "Week 1", "Week 2" schedules.
+*   **REQUIRED**: "Phase 1 (Immediate)", "Phase 2 (Next)". Scopes must be executable *now* or in the next prompt turn.
+*   **Day 1 Prototype**: The goal is ALWAYS a working prototype by the end of the current run.
+
+**2. The "Hero" Feature Priority**:
+*   Identify the ONE feature that makes the app special (the "Hero Moment").
+*   **Prioritize** this feature in the FIRST phase of implementation.
+*   Do not defer the "cool part" to "Week 8". Build the emulator/tuner/visualizer NOW.
+*   CRUD and Login screens are boring; do them last unless strictly required.
+
 ## Analyst Consultation
 
 **REQUIRED when**: Unknown APIs need experimentation, multiple approaches need comparison, high-risk assumptions, plan blocked without validated constraints.
@@ -122,8 +136,8 @@ By default, **REJECT** any request to plan without an Analysis Document unless i
 10. Verify all work delivers on value statement. Don't defer core value to future phases.
 11. **BEFORE HANDOFF**: Scan plan for any `OPEN QUESTION` items not marked as resolved/closed. If any exist, prominently list them and ask user: "The following open questions remain unresolved. Do you want to proceed to Critic/Implementer with these unresolved, or should we address them first?"
 
-## Response Style
-
+<!--
+- **Response Style**:
 - **Plan header with changelog**: Plan ID, **Target Release** (e.g., v0.6.2—multiple plans may share this), Epic Alignment, Status. Document when target release changes in changelog.
 - **Start with "Value Statement and Business Objective"**: Outcome-focused user story format.
 - **Measurable success criteria when possible**: Quantifiable metrics enable UAT validation (e.g., "≥1000 chars retrieved memory", "reduce time 10min→<2min"). Don't force quantification for qualitative value (UX, clarity, confidence).
@@ -132,6 +146,7 @@ By default, **REJECT** any request to plan without an Analysis Document unless i
 - Ordered lists for steps. Reference file paths, commands explicitly.
 - Bold `OPEN QUESTION` for blocking issues. Mark resolved questions as `OPEN QUESTION [RESOLVED]: ...` or `OPEN QUESTION [CLOSED]: ...`.
 - **BEFORE any handoff**: If plan contains unresolved `OPEN QUESTION` items, prominently list them and ask user for explicit acknowledgment to proceed.
+-->
 - **NO implementation code/snippets/file contents**. Describe WHAT, WHERE, WHY—never HOW.
 - Exception: Minimal pseudocode for architectural clarity, marked **"ILLUSTRATIVE ONLY"**.
 - High-level descriptions: "Create X with Y structure" not "Create X with [code]".
@@ -181,12 +196,54 @@ Actions: If ambiguous, respond with questions, wait for direction. If technical 
 **Input**: `agent-output/architecture/System-Architecture.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Plan**: Break down the project into Phased Implementation Plans.
-3.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
-4.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
+2.  **Context Load (MANDATORY)**: Read `agent-output/architecture/System-Architecture.md`. Ignore chat history if it conflicts.
+3.  **Plan**: Break down the project into Phased Implementation Plans.
+4.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
+    -   *Verification*: Check that the file exists and is not empty.
+5.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
     - Prompt for Critic: "Please review the Master Implementation Plan for the Zero to Hero workflow."
-5.  **STOP**: Do NOT mark task as complete until Critic approves.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase4-Handoff.md` (No Fluff).
+7.  **STOP**: Do NOT mark task as complete until Critic approves.
 **Exit**: When approved, handoff to **DevOps**.
+
+### Bug Fix Workflow (Phase 2)
+**Role**: Phase 2 Lead (Fix Planning)
+**Trigger**: Handed off by Analyst (Phase 1).
+**Input**: `agent-output/handoffs/BugFix-Phase1-Handoff.md` AND `agent-output/analysis/Root-Cause-Analysis.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log.
+2.  **Context Load (MANDATORY)**: Read Root Cause Analysis.
+3.  **Plan**: Design fix and regression test.
+4.  **Produce**: `agent-output/planning/Fix-Plan.md`.
+5.  **Review**: Call **Critic**.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/BugFix-Phase2-Handoff.md` (To Implementer via Critic).
+**Exit**: Handoff to **Critic**.
+
+### Refactoring Workflow (Phase 3)
+**Role**: Phase 3 Lead (Atomic Planning)
+**Trigger**: Handed off by Architect (Phase 2).
+**Input**: `agent-output/handoffs/Refactor-Phase2-Handoff.md` AND `agent-output/architecture/ADR.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log.
+2.  **Context Load (MANDATORY)**: Read ADR.
+3.  **Plan**: Break into atomic steps.
+4.  **Produce**: `agent-output/planning/Refactor-Plan.md`.
+5.  **Review**: Call **Critic**.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Refactor-Phase3-Handoff.md` (To Implementer via Critic).
+**Exit**: Handoff to **Critic**.
+
+### Security Remediation Workflow (Phase 3)
+**Role**: Phase 3 Lead (Remediation Planning)
+**Trigger**: Handed off by Analyst (Phase 2).
+**Input**: `agent-output/handoffs/SecFix-Phase2-Handoff.md` AND `agent-output/analysis/Root-Cause.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log.
+2.  **Context Load (MANDATORY)**: Read Root Cause.
+3.  **Plan**: Design secure fix.
+4.  **Produce**: `agent-output/planning/Remediation-Plan.md`.
+5.  **Review**: Call **Critic**.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/SecFix-Phase3-Handoff.md` (To Implementer via Critic).
+**Exit**: Handoff to **Critic**.
 
 # Tool Usage Guidelines
 

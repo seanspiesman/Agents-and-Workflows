@@ -189,11 +189,13 @@ Escalation:
 **Input**: `agent-output/planning/Master-Implementation-Plan.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Setup**: Initialize Git, Linting, Formatting, and Framework structure.
-3.  **Produce**: Verified Local Environment + `agent-output/deployment/Foundation-Setup.md` (Status: Draft).
-4.  **Review**: You **MUST** call the **Critic** agent to review the Environment Configuration.
+2.  **Context Load (MANDATORY)**: Read `agent-output/planning/Master-Implementation-Plan.md`. Ignore chat history if it conflicts.
+3.  **Setup**: Initialize Git, Linting, Formatting, and Framework structure.
+4.  **Produce**: Verified Local Environment + `agent-output/deployment/Foundation-Setup.md` (Status: Draft).
+5.  **Review**: You **MUST** call the **Critic** agent to review the Environment Configuration.
     - Prompt for Critic: "Please review the Foundation Setup for the Zero to Hero workflow."
-5.  **STOP**: Do NOT mark task as complete until Critic approves.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase5-Handoff.md` (No Fluff).
+7.  **STOP**: Do NOT mark task as complete until Critic approves.
 **Exit**: When approved, handoff to **Implementer**.
 
 # Tool Usage Guidelines

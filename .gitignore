@@ -1,7 +1,9 @@
 
 #.github/
-agent-output/
 *.env
 *.local 
 .DS_Store
 **.mardownlint.json
+testruns/*
+ZeroToHeroPrompts/*
+agent-output/*s

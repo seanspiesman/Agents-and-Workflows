@@ -35,26 +35,33 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
 *   **Action**: ALWAYS check this file at the start of your task for shared context.
 
 ### B. Log ALL Handoffs
-*   **File**: `agent-output/logs/[ID]-handoffs.md` (where [ID] is from `agent-output/.next-id`)
-*   **Format**: `[SourceAgent] -> [TargetAgent] (Timestamp)`
+### B. Log ALL Handoffs
+*   **File**: `agent-output/logs/handoff_history.log`
+*   **Format**: `[Timestamp] SourceAgent -> TargetAgent`
 *   **Command**:
     ```bash
-    mkdir -p agent-output/logs && echo "YourAgent -> TargetAgent ($(date -u +%Y-%m-%dT%H:%M:%SZ))" >> agent-output/logs/$(cat agent-output/.next-id 2>/dev/null || echo "GLOBAL" | tr -d '[:space:]')-handoffs.md
+    mkdir -p agent-output/logs && echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [Source] -> [Target]" >> agent-output/logs/handoff_history.log
     ```
 
 ### C. Log CLI History
+### C. Log CLI History
 *   **File**: `agent-output/logs/cli_history.log`
 *   **Requirement**: Log ALL `run_command` executions.
-*   **Format**: `[Timestamp] [Agent] [Command]`
+*   **Format**: `[Timestamp] [Agent] [Tool] [Command]`
 *   **Command**:
     ```bash
-    echo "[$(date -u)] [YourAgent] [your-command-here]" >> agent-output/logs/cli_history.log
+    echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [Agent] [run_command] [Command]" >> agent-output/logs/cli_history.log
     ```
 
 ### D. Log Side-Effect Tool Usage
-*   **File**: `agent-output/logs/[ID]-tool_usage.log`
+### D. Log Side-Effect Tool Usage
+*   **File**: `agent-output/logs/tool_usage_history.log`
 *   **Scope**: Log `write_to_file`, `replace_file_content`, `run_command` (side-effects only). Do not log read-only tools.
-*   **Format**: `[Timestamp] [Agent] [Tool] [Target]`
+*   **Format**: `[Timestamp] [Agent] [Tool]`
+*   **Command**:
+    ```bash
+    echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgent] [Tool]" >> agent-output/logs/tool_usage_history.log
+    ```
 
 ---
 
@@ -116,11 +123,71 @@ Status: Active
 
 **Response Format Template**:
 ```markdown
-**Current Phase**: [Phase Name]
-**Status**: [In Progress | Complete | Blocked]
-**Completed**:
-- ✅ [Action 1]
-
+```
 **Next Steps**:
 - [ ] [Next action 1]
 ```
+
+---
+
+## 8. General Operation & Safety
+
+### A. Drift Check Protocol
+**Frequency**: Every 5 steps or major actions.
+**Action**: Re-read the original PROMPT document (e.g., `user_request.md` or the prompt file passed in arguments).
+**Check**: "Have I drifted into a generic template? Am I still referencing the specific 'Blues Harmonica' or 'Pixel Arcade' details?"
+
+### B. Artifact Integrity Protocol
+**Trigger**: Before marking ANY task/file creation as "Done".
+**Action**: Verify the file size of the generated artifact.
+**Rule**: If file size is 0 bytes, **FAIL** and **RETRY**. Do not proceed with empty files.
+**Command**: `ls -l [file_path]` to verify size > 0.
+
+---
+
+## 9. Fresh Context Protocol (Anti-Amnesia)
+
+**Problem**: Chat history is truncated in long workflows.
+**Solution**: Rely on **FILES**, not Chat.
+
+### A. Start of Task: Read-First Mandate
+At the beginning of ANY phase or task, you **MUST**:
+1.  **Ignore Chat History**: Assume the chat context is incomplete or summarized.
+2.  **Read the Anchor Artifact**: Read the specific `Handoff Artifact` or `Report` defined as your input (e.g., `Phase1-Complete.md`).
+3.  **Trust the File**: The file contains the ground truth. If chat history contradicts the file, the file wins.
+
+### B. End of Task: The "No-Fluff" Handoff
+When handing off to the next agent, you **MUST** create a `[Phase]-Handoff.md`.
+**Constraint**: **ZERO FLUFF**.
+-   **BANNED**: "Here is the report", "I hope this helps", "As per your request", "In this document we will...".
+-   **REQUIRED**: Bullet points, direct links, data tables, raw facts.
+-   **Goal**: Maximum information density per token.
+
+**Template**:
+```markdown
+# Phase X Handoff
+**Source**: [Agent Name]
+**Target**: [Next Agent Name]
+**Context**: [Link to main report]
+
+## Critical Context
+- Key Decision 1: [Result]
+- Constraint: [Constraint]
+
+## Required Next Actions
+1. [Action]
+2. [Action]
+```
+
+## 10. Data-Only Output Protocol (Token Optimization)
+
+**Objective**: Maximize "Fresh Context" efficiency by eliminating token waste.
+**Target**: All artifacts in `agent-output/`.
+
+**OUTPUT CONSTRAINT**: Artifacts must be **DATA-ONLY**.
+*   **BANNED**: Introductions, conclusions, "As requested", "Here is the file", "I hope this helps".
+*   **BANNED**: Explanations of standard technologies (e.g., "Redis is a specific key-value store...").
+*   **BANNED**: Generic best practices (e.g., "We will ensure clean code...").
+*   **REQUIRED**: Tables for stacks, Mermaid for flows, JSON for config.
+*   **Format Constraint**: If you write "This document outlines...", **YOU FAIL**.
+*   **Style**: Dense, Senior-Level Technical. Assume the reader knows the basics. Do NOT list "Clean Code" principles. Just write clean code.

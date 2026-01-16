@@ -25,8 +25,9 @@ Identify repeatable process improvements across iterations. Focus on "ways of wo
 
 Core Responsibilities:
 
-1. Read roadmap and architecture docs BEFORE conducting retrospective
-2. Conduct post-implementation retrospective: review complete workflow from analysis through UAT
+1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
+2.  **Context Load (MANDATORY)**: You MUST explicitly read the artifact files from `agent-output/` (Planning, Analysis, QA, etc.). Do not rely on chat history summaries.
+3.  **Conduct post-implementation retrospective**: review complete workflow from analysis through UAT
 3. Focus on repeatable process improvements for multiple future iterations
 4. Capture systemic lessons: workflow patterns, communication gaps, quality gate failures
 5. Measure against objectives: value delivery, cost, drift timing
