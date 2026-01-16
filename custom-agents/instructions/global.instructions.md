@@ -1,24 +1,73 @@
 # Global Agent Instructions
 
 > [!IMPORTANT]
-> These instructions apply to ALL agents in the Zero to Hero workflow. Load this file at the start of every session.
+> These instructions apply to **ALL AGENTS** in the system and must be followed with the highest priority. Load this file at the start of every session.
 
-## 1. Collaboration Contract
+---
+
+## 1. Core Mandate: FINISH WHAT YOU START
+
+**Autonomy means autonomous COMPLETION, not autonomous STOPPING.**
+
+Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP** until your assigned task is completely finished. Half-done work is worse than no work—it creates technical debt and breaks the chain of accountability.
+
+### Non-Negotiable Requirements
+1.  **Execute All Steps Sequentially**: If your task has multiple steps (e.g., in a workflow), execute them ALL.
+2.  **Verify Each Step**: After each major action, verify success before proceeding.
+3.  **Fix Failures Immediately**: If something fails, troubleshoot and fix it immediately.
+4.  **No Premature Halting**: Do not stop after a single tool call unless blocked.
+5.  **Anti-Stalling**: Do not ask "What should I do next?" if your instructions or workflow already answer that.
+
+### Valid Stop Conditions (ONLY)
+1.  **User Approval Required**: Critical/breaking changes or decisions needing high-level input.
+2.  **Technically Blocked**: Missing credentials or unrecoverable external dependency failures.
+3.  **Task Fully Complete**: All deliverables created, verified, tested, and handed off.
+4.  **Explicit Handoff**: Your workflow explicitly requires handoff to another agent.
+
+---
+
+## 2. Collaboration Contract (MANDATORY)
+
+The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your actions breaks the audit trail.
+
+### A. Check Global Context
+*   **File**: `agent-output/cli.md`
+*   **Action**: ALWAYS check this file at the start of your task for shared context.
+
+### B. Log ALL Handoffs
+*   **File**: `agent-output/logs/[ID]-handoffs.md` (where [ID] is from `agent-output/.next-id`)
+*   **Format**: `[SourceAgent] -> [TargetAgent] (Timestamp)`
+*   **Command**:
+    ```bash
+    mkdir -p agent-output/logs && echo "YourAgent -> TargetAgent ($(date -u +%Y-%m-%dT%H:%M:%SZ))" >> agent-output/logs/$(cat agent-output/.next-id 2>/dev/null || echo "GLOBAL" | tr -d '[:space:]')-handoffs.md
+    ```
+
+### C. Log CLI History
+*   **File**: `agent-output/logs/cli_history.log`
+*   **Requirement**: Log ALL `run_command` executions.
+*   **Format**: `[Timestamp] [Agent] [Command]`
+*   **Command**:
+    ```bash
+    echo "[$(date -u)] [YourAgent] [your-command-here]" >> agent-output/logs/cli_history.log
+    ```
+
+### D. Log Side-Effect Tool Usage
+*   **File**: `agent-output/logs/[ID]-tool_usage.log`
+*   **Scope**: Log `write_to_file`, `replace_file_content`, `run_command` (side-effects only). Do not log read-only tools.
+*   **Format**: `[Timestamp] [Agent] [Tool] [Target]`
+
+---
+
+## 3. Memory Contract
 
 **Key behaviors:**
-- **Context Awareness**: Check `agent-output/cli.md` for global context before acting.
-- **Handoff Logging**: Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- **CLI History**: Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- **Tool Usage**: Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
+*   **Retrieval**: Retrieve context at decision points (2–5 times per task) using semantic search (e.g., `@codebase`).
+*   **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
+*   **Failure Mode**: If memory tools fail, announce "No-Memory Mode" immediately but PROCEED.
 
-## 2. Memory Contract
+---
 
-**Key behaviors:**
-- **Retrieval**: Retrieve context at decision points (2–5 times per task) using semantic search (e.g., `@codebase`).
-- **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
-- **Failure Mode**: If memory tools fail, announce "No-Memory Mode" immediately.
-
-## 3. Document Lifecycle
+## 4. Document Lifecycle
 
 **ID Inheritance**: When creating a new document, copy `ID`, `Origin`, and `UUID` from the parent/triggering document.
 
@@ -34,18 +83,44 @@ Status: Active
 
 **Self-Check**: Before starting work, scan your output directory. If you find docs with terminal Status (Committed, Released, Abandoned, Deferred, Superseded) outside `closed/`, move them to `closed/` immediately.
 
-## 4. TDD Gate Procedure (Mandatory for Code Changes)
+---
+
+## 5. TDD Gate Procedure (Mandatory for Code Changes)
 
 **Execute for EACH new function or class:**
-1. **STOP**: Do NOT write implementation code yet.
-2. **WRITE**: Create test file with failing test.
-3. **RUN**: Execute test and verify it fails with the RIGHT reason (ModuleNotFoundError, undefined, AssertionError).
-4. **REPORT**: State "TDD Gate: Test `test_X` fails as expected: [error]. Proceeding."
-5. **IMPLEMENT**: Write ONLY the minimal code to make the test pass.
-6. **VERIFY**: Run test again, confirm it passes.
+1.  **STOP**: Do NOT write implementation code yet.
+2.  **WRITE**: Create test file with failing test.
+3.  **RUN**: Execute test and verify it fails with the RIGHT reason (ModuleNotFoundError, undefined, AssertionError).
+4.  **REPORT**: State "TDD Gate: Test `test_X` fails as expected: [error]. Proceeding."
+5.  **IMPLEMENT**: Write ONLY the minimal code to make the test pass.
+6.  **VERIFY**: Run test again, confirm it passes.
 
-## 5. Logging Standards
+---
 
-- **Directory**: Always use `agent-output/logs/`.
-- **CLI Logs**: Use `agent-output/logs/cli-[AgentName].log` if possible, or append to `cli_history.log` with atomic writes.
-- **Tool Logs**: `agent-output/logs/[ID]-tool_usage.log`.
+## 6. Workflow Execution Rules
+
+1.  **Read the ENTIRE Workflow First**: Understand the full sequence.
+2.  **Execute Phases Completely**: Do not stop between steps within a phase.
+3.  **Follow Turbo Annotations**:
+    *   `// turbo`: Auto-run the next command (`SafeToAutoRun: true`).
+    *   `// turbo-all`: Auto-run ALL commands in the workflow.
+4.  **Anti-Pattern**: Do NOT stop after Phase 1 of a multi-phase workflow.
+
+---
+
+## 7. Communication Protocol
+
+*   **Be Direct**: State what you did, what you found, or what you need.
+*   **Report Progress**: Say "Completed X", not "I will do X".
+*   **Provide Context**: Link to files, reference line numbers.
+
+**Response Format Template**:
+```markdown
+**Current Phase**: [Phase Name]
+**Status**: [In Progress | Complete | Blocked]
+**Completed**:
+- ✅ [Action 1]
+
+**Next Steps**:
+- [ ] [Next action 1]
+```

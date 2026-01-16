@@ -50,13 +50,8 @@ for dir in "${TARGET_DIRS[@]}"; do
 done
 echo ""
 
-# Ask for confirmation
-read -p "Do you want to sync agents to these folders? (y/n) " -n 1 -r
-echo ""
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo -e "${YELLOW}Sync cancelled.${NC}"
-    exit 0
-fi
+# Auto-confirmed
+echo -e "${GREEN}Auto-confirming sync...${NC}"
 
 # Sync to each target
 echo ""

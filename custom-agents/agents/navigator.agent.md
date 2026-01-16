@@ -13,10 +13,7 @@ handoffs:
     agent: Orchestrator
     prompt: Exploration complete. Reporting non-blocking bug summary for batch processing.
     send: true
-  - label: Return to Strategy
-    agent: Roadmap
-    prompt: Research complete. Returning findings for strategy formulation.
-    send: true
+
 ---
 
 ## Purpose

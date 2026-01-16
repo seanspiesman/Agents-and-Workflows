@@ -16,14 +16,14 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 ## Workflow Steps
 
-### Phase 1: Inception & Strategy (Roadmap, Navigator, Critic)
-- **Primary Agents**: Navigator (App Research), Researcher (Content Research), Roadmap (Strategy)
+### Phase 1: Inception & Strategy (Roadmap, Researcher, Critic)
+- **Primary Agents**: Researcher (Content & Market Research), Roadmap (Strategy)
 - **Reviewer**: Critic
 - **Goal**: Define *what* to build and *why* it matters, refined to perfection.
 - **Actions**:
     1.  **Context Analysis (Roadmap)**: Analyze any user-provided attachments (Readmes, existing code) as *input* for the vision.
     2.  **Subject Matter Research (Researcher)**: Deep dive into the domain content, facts, and available data sources.
-    3.  **Market Research (Navigator)**: Explore current trends and "best-in-class" examples.
+    3.  **Market Research (Researcher)**: Explore current trends and "best-in-class" examples.
     2.  **Vision Definition (Roadmap)**: Synthesize research into a Product Vision.
     3.  **Feature Mapping (Roadmap)**: Define Epics and Value Statements.
     4.  **Critique Loop (Critic)**:
@@ -159,8 +159,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 flowchart TD
     Start([User Request]) --> Phase1
     subgraph Phase1 [Strategy]
-        Nav[Navigator] --> Road[Roadmap]
-        Res[Researcher] --> Road
+        Res[Researcher] --> Road[Roadmap]
         Road --> Crit1{Critic Review}
         Crit1 -->|Reject| Road
     end
