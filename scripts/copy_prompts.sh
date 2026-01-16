@@ -3,7 +3,7 @@
 # Define source and destination
 # Resolve absolute path to custom-agents
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/custom-agents"
-DEST_DIR="$HOME/Library/Application Support/Code - Insiders/User/prompts"
+DEST_DIR="/Users/work/Library/Application Support/Code - Insiders/User/prompts"
 
 # Check if source directory exists
 if [ ! -d "$SOURCE_DIR" ]; then

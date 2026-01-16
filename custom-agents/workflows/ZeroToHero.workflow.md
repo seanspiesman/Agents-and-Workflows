@@ -219,3 +219,8 @@ flowchart TD
 - **Aesthetics**: This compilation MUST be beautiful.
 - **Critic Authority**: The Critic has absolute veto power. If the Critic says "it looks basic" or "not detailed enough", the previous agent MUST redo the work.
 - **Diagrams**: EVERY phase must produce a Mermaid `flowchart`.
+
+## Workflow Governance
+- **Logging**: All agents MUST log tool usage and CLI commands to `agent-output/logs/`.
+- **Output Structure**: Agents must ONLY write to their designated `agent-output/[role]/` directory. Root `agent-output/` must remain clean except for `management/` and `logs/`.
+- **Handoffs**: All handoff documents must be saved to `agent-output/handoffs/`.
