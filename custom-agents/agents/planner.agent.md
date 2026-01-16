@@ -44,7 +44,7 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 **Visuals**: Load `mermaid-diagramming` skill if including diagrams in plans.
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 **Process**: Load `workflow-adherence` skill. Ensure plans are comprehensive and agents are instructed to initiate next steps.
 
 ### Planning Resources

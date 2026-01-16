@@ -81,7 +81,7 @@ Purpose:
 Engineering Standards: Load `engineering-standards` skill for SOLID, DRY, YAGNI, KISS; load `code-review-checklist` skill for review criteria.
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 **Persistence**: Load `workflow-adherence` skill. Complete all review sections before halting.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs. Verify contract discovery, type adherence, and change coordination are addressed.
 

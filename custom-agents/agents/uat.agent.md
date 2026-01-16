@@ -58,7 +58,7 @@ Core Responsibilities:
 14. **Status tracking**: When UAT passes, update the plan's Status field to "UAT Approved" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
 15. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 16. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-17. **Definitions**: Load `instructions/definitions.instruction.md`.
+17. **Definitions**: Load `instructions/definitions.instructions.md`.
 18. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
 16. **Environment Control**: Load `non-blocking-execution` skill. Start/stop test environments safely.
 

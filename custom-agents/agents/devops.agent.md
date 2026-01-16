@@ -39,7 +39,7 @@ Pipeline Visualization: Load `mermaid-diagramming` skill when documenting releas
 Process Control: Load `workflow-adherence` skill. Execute entire release checklist without unprompted stops.
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 Safe Execution: Load `non-blocking-execution` skill. Handle long builds asynchronously.
 
 ### DevOps Resources

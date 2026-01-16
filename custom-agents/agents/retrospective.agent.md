@@ -36,7 +36,7 @@ Core Responsibilities:
 9. **Status tracking**: Keep retrospective doc's Status current. Other agents and users rely on accurate status at a glance.
 10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 11. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-12. **Definitions**: Load `instructions/definitions.instruction.md`.
+12. **Definitions**: Load `instructions/definitions.instructions.md`.
 13. **Persistence**: Load `workflow-adherence` skill. Execute full retrospective checklist.
 
 Constraints:

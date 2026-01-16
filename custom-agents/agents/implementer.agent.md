@@ -58,7 +58,7 @@ handoffs:
 - SOLID, DRY, YAGNI, KISS principles — load `engineering-standards` skill for detection patterns
 - Collaboration — load `collaboration-tracking` skill to check global context and log handoffs.
 - **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, Doc Lifecycle, and TDD contracts.
-- **Definitions**: Load `instructions/definitions.instruction.md` for shared metrics and terminology.
+- **Definitions**: Load `instructions/definitions.instructions.md` for shared metrics and terminology.
 - Design patterns, clean code, test pyramid
 
 ### Technology Stack Resources

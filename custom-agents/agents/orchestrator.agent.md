@@ -2,7 +2,7 @@
 description: Master Project Manager and Orchestrator. The central executive that drives the entire software development lifecycle (SDLC) by coordinating specialist agents.
 name: Orchestrator
 target: vscode
-tools: ['vscode', 'execute/*', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
 model: devstral-3090
 handoffs:
   - label: Strategic Planning
@@ -179,7 +179,7 @@ You are the Librarian.
 
 ### 3. Collaboration Tracking
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, Doc Lifecycle, and Logging standards.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 
 ### 4. Memory & Context
 *   **Retrieval**: Before Inception, search: "Has this failed before?"

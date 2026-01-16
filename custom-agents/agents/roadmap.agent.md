@@ -67,7 +67,7 @@ Core Responsibilities:
 19. **Coordinate release timing**: When all plans for a release are committed locally, notify DevOps and user that release is ready for approval.
 20. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 21. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-22. **Definitions**: Load `instructions/definitions.instruction.md`.
+22. **Definitions**: Load `instructions/definitions.instructions.md`.
 23. **Persistence**: Load `workflow-adherence` skill. Complete full roadmap update cycles.
 
 Constraints:

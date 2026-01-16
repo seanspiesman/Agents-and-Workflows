@@ -68,7 +68,7 @@ Constraints:
 **TDD is MANDATORY for new feature code.** Load `testing-patterns/references/testing-anti-patterns` skill when reviewing tests.
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, Doc Lifecycle, and TDD contracts.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 **Visual Test Planning**: Load `mermaid-diagramming` skill if visualizing test strategies.
 **Completeness**: Load `workflow-adherence` skill. Do not stop testing until all strategy items are executed.
 **Web Testing**: Load `skills/webapp-testing` and `instructions/playwright-typescript.instructions.md` for web test strategies.

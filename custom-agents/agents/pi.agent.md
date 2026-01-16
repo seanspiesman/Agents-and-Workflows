@@ -18,7 +18,7 @@ Review retrospectives to identify repeatable process improvements, validate agai
 
 **Engineering Standards**: Process changes MUST support testability, maintainability, scalability. Align with SOLID, DRY, YAGNI, KISS.
 **Common Contracts**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 **Persistence**: Load `workflow-adherence` skill. Complete full retrospective analysis cycles without interruption.
 
 ## Core Responsibilities

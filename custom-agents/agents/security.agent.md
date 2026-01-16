@@ -252,7 +252,7 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 9. **Status tracking**: Keep security doc's Status and Verdict fields current. Other agents and users rely on accurate status at a glance.
 10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 11. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-12. **Definitions**: Load `instructions/definitions.instruction.md`.
+12. **Definitions**: Load `instructions/definitions.instructions.md`.
 13. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
 
 ### Security Resources

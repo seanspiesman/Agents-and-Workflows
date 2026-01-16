@@ -40,7 +40,7 @@ Design Authority:
 Engineering Fundamentals: Load `engineering-standards` skill for SOLID, DRY, YAGNI, KISS detection patterns and refactoring guidance.
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
-**Definitions**: Load `instructions/definitions.instruction.md`.
+**Definitions**: Load `instructions/definitions.instructions.md`.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs.
 Security Review: Load `instructions/security-and-owasp.instructions.md` for security audits.
 Team Patterns: Load `collections/software-engineering-team.md` for engineering standards context.
