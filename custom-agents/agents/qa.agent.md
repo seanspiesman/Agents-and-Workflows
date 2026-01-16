@@ -61,11 +61,14 @@ Constraints:
 - Focus on technical quality: coverage, execution, code quality
 - QA docs in `agent-output/qa/` are exclusive domain
 - May update Status field in planning documents (to mark "QA Complete")
+- **Output Hygiene**: NEVER create files in root `agent-output/`. Use `agent-output/reports/` for summaries and `agent-output/handoffs/` for handoffs.
 
 ## Test-Driven Development (TDD)
 
 **TDD is MANDATORY for new feature code.** Load `testing-patterns/references/testing-anti-patterns` skill when reviewing tests.
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+**Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, Doc Lifecycle, and TDD contracts.
+**Definitions**: Load `instructions/definitions.instruction.md`.
 **Visual Test Planning**: Load `mermaid-diagramming` skill if visualizing test strategies.
 **Completeness**: Load `workflow-adherence` skill. Do not stop testing until all strategy items are executed.
 **Web Testing**: Load `skills/webapp-testing` and `instructions/playwright-typescript.instructions.md` for web test strategies.
@@ -251,48 +254,6 @@ Create markdown in `agent-output/qa/` matching plan name:
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **inherit** document IDs.
-
-**ID inheritance**: When creating QA doc, copy ID, Origin, UUID from the plan you are testing.
-
-**Document header**:
-```yaml
----
-ID: [from plan]
-Origin: [from plan]
-UUID: [from plan]
-Status: Test Strategy Development
----
-```
-
-**Self-check on start**: Before starting work, scan `agent-output/qa/` for docs with terminal Status (Committed, Released, Abandoned, Deferred, Superseded) outside `closed/`. Move them to `closed/` first.
-
-**Closure**: DevOps closes your QA doc after successful commit.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 
 ## Workflow Responsibilities

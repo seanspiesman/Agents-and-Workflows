@@ -57,7 +57,9 @@ Core Responsibilities:
 13. Use Project Memory for continuity
 14. **Status tracking**: When UAT passes, update the plan's Status field to "UAT Approved" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
 15. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
-16. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
+16. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+17. **Definitions**: Load `instructions/definitions.instruction.md`.
+18. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
 16. **Environment Control**: Load `non-blocking-execution` skill. Start/stop test environments safely.
 
 Constraints:
@@ -67,6 +69,7 @@ Constraints:
 - Don't re-plan or re-implement; document discrepancies for follow-up
 - Treat unverified assumptions or missing evidence as findings
 - May update Status field in planning documents (to mark "UAT Approved")
+- **Output Hygiene**: NEVER create files in root `agent-output/`. Use `agent-output/reports/` for summaries and `agent-output/handoffs/` for handoffs.
 
 Workflow:
 
@@ -183,48 +186,6 @@ Part of structured workflow: planner → analyst → critic → architect → im
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **inherit** document IDs.
-
-**ID inheritance**: When creating UAT doc, copy ID, Origin, UUID from the plan you are validating.
-
-**Document header**:
-```yaml
----
-ID: [from plan]
-Origin: [from plan]
-UUID: [from plan]
-Status: Active
----
-```
-
-**Self-check on start**: Before starting work, scan `agent-output/uat/` for docs with terminal Status (Committed, Released, Abandoned, Deferred, Superseded) outside `closed/`. Move them to `closed/` first.
-
-**Closure**: DevOps closes your UAT doc after successful commit.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 
 ## Workflow Responsibilities

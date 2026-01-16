@@ -56,7 +56,9 @@ handoffs:
 ### Engineering Fundamentals
 
 - SOLID, DRY, YAGNI, KISS principles — load `engineering-standards` skill for detection patterns
-- Collaboration — load `collaboration-tracking` skill to check global context and log handoffs
+- Collaboration — load `collaboration-tracking` skill to check global context and log handoffs.
+- **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, Doc Lifecycle, and TDD contracts.
+- **Definitions**: Load `instructions/definitions.instruction.md` for shared metrics and terminology.
 - Design patterns, clean code, test pyramid
 
 ### Technology Stack Resources
@@ -91,25 +93,10 @@ handoffs:
 - "Implementation complete" with no tests
 
 #### TDD Gate Procedure (EXECUTE FOR EVERY NEW FUNCTION/CLASS)
-
+ 
 ⛔ **You MUST execute this procedure for EACH new function or class. No exceptions.**
-
-```
-1. STOP   — Do NOT write implementation code yet
-2. WRITE  — Create test file with failing test that:
-            - Imports the function/class you're about to create (even if it doesn't exist)
-            - Calls the expected API with test inputs
-            - Asserts expected behavior/output
-3. RUN    — Execute the test and verify it fails with the RIGHT reason:
-            ✅ "ModuleNotFoundError" or "undefined" = Correct (code doesn't exist yet)
-            ✅ "AssertionError" = Correct (code exists but wrong behavior)
-            ❌ Test passes = STOP - your test doesn't test anything real
-4. REPORT — State to the user:
-            "TDD Gate: Test `test_X` fails as expected: [error message]. Proceeding to implementation."
-5. IMPLEMENT — Write ONLY the minimal code to make the test pass
-6. VERIFY — Run test again, confirm it passes
-7. REPEAT — For the next function/class, return to step 1
-```
+ 
+Refer to `instructions/global.instructions.md` for the mandatory TDD Gate Procedure.
 
 **If you cannot produce failure evidence from step 3, you are violating TDD.**
 
@@ -288,48 +275,6 @@ See `TERMINOLOGY.md` for details.
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **inherit** document IDs.
-
-**ID inheritance**: When creating implementation doc, copy ID, Origin, UUID from the plan you are implementing.
-
-**Document header**:
-```yaml
----
-ID: [from plan]
-Origin: [from plan]
-UUID: [from plan]
-Status: Active
----
-```
-
-**Self-check on start**: Before starting work, scan `agent-output/implementation/` for docs with terminal Status (Committed, Released, Abandoned, Deferred, Superseded) outside `closed/`. Move them to `closed/` first.
-
-**Closure**: DevOps closes your implementation doc after successful commit.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 
 ## Workflow Responsibilities

@@ -251,7 +251,9 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 8. **Acknowledge good security practices** - not just vulnerabilities
 9. **Status tracking**: Keep security doc's Status and Verdict fields current. Other agents and users rely on accurate status at a glance.
 10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
-11. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
+11. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+12. **Definitions**: Load `instructions/definitions.instruction.md`.
+13. **Persistence**: Load `workflow-adherence` skill. Complete full 5-phase audits or targeted reviews without pausing.
 
 ### Security Resources
 - **Compliance Standards**: Ensure `instructions/security-and-owasp.instructions.md` and `collections/security-best-practices.collection.yml` are loaded for all audits.
@@ -265,6 +267,7 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 - **Edit tool for `agent-output/security/` only**: findings, audits, policies
 - **Balance security with usability/performance** (risk-based approach)
 - **Be objective**: Document both vulnerabilities AND positive security practices
+- **Output Hygiene**: NEVER create files in root `agent-output/`. Use `agent-output/reports/` for summaries and `agent-output/handoffs/` for handoffs.
 
 ---
 
@@ -313,34 +316,6 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill.
-
-**Self-check on start**: Before starting work, scan `agent-output/security/` for docs with terminal Status (Committed, Released, Abandoned, Deferred) outside `closed/`. Move them to `closed/` first.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 # Tool Usage Guidelines
 

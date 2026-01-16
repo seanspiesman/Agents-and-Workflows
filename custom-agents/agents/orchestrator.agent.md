@@ -117,6 +117,7 @@ Before initiating ANY workflow, you MUST ensure the collaboration environment is
     mkdir -p agent-output/logs
     mkdir -p agent-output/management
     mkdir -p agent-output/handoffs
+    mkdir -p agent-output/reports
     touch agent-output/logs/cli_history.log
     touch agent-output/logs/$(cat agent-output/.next-id 2>/dev/null || echo "1" | tr -d '[:space:]')-tool_usage.log
     ```
@@ -165,7 +166,7 @@ You drive every request through this strict 6-step pipeline. You CANNOT skip ste
 *   **Agent**: `DevOps` (Merge, Version Bump, Release Notes).
 *   **Agent**: `Retrospective` (Update Memory, reflect on process).
 *   **Action**: Archive artifacts to `agent-output/closed/` and generate **Project Completion Report**.
-*   **Cleanup**: Ensure no root-level report files (e.g., `PROJECT-FINAL-REPORT`, `PROJECT-COMPLETE`) remain. Move/Consolidate them into `agent-output/completion/[ID]-completion-report.md`.
+*   **Cleanup**: Ensure no root-level report files (e.g., `PROJECT-FINAL-REPORT`, `PROJECT-COMPLETE`) remain. Move/Consolidate them into `agent-output/reports/[ID]-completion-report.md`.
 *   **TEMPLATE MANDATE**: You MUST use `skills/release-procedures/references/project-completion-template.md` for the completion report. Do NOT create any other summary files (e.g. `FINAL-SUMMARY`, `README-PROJECT-COMPLETE`). **ONE FILE ONLY**.
 *   **TERMINATION**: Once the completion report is generated, your work is DONE. **STOP IMMEDIATELY**. Do not "verify" again. Do not create a "final confirmation". Do not summarize the summary. Go to `notify_user` and finish.
 
@@ -174,14 +175,11 @@ You are the Librarian.
 *   **Unified ID System**: You ensure the "Ticket ID" (from `agent-output/.next-id`) is propagated.
     *   Request -> Plan (ID: 12) -> Impl (ID: 12) -> QA (ID: 12).
 *   **Task List**: You own `agent-output/management/task.md`. It must be updated *continuously*.
-*   **File Cleanliness**: You ensure agents don't leave mess in the root directory.
+*   **Strict Output Hygiene**: Enforce that ALL agents write to their dedicated subdirectories `agent-output/<role>/`. The root `agent-output/` is RESERVED for `management/`, `logs/`, `handoffs/`, and `reports/`. If an agent writes to root, **REJECT** the work.
 
 ### 3. Collaboration Tracking
-You MUST load the `collaboration-tracking` skill.
-*   **Global Context**: Check `agent-output/cli.md`.
-*   **Handoffs**: Log to `agent-output/logs/[ID]-handoffs.md`.
-*   **CLI History**: Log commands to `agent-output/logs/cli_history.log`.
-*   **Tool Usage**: Log side-effect tools to `agent-output/logs/[ID]-tool_usage.log`.
+**Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, Doc Lifecycle, and Logging standards.
+**Definitions**: Load `instructions/definitions.instruction.md`.
 
 ### 4. Memory & Context
 *   **Retrieval**: Before Inception, search: "Has this failed before?"

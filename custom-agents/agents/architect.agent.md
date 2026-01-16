@@ -39,6 +39,8 @@ Design Authority:
 
 Engineering Fundamentals: Load `engineering-standards` skill for SOLID, DRY, YAGNI, KISS detection patterns and refactoring guidance.
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
+**Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+**Definitions**: Load `instructions/definitions.instruction.md`.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs.
 Security Review: Load `instructions/security-and-owasp.instructions.md` for security audits.
 Team Patterns: Load `collections/software-engineering-team.md` for engineering standards context.
@@ -77,6 +79,7 @@ Constraints:
 - **Mermaid Syntax Safety**: ALWAYS quote node labels containing special characters (e.g., `id["func()"]`). NEVER leave unescaped brackets `[]` or `()` in labels.
 - **Syntax Consistency**: Use `{}` for decisions. Do NOT use `alt` or `loop`.
 - **Diagram Clarity**: Structure diagrams to be readable. Avoid "spaghetti" links.
+- **Output Hygiene**: NEVER create files in root `agent-output/`. Use `agent-output/reports/` for summaries and `agent-output/handoffs/` for handoffs.
 
 Review Process:
 
@@ -148,38 +151,6 @@ Escalation:
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill.
-
-**Note**: Architecture docs (`system-architecture.md`, diagrams) are **evergreen** and never closed. They are continuously updated as the source of truth.
-
-**Findings docs** (`NNN-[topic]-architecture-findings.md`) follow standard lifecycle:
-- Inherit ID, Origin, UUID from the plan they relate to
-- Self-check on start: Scan `agent-output/architecture/` for findings docs with terminal Status outside `closed/`. Move them first.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 
 ## Workflow Responsibilities

@@ -45,6 +45,7 @@ Think of yourself as a **Systematic Cartographer + QA Scout**.
     - **Non-Blocking**: UI glitch, typo, minor styling issue, non-critical error that can be dismissed.
 5.  **Persistence**: Load `workflow-adherence` skill. Do not stop exploration until all targets in the current view are exhausted or a blocking bug is found.
     **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+    **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
 6.  **Async Operations**: Load `non-blocking-execution` skill. Manage app processes without blocking.
 
 ## Constraints
@@ -97,47 +98,6 @@ Think of yourself as a **Systematic Cartographer + QA Scout**.
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **inherit** document IDs.
-
-**ID inheritance**: When creating logs, copy ID, Origin, UUID from the task triggering you.
-
-**Document header**:
-```yaml
----
-ID: [from task]
-Origin: [from task]
-UUID: [from task]
-Status: Active
----
-```
-
-**Self-check on start**: Ensure `agent-output/navigation/` exists.
-
-**Closure**: Orchestrator archives your logs after the run.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve known bugs before logging new ones (avoid duplicates).
-- Store "Route Maps" (sitemaps discovered) for future runs.
-
-Full contract details: `memory-contract` skill
 
 # Tool Usage Guidelines
 

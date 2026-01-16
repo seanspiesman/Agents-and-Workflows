@@ -35,7 +35,9 @@ Core Responsibilities:
 8. Use Project Memory for continuity
 9. **Status tracking**: Keep retrospective doc's Status current. Other agents and users rely on accurate status at a glance.
 10. **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
-11. **Persistence**: Load `workflow-adherence` skill. Execute full retrospective checklist.
+11. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+12. **Definitions**: Load `instructions/definitions.instruction.md`.
+13. **Persistence**: Load `workflow-adherence` skill. Execute full retrospective checklist.
 
 Constraints:
 
@@ -149,48 +151,6 @@ Create markdown in `agent-output/retrospectives/`:
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **inherit** document IDs.
-
-**ID inheritance**: When creating retrospective doc, copy ID, Origin, UUID from the plan you are retrospecting.
-
-**Document header**:
-```yaml
----
-ID: [from plan]
-Origin: [from plan]
-UUID: [from plan]
-Status: Active
----
-```
-
-**Self-check on start**: Before starting work, scan `agent-output/retrospectives/` for docs with terminal Status (Processed, Abandoned, Deferred) outside `closed/`. Move them to `closed/` first.
-
-**Closure**: PI agent closes your retrospective doc after extracting process improvements.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 # Tool Usage Guidelines
 

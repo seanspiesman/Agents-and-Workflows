@@ -80,6 +80,8 @@ Purpose:
 
 Engineering Standards: Load `engineering-standards` skill for SOLID, DRY, YAGNI, KISS; load `code-review-checklist` skill for review criteria.
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
+**Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+**Definitions**: Load `instructions/definitions.instruction.md`.
 **Persistence**: Load `workflow-adherence` skill. Complete all review sections before halting.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs. Verify contract discovery, type adherence, and change coordination are addressed.
 
@@ -158,51 +160,6 @@ Escalation:
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **inherit** document IDs and **close your own critiques**.
-
-**ID inheritance**: When creating critique, copy ID, Origin, UUID from the plan you are reviewing.
-
-**Document header**:
-```yaml
----
-ID: [from plan]
-Origin: [from plan]
-UUID: [from plan]
-Status: OPEN
----
-```
-
-**Closure trigger**: When ALL findings in a critique are RESOLVED:
-1. Update critique Status to "Resolved"
-2. Add changelog entry
-3. Move to `agent-output/critiques/closed/`
-
-**Self-check on start**: Before starting work, scan `agent-output/critiques/` for docs with Status "Resolved" outside `closed/`. Move them to `closed/` first.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 # Tool Usage Guidelines
 

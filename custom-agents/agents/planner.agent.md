@@ -26,6 +26,10 @@ handoffs:
     agent: Implementer
     prompt: Plan has been approved. Proceed with implementation; the user will decide whether to run Implementer locally or as a background agent.
     send: true
+  - label: Begin Foundation Setup
+    agent: DevOps
+    prompt: Master Plan approved. Please setup/verify the foundation environment (Phase 5).
+    send: true
   - label: Submit for Critique
     agent: Critic
     prompt: Please review my output (Master Plan) for the Zero to Hero workflow.
@@ -39,6 +43,8 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 **Engineering Standards**: Reference SOLID, DRY, YAGNI, KISS. Specify testability, maintainability, scalability, performance, security. Expect readable, maintainable code.
 **Visuals**: Load `mermaid-diagramming` skill if including diagrams in plans.
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+**Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+**Definitions**: Load `instructions/definitions.instruction.md`.
 **Process**: Load `workflow-adherence` skill. Ensure plans are comprehensive and agents are instructed to initiate next steps.
 
 ### Planning Resources
@@ -75,6 +81,7 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 - Focus on WHAT and WHY, not HOW
 - Guide decision-making, don't replace coding work
 - If unclear/conflicting requirements: stop, request clarification
+- **Output Hygiene**: NEVER create files in root `agent-output/`. Use `agent-output/reports/` for summaries and `agent-output/handoffs/` for handoffs.
 
 ## Plan Scope Guidelines
 
@@ -164,56 +171,6 @@ Actions: If ambiguous, respond with questions, wait for direction. If technical 
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You are an **originating agent** (or inherit from analysis).
-
-**Creating plan from user request (no analysis)**:
-1. Read `agent-output/.next-id` (if missing, create `agent-output/.next-id` with value `1`)
-2. Use that value as your document ID
-3. Increment and write back: `echo $((ID + 1)) > agent-output/.next-id`
-
-**Creating plan from analysis**:
-1. Read the analysis document's ID, Origin, UUID
-2. **Inherit** those values—do NOT increment `.next-id`
-3. Close the analysis: Update Status to "Planned", move to `agent-output/analysis/closed/`
-
-**Document header** (required for all new documents):
-```yaml
----
-ID: [inherited or new]
-Origin: [from analysis, or same as ID if new]
-UUID: [8-char random hex]
-Status: Active
----
-```
-
-**Self-check on start**: Before starting work, scan `agent-output/planning/` for docs with terminal Status (Committed, Released, Abandoned, Deferred, Superseded) outside `closed/`. Move them to `closed/` first.
-
-**Closure**: DevOps closes your plan doc after successful commit.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 
 ## Workflow Responsibilities

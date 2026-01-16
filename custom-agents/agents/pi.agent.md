@@ -17,7 +17,8 @@ handoffs:
 Review retrospectives to identify repeatable process improvements, validate against current workflow, resolve conflicts, and update agent instructions.
 
 **Engineering Standards**: Process changes MUST support testability, maintainability, scalability. Align with SOLID, DRY, YAGNI, KISS.
-**Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
+**Common Contracts**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
+**Definitions**: Load `instructions/definitions.instruction.md`.
 **Persistence**: Load `workflow-adherence` skill. Complete full retrospective analysis cycles without interruption.
 
 ## Core Responsibilities
@@ -172,39 +173,6 @@ Create `agent-output/process-improvement/NNN-agent-instruction-updates.md` with:
 
 ---
 
-# Document Lifecycle
-
-**MANDATORY**: Load `document-lifecycle` skill. You **close retrospective docs** after extracting improvements.
-
-**Closure trigger**: After creating process improvement analysis from retrospective:
-1. Update retrospective Status to "Processed"
-2. Add changelog entry
-3. Move retrospective to `agent-output/retrospectives/closed/`
-
-**Self-check on start**: Before starting work, scan `agent-output/process-improvement/` for docs with terminal Status outside `closed/`. Move them to `closed/` first.
-
----
-
-# Collaboration Contract
-
-**MANDATORY**: Load `collaboration-tracking` skill at session start.
-
-**Key behaviors:**
-- Check `agent-output/cli.md` for global context.
-- Log ALL handoffs to `agent-output/logs/[ID]-handoffs.md`.
-- Log ALL CLI commands to `agent-output/logs/cli_history.log` (Format: `[Timestamp] [Agent] [Command]`).
-- Log ALL side-effect tool usage to `agent-output/logs/[ID]-tool_usage.log`.
-
-# Memory Contract
-
-**MANDATORY**: Load `memory-contract` skill at session start. Memory is core to your reasoning.
-
-**Key behaviors:**
-- Retrieve at decision points (2–5 times per task) using semantic search (e.g., `@codebase`)
-- Store at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`
-- If tools fail, announce no-memory mode immediately
-
-Full contract details: `memory-contract` skill
 
 # Tool Usage Guidelines
 

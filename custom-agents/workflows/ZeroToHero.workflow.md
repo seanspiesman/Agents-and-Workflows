@@ -17,12 +17,13 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 ## Workflow Steps
 
 ### Phase 1: Inception & Strategy (Roadmap, Navigator, Critic)
-- **Primary Agents**: Navigator (Research), Roadmap (Strategy)
+- **Primary Agents**: Navigator (App Research), Researcher (Content Research), Roadmap (Strategy)
 - **Reviewer**: Critic
 - **Goal**: Define *what* to build and *why* it matters, refined to perfection.
 - **Actions**:
     1.  **Context Analysis (Roadmap)**: Analyze any user-provided attachments (Readmes, existing code) as *input* for the vision.
-    2.  **Market Research (Navigator)**: Explore current trends and "best-in-class" examples.
+    2.  **Subject Matter Research (Researcher)**: Deep dive into the domain content, facts, and available data sources.
+    3.  **Market Research (Navigator)**: Explore current trends and "best-in-class" examples.
     2.  **Vision Definition (Roadmap)**: Synthesize research into a Product Vision.
     3.  **Feature Mapping (Roadmap)**: Define Epics and Value Statements.
     4.  **Critique Loop (Critic)**:
@@ -83,7 +84,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Reviewer**: Critic
 - **Goal**: Create a robust, linted, verified local environment.
 - **Actions**:
-    1.  **Setup**: Git, Linting, Formatting, Framework Init.
+    1.  **Setup**: Initialize using standard CLI tools (e.g., `git init`, `npm create`, `dotnet new`). Manual file creation for boilerplate is FORBIDDEN.
     2.  **Critique Loop (Critic)**:
         - Review the file structure and config files.
         - Check: Are `.gitignore` and `eslint` strict enough?
@@ -97,7 +98,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 #### 6a. Component Implementation (Implementer)
 - **Agent**: Implementer
-- **Action**: Write modern, beautiful, clean code.
+- **Action**: Write modern, beautiful, clean code. Use CLI tools for file generation and dependency management where available.
 
 #### 6b. Code Critique (Critic)
 - **Agent**: Critic
@@ -159,6 +160,7 @@ flowchart TD
     Start([User Request]) --> Phase1
     subgraph Phase1 [Strategy]
         Nav[Navigator] --> Road[Roadmap]
+        Res[Researcher] --> Road
         Road --> Crit1{Critic Review}
         Crit1 -->|Reject| Road
     end
@@ -222,5 +224,5 @@ flowchart TD
 
 ## Workflow Governance
 - **Logging**: All agents MUST log tool usage and CLI commands to `agent-output/logs/`.
-- **Output Structure**: Agents must ONLY write to their designated `agent-output/[role]/` directory. Root `agent-output/` must remain clean except for `management/` and `logs/`.
+- **Output Structure**: Agents must ONLY write to their designated `agent-output/[role]/` directory. Root `agent-output/` must remain clean except for `management/`, `logs/`, `handoffs/`, and `reports/`.
 - **Handoffs**: All handoff documents must be saved to `agent-output/handoffs/`.
