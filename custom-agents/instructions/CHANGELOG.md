@@ -4,6 +4,12 @@ All notable changes to global and specific instructions in this directory.
 
 ---
 
+## [Fri Jan 16 16:42:00 PST 2026] — Enforce Agent Identity in Logs
+
+### global.instructions.md
+- **Changed**: Updated logging commands (`handoff`, `cli`, `tool_usage`) to use `[YourAgentName]` placeholder.
+- **Changed**: Added explicit instructions to substitute placeholders with actual agent names.
+
 ## [Fri Jan 16 16:35:00 PST 2026] — Enforce Handoff Logging
 
 ### global.instructions.md, skills/collaboration-tracking/SKILL.md

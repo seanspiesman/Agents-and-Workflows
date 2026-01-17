@@ -18,7 +18,8 @@ This skill ensures that all agents share a common CLI context and log their hand
 - **Action**: Run this command *immediately before* your handoff action/tool call:
   ```bash
   # Append to the handoff log
-  mkdir -p agent-output/logs && echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] Architect -> Critic" >> agent-output/logs/handoff_history.log
+  # IMPORTANT: Replace [YourAgentName] and [TargetAgentName] with actual names (e.g., Architect -> Critic)
+  mkdir -p agent-output/logs && echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgentName] -> [TargetAgentName]" >> agent-output/logs/handoff_history.log
   ```
 
 ## Tool Usage Logging
@@ -28,7 +29,8 @@ This skill ensures that all agents share a common CLI context and log their hand
 - **Method**: Use `run_command` to append via shell.
 - **Command**:
   ```bash
-  echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [Agent] [Tool]" >> agent-output/logs/tool_usage_history.log
+  # IMPORTANT: Replace [YourAgentName] with your actual name (e.g., Implementer)
+  echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgentName] [Tool]" >> agent-output/logs/tool_usage_history.log
   ```
 - **Example**:
   ```bash

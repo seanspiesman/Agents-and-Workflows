@@ -4,6 +4,12 @@ All notable changes to skills in this directory.
 
 ---
 
+## [Fri Jan 16 16:42:00 PST 2026] — Enforce Agent Identity in Logs
+
+### collaboration-tracking/SKILL.md
+- **Changed**: Updated logging commands (`handoff`, `tool_usage`) to use `[YourAgentName]` placeholder.
+- **Changed**: Added explicit instructions to substitute placeholders with actual agent names (e.g., `Architect`, `Implementer`).
+
 ## [Thu Jan 16 15:05:00 PST 2026] — Logging Standards Refinement
 
 ### collaboration-tracking/SKILL.md

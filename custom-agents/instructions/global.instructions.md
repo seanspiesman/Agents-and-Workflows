@@ -46,27 +46,25 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
 *   **Format**: `[Timestamp] SourceAgent -> TargetAgent`
 *   **Command**:
     ```bash
-    mkdir -p agent-output/logs && echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [Source] -> [Target]" >> agent-output/logs/handoff_history.log
+    mkdir -p agent-output/logs && echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgentName] -> [TargetAgentName]" >> agent-output/logs/handoff_history.log
     ```
 
-### C. Log CLI History
 ### C. Log CLI History
 *   **File**: `agent-output/logs/cli_history.log`
 *   **Requirement**: Log ALL `run_command` executions.
 *   **Format**: `[Timestamp] [Agent] [Tool] [Command]`
 *   **Command**:
     ```bash
-    echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [Agent] [run_command] [Command]" >> agent-output/logs/cli_history.log
+    echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgentName] [run_command] [Command]" >> agent-output/logs/cli_history.log
     ```
 
-### D. Log Side-Effect Tool Usage
 ### D. Log Side-Effect Tool Usage
 *   **File**: `agent-output/logs/tool_usage_history.log`
 *   **Scope**: Log `write_to_file`, `replace_file_content`, `run_command` (side-effects only). Do not log read-only tools.
 *   **Format**: `[Timestamp] [Agent] [Tool]`
 *   **Command**:
     ```bash
-    echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgent] [Tool]" >> agent-output/logs/tool_usage_history.log
+    echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] [YourAgentName] [Tool]" >> agent-output/logs/tool_usage_history.log
     ```
 
 ---
