@@ -3,7 +3,7 @@ description: Master Project Manager and Orchestrator. The central executive that
 name: Orchestrator
 target: vscode
 tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Strategic Planning
     agent: Roadmap

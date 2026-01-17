@@ -1,6 +1,6 @@
 ---
 description: '.NET MAUI component and application patterns'
-applyTo: '**/*.xaml, **/*.cs, **/*.md'
+applyTo: '**/*.xaml, **/*.cs, agent-output/**/*.md'
 ---
 
 # .NET MAUI

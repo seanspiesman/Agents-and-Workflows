@@ -1,3 +1,7 @@
+---
+applyTo: '*'
+---
+
 # Global Agent Instructions
 
 > [!IMPORTANT]
@@ -35,7 +39,9 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
 *   **Action**: ALWAYS check this file at the start of your task for shared context.
 
 ### B. Log ALL Handoffs
-### B. Log ALL Handoffs
+### B. Blocking Pre-Handoff Rule (MANDATORY)
+*   **Trigger**: ANY time you are about to switch agents (via tool call or text).
+*   **Constraint**: You are **FORBIDDEN** from calling the next agent until you have executed the log command.
 *   **File**: `agent-output/logs/handoff_history.log`
 *   **Format**: `[Timestamp] SourceAgent -> TargetAgent`
 *   **Command**:

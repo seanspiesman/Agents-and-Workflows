@@ -4,7 +4,7 @@ name: Analyst
 target: vscode
 argument-hint: Describe the technical question, API, or system behavior to investigate
 tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Request Plan Creation
     agent: Planner

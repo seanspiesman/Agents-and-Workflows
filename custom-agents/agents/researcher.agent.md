@@ -3,7 +3,7 @@ description: Subject Matter Expert that researches domain content, market data, 
 name: Researcher
 target: vscode
 tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Report Research Findings
     agent: Roadmap

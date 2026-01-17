@@ -1,6 +1,6 @@
 ---
 description: 'ReactJS development standards and best practices'
-applyTo: '**/*.jsx, **/*.tsx, **/*.js, **/*.ts, **/*.css, **/*.scss, **/*.md'
+applyTo: '**/*.jsx, **/*.tsx, **/*.js, **/*.ts, **/*.css, **/*.scss, agent-output/**/*.md'
 ---
 
 # ReactJS Development Instructions

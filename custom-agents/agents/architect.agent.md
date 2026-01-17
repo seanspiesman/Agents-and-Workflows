@@ -4,7 +4,7 @@ name: Architect
 target: vscode
 argument-hint: Describe the feature, component, or system area requiring architectural review
 tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap

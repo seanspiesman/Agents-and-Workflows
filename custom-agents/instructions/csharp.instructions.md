@@ -1,6 +1,6 @@
 ---
 description: 'Guidelines for building C# applications'
-applyTo: '**/*.cs, **/*.md'
+applyTo: '**/*.cs, agent-output/**/*.md'
 ---
 
 # C# Development
