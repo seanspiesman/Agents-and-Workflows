@@ -4,6 +4,13 @@ All notable changes to agent definitions in this directory.
 
 ---
 
+## [Fri Jan 16 16:35:00 PST 2026] — Agent Model Optimization
+
+### Multiple agents
+- **Changed**: Updated model selection to align context window with agent role responsibilities.
+    - **High Context (devstral-M4MAX)**: Analyst, Architect, Critic, Orchestrator, PI, Planner, Researcher, Retrospective, Roadmap, Security.
+    - **Fast Execution (devstral-3090)**: DevOps, Implementer, Navigator, QA, UAT (Unchanged).
+
 ## [Thu Jan 16 14:51:00 PST 2026] — Agent Improvements Implementation
 
 ### orchestrator.agent.md

@@ -4,7 +4,7 @@ name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
 tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Update Architecture
     agent: Architect

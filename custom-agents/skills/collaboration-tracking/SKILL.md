@@ -12,16 +12,13 @@ This skill ensures that all agents share a common CLI context and log their hand
 - **Usage**: Always check this file for shared command-line instructions or context that persists across agent sessions.
 - **Action**: If you have relevant CLI output or instructions that other agents might need, append them to this file.
 
-## Handoff Logging
+## Handoff Logging (BLOCKING)
+- **Constraint**: You CANNOT handoff to another agent until you have successfully executed this log command.
 - **File**: `agent-output/logs/handoff_history.log`
-- **Usage**: You MUST log every handoff you perform to another agent.
-- **Format**: Append a new line in the format: `[Timestamp] [SourceAgent] -> [TargetAgent]`
-- **Action**: Use `run_command` to append specifically to the log:
+- **Action**: Run this command *immediately before* your handoff action/tool call:
   ```bash
-  # Ensure the logs directory exists
-  mkdir -p agent-output/logs
   # Append to the handoff log
-  echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] Architect -> Critic" >> agent-output/logs/handoff_history.log
+  mkdir -p agent-output/logs && echo "[$(date '+%a %b %d %H:%M:%S %Z %Y')] Architect -> Critic" >> agent-output/logs/handoff_history.log
   ```
 
 ## Tool Usage Logging

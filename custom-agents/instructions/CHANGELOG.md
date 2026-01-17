@@ -4,6 +4,30 @@ All notable changes to global and specific instructions in this directory.
 
 ---
 
+## [Fri Jan 16 16:35:00 PST 2026] — Enforce Handoff Logging
+
+### global.instructions.md, skills/collaboration-tracking/SKILL.md
+- **Changed**: Updated instructions to make `handoff_history.log` logging a **BLOCKING** pre-condition. Agents are explicitly forbidden from handing off until they have executed the log command.
+
+## [Fri Jan 16 16:11:00 PST 2026] — Refined Instruction Loading Scope
+
+### Multiple instruction files
+- **Changed**: Refined `applyTo` patterns to reduce context bloat.
+    - **Tests**: Restrict Playwright instructions to `*.spec.ts` and `*Test.cs`.
+    - **Code**: Restrict "Code Commenting" and "Code Review" to specific code extensions.
+    - **Architecture/Performance**: Limit global loading to code files AND `agent-output/**/*.md`.
+    - **Stack-Specific**: Narrowed `**/*.md` to `agent-output/**/*.md` to focus on planning artifacts while ignoring generic documentation.
+
+## [Fri Jan 16 16:06:50 PST 2026] — Global Instructions Loading Fix
+
+### global.instructions.md
+- **Changed**: Added `applyTo: '*'` to frontmatter. This forces the global instructions to load in all contexts, ensuring that critical protocols (logging, handoffs) are always available.
+
+## [Fri Jan 16 16:00:21 PST 2026] — Enabled Instructions in Markdown Files
+
+### nextjs.instructions.md, reactjs.instructions.md, dotnet-maui.instructions.md, csharp.instructions.md, html-css-style-color-guide.instructions.md
+- **Changed**: Updated `applyTo` pattern to include `**/*.md`. This ensures technical stack instructions are available to agents during Planning/Architecture phases where they work primarily in Markdown.
+
 ## [Thu Jan 16 15:05:00 PST 2026] — Logging Standards Refinement
 
 ### global.instructions.md

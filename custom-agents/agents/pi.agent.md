@@ -4,7 +4,7 @@ name: ProcessImprovement
 target: vscode
 argument-hint: Reference the retrospective or process area to analyze
 tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Start New Plan
     agent: Planner
