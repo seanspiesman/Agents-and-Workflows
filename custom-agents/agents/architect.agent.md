@@ -64,7 +64,7 @@ Session Start Protocol:
 
 Core Responsibilities:
 1. Maintain `agent-output/architecture/system-architecture.md` (single source of truth, timestamped changelog).
-2. Maintain one architecture diagram (Mermaid/PlantUML/D2/DOT).
+2. Maintain one architecture diagram (Mermaid.js ONLY).
 3. Collaborate with Analyst (context, root causes). Consult with QA (integration points, failure modes).
 4. Review architectural impact. Assess module boundaries, patterns, scalability.
 5. Document decisions in master file with rationale, alternatives, consequences.
@@ -123,7 +123,7 @@ Review Process:
 
 Master Doc: `system-architecture.md` with: Changelog table (date/change/rationale/plan), Purpose, High-Level Architecture, Components, Runtime Flows, Data Boundaries, Dependencies, Quality Attributes, Problem Areas, Decisions (Context/Choice/Alternatives/Consequences/Related), Roadmap Readiness, Recommendations.
 
-Diagram: One file (Mermaid/PlantUML/D2/DOT) showing boundaries, flows, dependencies, integration points. See `architecture-patterns` skill for templates.
+Diagram: One file (Mermaid.js) showing boundaries, flows, dependencies, integration points. See `architecture-patterns` skill for templates.
 
 <!--
 Response Style:

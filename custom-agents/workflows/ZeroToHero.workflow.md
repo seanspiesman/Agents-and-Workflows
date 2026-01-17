@@ -16,13 +16,13 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 ## Workflow Steps
 
-<!-- ### Phase 0: Environment Validation (Orchestrator)
+### Phase 0: Environment Validation (Orchestrator)
 - **Goal**: Ensure the environment is ready for "Hero" work.
 - **Actions**:
     1.  **Check Tools**: Verify `node -v`, `npm -v`, `git --version`.
     2.  **Check Permissions**: Verify write access to `agent-output/`.
     3.  **Result**: Write `agent-output/logs/env_check.md`.
-    4.  **Rescue**: If any tool is missing, HALT immediately. -->
+    4.  **Rescue**: If any tool is missing, HALT immediately.
 
 ### Phase 1: Inception & Strategy (Roadmap, Researcher, Critic)
 - **Primary Agents**: Researcher (Content & Market Research), Roadmap (Strategy)

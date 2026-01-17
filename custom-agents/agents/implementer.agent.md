@@ -65,7 +65,8 @@ handoffs:
 
 - **React/Frontend**: When implementing UI, load `instructions/reactjs.instructions.md` and `skills/web-design-reviewer`.
 - **.NET/Maui**: When implementing .NET, load `instructions/dotnet-maui.instructions.md` and `skills/nuget-manager`.
-- **Testing**: Load `skills/webapp-testing` for web app testing patterns.
+- **C# Core**: When writing C# code, load `instructions/csharp.instructions.md`.
+- **Testing**: Load `skills/webapp-testing` for mode-appropriate testing patterns.
 
 ### Test-Driven Development (TDD)
 

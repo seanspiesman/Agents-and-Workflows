@@ -62,7 +62,8 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 7. Begin every plan with "Value Statement and Business Objective": "As a [user/customer/agent], I want to [objective], so that [value]". Align with roadmap epic.
 8. Break work into discrete tasks with objectives, acceptance criteria, dependencies, owners.
 9. Document approved plans in `agent-output/planning/` before handoff.
-10. Call out validations (tests, static analysis, migrations), tooling impacts at high level.
+10. **Verification Step**: Before handing off to the Architect or any other agent, verify that the `agent-output/planning/` directory contains the generated `implementation_plan.md` (or specific plan file).
+11. Call out validations (tests, static analysis, migrations), tooling impacts at high level.
 11. Ensure value statement guides all decisions. Core value delivered by plan, not deferred.
 12. MUST NOT define QA processes/test cases/test requirements. QA agent's exclusive responsibility in `agent-output/qa/`.
 13. Include version management milestone. Update release artifacts to match roadmap target version.
