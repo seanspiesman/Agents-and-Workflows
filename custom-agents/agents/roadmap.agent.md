@@ -59,7 +59,8 @@ Core Responsibilities:
 12. Guide the user: challenge misaligned features; suggest better approaches
 13. Use Project Memory for continuity
 14. Review agent outputs to ensure roadmap reflects completed/deployed/planned work.
-    *   **Summaries**: Do NOT create new summary files. Append progress updates to `agent-output/reports/Phase-1-Summary.md`.
+    *   **Summaries**: Do NOT create new summary files. Append progress updates to `agent-output/reports/Phase1-Complete.md`.
+    *   **Hygiene**: NEVER create root-level directories (e.g., `phase-1/`, `roadmap/`). ALWAYS use `agent-output/roadmap/`.
 15. **Status tracking**: Keep epic Status fields current (Planned, In Progress, Delivered, Deferred). Other agents and users rely on accurate status at a glance.
 16. **Track current working release**: Maintain which release version is currently in-progress (e.g., "Working on v0.6.2"). Update when release is published or new release cycle begins.
 17. **Maintain release→plan mappings**: Track which plans are targeted for which release. Update as plans are created, modified, or re-targeted.
@@ -195,7 +196,11 @@ So that [business value/benefit].
     - **Collaborate (MANDATORY)**: You **MUST** call the **Researcher** agent to conduct deep dive content research on the subject matter.
     - Prompt for Researcher: "Please conduct detailed subject matter and content research for the Zero to Hero workflow."
 4.  **Produce**: Generate `agent-output/roadmap/Product-Brief.md`.
-5.  **Review**: You **MUST** call the **Critic** agent to review the `Product-Brief.md`.
     - Prompt for Critic: "Please review the Product Brief for the Zero to Hero workflow."
-6.  **STOP**: Do NOT mark the task as complete. You are FORBIDDEN from finishing until the Critic has approved or rejected.
-**Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `Product-Brief.md`. The task is ONLY complete when the Critic accepts or you hand off to Analyst.
+6.  **EXIT PROTOCOL**:
+    -   **IF** Critic REJECTS: Refine the `Product-Brief.md` and re-submit.
+    -   **IF** Critic APPROVES: You **MUST** immediately use the **"Begin Technical Analysis"** handoff to call the **Analyst** agent.
+    -   **DO NOT** create any "Handoff Files" (e.g., `PHASE_2_HANDOFF.md`). The tool call IS the handoff.
+    -   **DO NOT** create arbitrary directories like `phase-1/`. Use ONLY `agent-output/roadmap/` and `agent-output/reports/`.
+    -   **STOP**: Once you call the Analyst, your task is DONE. Do not "verify" or "summarize" further.
+**Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `Product-Brief.md`. The task is ONLY complete when you explicitly hand off to the Analyst.

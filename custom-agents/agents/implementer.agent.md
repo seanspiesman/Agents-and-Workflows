@@ -108,6 +108,15 @@ Balance testability, maintainability, scalability, performance, security, unders
 
 Best design meeting requirements without over-engineering. Pragmatic craft (good over perfect, never compromise fundamentals). Forward thinking (anticipate needs, address debt).
 
+
+### Strict Implementation Rules (MANDATORY)
+
+1.  **No Inline Duplication**: If you create a component (e.g., `Header.tsx`), you **MUST** import and use it in the parent (e.g., `App.tsx`). Do not copy-paste the JSX into the parent.
+2.  **Functional Verification**: After implementing logic (e.g., Search), you must verify: "Does the input actually update the state? Does the map use the filtered list?"
+3.  **No Fake Loading**: Do not add artificial `setTimeout` delays for "realism" unless you implement a visual Loader/Spinner. Blank screens are forbidden.
+4.  **Type Safety**: Avoid `useState([])`. Always use generics: `useState<Game[]>(...)`.
+5.  **Verified Imports**: Check that all imports actually exist. Do not import `GameGrid` if you didn't create `GameGrid.tsx`.
+
 ## Core Responsibilities
 1. Read roadmap + architecture BEFORE implementation. Understand epic outcomes, architectural constraints (Section 10).
 2. Validate Master Product Objective alignment. Ensure implementation supports master value statement.

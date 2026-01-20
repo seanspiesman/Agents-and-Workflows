@@ -35,26 +35,33 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
 *   **Action**: ALWAYS check this file at the start of your task for shared context.
 
 ### B. Log ALL Handoffs
-*   **File**: `agent-output/logs/[ID]-handoffs.md` (where [ID] is from `agent-output/.next-id`)
+### B. Log ALL Handoffs
+*   **File**: `agent-output/logs/handoff_history.md`
 *   **Format**: `[SourceAgent] -> [TargetAgent] (Timestamp)`
 *   **Command**:
     ```bash
-    mkdir -p agent-output/logs && echo "YourAgent -> TargetAgent ($(date -u +%Y-%m-%dT%H:%M:%SZ))" >> agent-output/logs/$(cat agent-output/.next-id 2>/dev/null || echo "GLOBAL" | tr -d '[:space:]')-handoffs.md
+    mkdir -p agent-output/logs && echo "- YourAgent -> TargetAgent ($(date -u +%Y-%m-%dT%H:%M:%SZ))" >> agent-output/logs/handoff_history.md
     ```
 
 ### C. Log CLI History
-*   **File**: `agent-output/logs/cli_history.log`
+### C. Log CLI History
+*   **File**: `agent-output/logs/cli_history.md`
 *   **Requirement**: Log ALL `run_command` executions.
 *   **Format**: `[Timestamp] [Agent] [Command]`
 *   **Command**:
     ```bash
-    echo "[$(date -u)] [YourAgent] [your-command-here]" >> agent-output/logs/cli_history.log
+    echo "- [$(date -u)] [YourAgent] \`[your-command-here]\`" >> agent-output/logs/cli_history.md
     ```
 
 ### D. Log Side-Effect Tool Usage
-*   **File**: `agent-output/logs/[ID]-tool_usage.log`
+### D. Log Side-Effect Tool Usage
+*   **File**: `agent-output/logs/tool_usage_history.md`
 *   **Scope**: Log `write_to_file`, `replace_file_content`, `run_command` (side-effects only). Do not log read-only tools.
 *   **Format**: `[Timestamp] [Agent] [Tool] [Target]`
+*   **Command**:
+    ```bash
+    echo "- [$(date -u)] [YourAgent] [Tool] [Target]" >> agent-output/logs/tool_usage_history.md
+    ```
 
 ---
 
@@ -116,11 +123,22 @@ Status: Active
 
 **Response Format Template**:
 ```markdown
-**Current Phase**: [Phase Name]
-**Status**: [In Progress | Complete | Blocked]
-**Completed**:
-- ✅ [Action 1]
-
+```
 **Next Steps**:
 - [ ] [Next action 1]
 ```
+
+---
+
+## 8. General Operation & Safety
+
+### A. Drift Check Protocol
+**Frequency**: Every 5 steps or major actions.
+**Action**: Re-read the original PROMPT document (e.g., `user_request.md` or the prompt file passed in arguments).
+**Check**: "Have I drifted into a generic template? Am I still referencing the specific 'Blues Harmonica' or 'Pixel Arcade' details?"
+
+### B. Artifact Integrity Protocol
+**Trigger**: Before marking ANY task/file creation as "Done".
+**Action**: Verify the file size of the generated artifact.
+**Rule**: If file size is 0 bytes, **FAIL** and **RETRY**. Do not proceed with empty files.
+**Command**: `ls -l [file_path]` to verify size > 0.

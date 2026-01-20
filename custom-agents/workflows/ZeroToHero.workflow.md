@@ -16,6 +16,14 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 ## Workflow Steps
 
+### Phase 0: Environment Validation (Orchestrator)
+- **Goal**: Ensure the environment is ready for "Hero" work.
+- **Actions**:
+    1.  **Check Tools**: Verify `node -v`, `npm -v`, `git --version`.
+    2.  **Check Permissions**: Verify write access to `agent-output/`.
+    3.  **Result**: Write `agent-output/logs/env_check.md`.
+    4.  **Rescue**: If any tool is missing, HALT immediately.
+
 ### Phase 1: Inception & Strategy (Roadmap, Researcher, Critic)
 - **Primary Agents**: Researcher (Content & Market Research), Roadmap (Strategy)
 - **Reviewer**: Critic
@@ -26,11 +34,12 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
     3.  **Market Research (Researcher)**: Explore current trends and "best-in-class" examples.
     2.  **Vision Definition (Roadmap)**: Synthesize research into a Product Vision.
     3.  **Feature Mapping (Roadmap)**: Define Epics and Value Statements.
-    4.  **Critique Loop (Critic)**:
+    4.  **Constraint Conflict Check (Roadmap)**: Explicitly review proposed features against Technical Constraints (e.g. "Global Leaderboard" vs "Local Only"). Flag contradictions immediately.
+    5.  **Critique Loop (Critic)**:
         - Review `Product-Brief.md` for clarity, ambition, and alignment with "Hero" status.
         - **Reject**: Roadmap refines.
         - **Approve**: Proceed to Analysis.
-- **Output**: `agent-output/strategy/Product-Brief.md` (Status: APPROVED)
+- **Output**: `agent-output/reports/Phase1-Complete.md` (Contains links to Product Brief and Research Report)
 - **Handoff**: To Analyst.
 
 ### Phase 2: Technical Analysis (Analyst, Critic)
@@ -77,6 +86,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
         - **Reject**: Planner adds detail.
         - **Approve**: Proceed to Foundation.
 - **Output**: `agent-output/planning/Master-Implementation-Plan.md` (Status: APPROVED)
+- **Rescue Path**: If the Plan file is missing or 0 bytes, **HALT**. Do not proceed to Foundation. Report error to user.
 - **Handoff**: To DevOps.
 
 ### Phase 5: Foundation Setup (DevOps, Critic)
