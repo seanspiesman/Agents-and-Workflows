@@ -3,7 +3,7 @@ description: Maintains architectural coherence across features and reviews techn
 name: Architect
 target: vscode
 argument-hint: Describe the feature, component, or system area requiring architectural review
-tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search',  'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
 model: devstral-M4MAX
 handoffs:
   - label: Validate Roadmap Alignment

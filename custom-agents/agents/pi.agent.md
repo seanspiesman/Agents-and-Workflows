@@ -3,7 +3,7 @@ description: Analyzes retrospectives and systematically improves agent workflows
 name: ProcessImprovement
 target: vscode
 argument-hint: Reference the retrospective or process area to analyze
-tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search',  'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
 model: devstral-M4MAX
 handoffs:
   - label: Start New Plan
