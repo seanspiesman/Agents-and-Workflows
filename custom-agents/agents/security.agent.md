@@ -4,7 +4,7 @@ name: Security
 target: vscode
 argument-hint: Describe the code, component, or PR to security-review
 tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-3090
+model: devstral-M4MAX
 handoffs:
   - label: Request Analysis
     agent: Analyst
@@ -291,12 +291,35 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 **Input**: Full Codebase + QA Report.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Audit**: Run Security Scan and Analysis.
-3.  **Produce**: `agent-output/security/Security-Audit.md` (Status: Draft).
-4.  **Review**: You **MUST** call the **Critic** agent to review the Security Audit.
+2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/Phase6c-Handoff.md` AND `agent-output/qa/QA-Report.md`. Ignore chat history if it conflicts.
+3.  **Audit**: Run Security Scan and Analysis.
+4.  **Produce**: `agent-output/security/Security-Audit.md` (Status: Draft).
+5.  **Review**: You **MUST** call the **Critic** agent to review the Security Audit.
     - Prompt for Critic: "Please review the Security Audit for the Zero to Hero workflow."
-5.  **STOP**: Do NOT mark task as complete until Critic approves.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase7-Handoff.md` (No Fluff).
+7.  **STOP**: Do NOT mark task as complete until Critic approves.
 **Exit**: When approved, handoff to **UAT**.
+
+### Security Remediation Workflow (Phase 1 & 5)
+**Phase 1 Role**: Triage & Assessment
+**Trigger**: Vulnerability Report.
+**Action**:
+1.  **Log**: IMMEDIATELY log.
+2.  **Assess**: CVSS/Risk.
+3.  **Produce**: `agent-output/security/Incident-Ticket.md`.
+4.  **Handoff Creation**: Create `agent-output/handoffs/SecFix-Phase1-Handoff.md`.
+**Exit**: Handoff to **Analyst**.
+
+**Phase 5 Role**: Verification
+**Trigger**: Handed off by Implementer (Phase 4).
+**Input**: `agent-output/handoffs/SecFix-Phase4-Handoff.md` AND `agent-output/implementation/Remediation-Impl.md`.
+**Action**:
+1.  **Log**: IMMEDIATELY log.
+2.  **Context Load (MANDATORY)**: Read Remediation Implementation.
+3.  **Verify**: Re-scan + Manual Verify.
+4.  **Produce**: `agent-output/security/Remediation-Verification.md`.
+5.  **Handoff Creation**: If Pass, create `agent-output/handoffs/SecFix-Phase5-Handoff.md`.
+**Exit**: Pass -> **Orchestrator**. Fail -> **Implementer**.
 
 ## Agent Workflow
 

@@ -46,41 +46,50 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agent**: Analyst
 - **Reviewer**: Critic
 - **Goal**: Determine the *how* (Stack & Feasibility) with robust justification.
+- **Input**: `agent-output/reports/Phase1-Complete.md` (Do not rely on chat)
 - **Actions**:
-    1.  **Stack Selection**: Evaluate modern stacks (Next.js, Python, etc.).
-    2.  **Dependency Research**: Identify best-in-class libraries.
-    3.  **Risk Assessment**: Identify bottlenecks.
-    4.  **Critique Loop (Critic)**:
+    1.  **Read Context**: Read the Phase 1 Report to understand the vision.
+    2.  **Stack Selection**: Evaluate modern stacks (Next.js, Python, etc.).
+    3.  **Dependency Research**: Identify best-in-class libraries.
+    4.  **Risk Assessment**: Identify bottlenecks.
+    5.  **Critique Loop (Critic)**:
         - Review `Technical-Feasibility.md`.
         - Check: Are we using truly modern tools? Are risks glossed over?
         - **Reject**: Analyst re-investigates.
         - **Approve**: Proceed to Design.
 - **Output**: `agent-output/analysis/Technical-Feasibility.md` (Status: APPROVED)
-- **Handoff**: To Architect.
+- **Handoff**: To Architect. (Template: Data-Only, No Fluff)
 
 ### Phase 3: Architectural Design (Architect, Critic)
 - **Primary Agent**: Architect
 - **Reviewer**: Critic
 - **Goal**: Design the system structure and data flow.
+- **Input**: `agent-output/analysis/Technical-Feasibility.md`
 - **Actions**:
-    1.  **System Design**: Define boundaries, components, and data models.
-    2.  **Diagramming**: Create comprehensive Mermaid flowcharts.
-    3.  **Critique Loop (Critic)**:
+    1.  **Read Context**: Read the Technical Analysis to understand constraints.
+    2.  **System Design**: Define boundaries, components, and data models.
+    3.  **Diagramming**: Create comprehensive Mermaid flowcharts.
+    4.  **Constraint Audit (QA)**:
+        - Review `System-Architecture.md` against `project_context.md`.
+        - **FAIL IF**: "Local-Only" app has server components (AWS, Kubernetes, Auth wrappers).
+    5.  **Critique Loop (Critic)**:
         - Review `System-Architecture.md`.
         - Check: Is it scalable? Clean? Do diagrams follow strict `flowchart` syntax?
         - **Reject**: Architect redesigns.
         - **Approve**: Proceed to Planning.
 - **Output**: `agent-output/architecture/System-Architecture.md` (Status: APPROVED)
-- **Handoff**: To Planner.
+- **Handoff**: To Planner. (Template: Data-Only, No Fluff)
 
 ### Phase 4: Master Planning (Planner, Critic)
 - **Primary Agent**: Planner
 - **Reviewer**: Critic
 - **Goal**: Create a step-by-step execution guide.
+- **Input**: `agent-output/architecture/System-Architecture.md`
 - **Actions**:
-    1.  **Phasing**: Break project into logical phases.
-    2.  **Task Breakdown**: Granular tasks with "Definition of Done".
-    3.  **Critique Loop (Critic)**:
+    1.  **Read Context**: Read the Architecture Doc to understand the structure.
+    2.  **Phasing**: Break project into logical phases.
+    3.  **Task Breakdown**: Granular tasks with "Definition of Done".
+    4.  **Critique Loop (Critic)**:
         - Review `Master-Implementation-Plan.md`.
         - Check: Is it detailed enough? Are testing steps included?
         - **Reject**: Planner adds detail.
@@ -100,14 +109,17 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
         - Check: Are `.gitignore` and `eslint` strict enough?
         - **Reject**: DevOps fixes config.
         - **Approve**: Proceed to Implementation.
-- **Output**: Verified Local Environment.
-- **Handoff**: To Implementer.
+- **Input**: `agent-output/planning/Master-Implementation-Plan.md`
+- **Output**: `agent-output/deployment/Foundation-Setup.md`
+- **Handoff**: `agent-output/handoffs/Phase5-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### Phase 6: The Implementation Loop (Implementer, Critic, QA)
 *Repeat this cycle for each Feature Phase defined in the Plan.*
 
 #### 6a. Component Implementation (Implementer)
 - **Agent**: Implementer
+- **Input**: `agent-output/handoffs/Phase5-Handoff.md` AND `agent-output/planning/Master-Implementation-Plan.md`
+- **Output**: `agent-output/handoffs/Phase6a-Handoff.md` (Template: Data-Only, No Fluff)
 - **Action**: Write modern, beautiful, clean code. Use CLI tools for file generation and dependency management where available.
 
 #### 6b. Code Critique (Critic)
@@ -123,8 +135,10 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 #### 6c. Functional Testing (QA)
 - **Agent**: QA
+- **Input**: `agent-output/handoffs/Phase6a-Handoff.md`
 - **Action**: Run tests.
 - **Loop**: Failures go back to Implementer (6a).
+- **Output**: `agent-output/handoffs/Phase6c-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### Phase 7: Security Audit (Security, Critic)
 - **Primary Agent**: Security
@@ -137,7 +151,9 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
         - Check: Did we miss any obvious vectors? Is the report actionable?
         - **Reject**: Security scans again.
         - **Approve**: Implementer applies fixes.
-- **Output**: `agent-output/security/Security-Audit.md` (Status: APPROVED)
+- **Input**: `agent-output/handoffs/Phase6c-Handoff.md` AND `agent-output/qa/QA-Report.md`
+- **Output**: `agent-output/security/Security-Audit.md`
+- **Handoff**: `agent-output/handoffs/Phase7-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### Phase 8: User Acceptance (UAT, Critic)
 - **Primary Agent**: UAT
@@ -150,11 +166,14 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
         - Check: Was UAT rigorous? Did we just rubber-stamp it?
         - **Reject**: UAT re-verifies.
         - **Approve**: Proceed to Completion.
-- **Output**: `agent-output/uat/Final-Acceptance.md` (Status: APPROVED)
+- **Input**: `agent-output/handoffs/Phase7-Handoff.md`
+- **Output**: `agent-output/uat/Final-Acceptance.md`
+- **Handoff**: `agent-output/handoffs/Phase8-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### Phase 9: Documentation & Handoff (Analyst, Critic)
 - **Primary Agent**: Analyst
 - **Reviewer**: Critic
+- **Input**: `agent-output/handoffs/Phase8-Handoff.md`
 - **Actions**:
     1.  **Docs**: Create beautiful READMEs.
     2.  **Critique Loop (Critic)**:

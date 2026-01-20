@@ -12,26 +12,26 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 - **Agent**: Security
 - **Input**: Vulnerability report (from tool or external source).
 - **Action**: Assess severity (CVSS), impact, and risk.
-- **Output**: Security Incident Ticket in `agent-output/security/` (e.g., `SEC-001-sql-injection.md`).
-- **Handoff**: Passed to Analyst.
+- **Output**: Security Incident Ticket in `agent-output/security/Incident-Ticket.md`.
+- **Handoff**: `agent-output/handoffs/SecFix-Phase1-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 2. Root Cause Analysis (Analyst Agent)
 - **Agent**: Analyst
-- **Input**: Security Incident Ticket.
+- **Input**: `agent-output/handoffs/SecFix-Phase1-Handoff.md` AND `agent-output/security/Incident-Ticket.md`
 - **Action**: Locate the vulnerability in code and uncovers the root cause.
 - **Mandatory MCP Usage**:
   - Use `grep_search` to find all occurrences of the pattern.
   - User `view_file` to trace the data flow from sink to source.
-- **Output**: Analysis Report detailing the "Sink", "Source", and "Data Flow".
-- **Handoff**: Passed to Planner.
+- **Output**: Analysis Report detailing the "Sink", "Source", and "Data Flow" (`agent-output/analysis/Root-Cause.md`).
+- **Handoff**: `agent-output/handoffs/SecFix-Phase2-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 3. Remediation Planning (Planner Agent)
 - **Agent**: Planner
-- **Input**: Analysis Report.
+- **Input**: `agent-output/handoffs/SecFix-Phase2-Handoff.md` AND `agent-output/analysis/Root-Cause.md`
 - **Action**: Plan the fix.
 - **Considerations**: patches, library upgrades, or code rewrites. Must consider side effects.
-- **Output**: Remediation Plan.
-- **Handoff**: Passed to Critic.
+- **Output**: `agent-output/planning/Remediation-Plan.md`.
+- **Handoff**: `agent-output/handoffs/SecFix-Phase3-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 3a. Plan Critique (Critic Agent)
 - **Agent**: Critic
@@ -41,19 +41,17 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 
 ### 3b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
-- **Input**: Remediation Plan.
+- **Input**: `agent-output/planning/Remediation-Plan.md`
 - **Action**: **CRITICAL**: Review specifically for "lack of detail". Security fixes cannot be ambiguous.
 - **Iteration Link**: Return to **Planner** if vague.
-- **Handoff**: Passed to Implementer.
+- **Handoff**: To Implementer.
 
 ### 4. Application of Fix (Implementer Agent)
 - **Agent**: Implementer
-- **Input**: Remediation Plan.
+- **Input**: `agent-output/handoffs/SecFix-Phase3-Handoff.md` AND `agent-output/planning/Remediation-Plan.md`
 - **Action**: Apply the fix.
-- **Output**: Code changes.
-- **Handoff**: Passed to Security.
-
-- **Handoff**: Passed to Critic.
+- **Output**: Code changes + `agent-output/implementation/Remediation-Impl.md`.
+- **Handoff**: `agent-output/handoffs/SecFix-Phase4-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 4b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
@@ -63,25 +61,25 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
   - Secure Coding Patterns.
   - Maintainability.
 - **Iteration**: Any findings must be addressed by **Implementer** before Verification.
-- **Handoff**: Passed to Security.
+- **Handoff**: To Security.
 
 ### 5. Verification (Security Agent)
 - **Agent**: Security
-- **Input**: Code changes.
+- **Input**: `agent-output/handoffs/SecFix-Phase4-Handoff.md` AND `agent-output/implementation/Remediation-Impl.md`
 - **Action**: Verify the fix *specifically* addresses the vulnerability.
 - **Mandatory MCP Usage**:
   - Use `view_file` to inspect the diff.
   - Use `run_command` to run security scanners if available.
 - **Iteration Loop**:
   - **FAIL**: Fix is ineffective or incomplete. Return to **Analyst** (if root cause wrong) or **Implementer** (if implementation flawed).
-  - **PASS**: Issue Resolved.
+  - **PASS**: Issue Resolved. Create `agent-output/handoffs/SecFix-Phase5-Handoff.md` (Template: Data-Only, No Fluff).
 
 ### 6. Project Completion (Orchestrator)
 - **Agent**: Orchestrator
 - **Action**: Archive artifacts and generate final report.
 - **Output**:
   - Move terminal artifacts to `agent-output/closed/`
-  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - Generate **Single** Project Completion Report: `agent-output/reports/[ID]-completion-report.md`
   - **STOP** (End of Workflow)
 
 ## Agent Roles Summary
@@ -92,7 +90,7 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 | **Analyst** | Root Cause | `agent-output/analysis/` |
 | **Planner** | Plan Fix | `agent-output/planning/` |
 | **Implementer** | Apply Fix | Codebase |
-| **Orchestrator** | Final Report | `agent-output/completion/` |
+| **Orchestrator** | Final Report | `agent-output/reports/` |
 
 ## Workflow Diagram
 

@@ -196,11 +196,13 @@ Part of structured workflow: planner → analyst → critic → architect → im
 **Input**: Working Application + Security Audit.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Validate**: Walk through the "Hero" value statement and user journey.
-3.  **Produce**: `agent-output/uat/Final-Acceptance.md` (Status: Draft).
-4.  **Review**: You **MUST** call the **Critic** agent to review the Final Acceptance.
+2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/Phase7-Handoff.md` AND `agent-output/security/Security-Audit.md`. Ignore chat history if it conflicts.
+3.  **Validate**: Walk through the "Hero" value statement and user journey.
+4.  **Produce**: `agent-output/uat/Final-Acceptance.md` (Status: Draft).
+5.  **Review**: You **MUST** call the **Critic** agent to review the Final Acceptance.
     - Prompt for Critic: "Please review the Final Acceptance for the Zero to Hero workflow."
-5.  **STOP**: Do NOT mark task as complete until Critic approves.
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase8-Handoff.md` (No Fluff).
+7.  **STOP**: Do NOT mark task as complete until Critic approves.
 **Exit**: When approved, handoff to **Analyst** (Phase 9 Docs).
 
 # Tool Usage Guidelines

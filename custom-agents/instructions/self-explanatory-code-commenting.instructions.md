@@ -1,6 +1,6 @@
 ---
 description: 'Guidelines for GitHub Copilot to write comments to achieve self-explanatory code with less comments. Examples are in JavaScript but it should work on any language that has comments.'
-applyTo: '**'
+applyTo: '**/*.{ts,tsx,js,jsx,cs,py,go,rs,java,c,cpp}'
 ---
 
 # Self-explanatory Code Commenting Instructions

@@ -1,7 +1,7 @@
 ---
 description: 'Generic code review instructions that can be customized for any project using GitHub Copilot'
-applyTo: '**'
-excludeAgent: ["coding-agent"]
+applyTo: '**/*.{ts,tsx,js,jsx,cs,py,go,rs,java,c,cpp}'
+
 ---
 
 # Generic Code Review Instructions
