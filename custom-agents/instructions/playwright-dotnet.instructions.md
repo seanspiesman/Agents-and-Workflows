@@ -1,6 +1,6 @@
 ---
 description: 'Playwright .NET test generation instructions'
-applyTo: '**'
+applyTo: '**/*Test*.cs, **/Tests/**/*.cs'
 ---
 
 # Playwright .NET Test Generation Instructions

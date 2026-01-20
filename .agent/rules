@@ -1,6 +1,50 @@
+# Agent Rules: custom-agents
+
+> [!IMPORTANT]
+> These rules apply to any agent modifying files within the `custom-agents/` directory.
+
 ---
-description: 'Generic code review instructions that can be customized for any project using GitHub Copilot'
-applyTo: '**/*.{ts,tsx,js,jsx,cs,py,go,rs,java,c,cpp}'
+
+## Changelog Maintenance (MANDATORY)
+
+When you modify ANY file within the `custom-agents/` directory, you **MUST** update the corresponding `CHANGELOG.md` in that subdirectory.
+
+### Format
+
+```
+## [Fri Jan 16 14:51:14 PST 2026] — Brief Description
+
+### filename.md
+- **Added**: Description of addition.
+- **Changed**: Description of change.
+- **Removed**: Description of removal.
+```
+
+### Timestamp Command
+
+Use this bash command to generate the timestamp:
+```bash
+date '+%a %b %d %H:%M:%S %Z %Y'
+```
+
+### Changelog Locations
+
+| Directory | Changelog Path |
+|-----------|----------------|
+| `agents/` | `agents/CHANGELOG.md` |
+| `workflows/` | `workflows/CHANGELOG.md` |
+| `instructions/` | `instructions/CHANGELOG.md` |
+| `skills/` | `skills/CHANGELOG.md` |
+| `collections/` | `collections/CHANGELOG.md` |
+| `reference/` | `reference/CHANGELOG.md` |
+| `templates/` | `templates/CHANGELOG.md` |
+
+### Rules
+
+1. **Timestamp First**: Every changelog entry must start with the timestamp in brackets.
+2. **Newest First**: Add new entries at the TOP of the file, below the header.
+3. **Group by Session**: If making multiple changes in one session, group them under a single timestamp.
+4. **Be Specific**: Reference exact filenames and describe what changed.
 
 ---
 
@@ -90,7 +134,7 @@ function calculateDiscount(orderTotal, itemPrice) {
 
 ### Examples
 ```python
-# ❌ BAD: Silent failure and generic error
+// ❌ BAD: Silent failure and generic error
 def process_user(user_id):
     try:
         user = db.get(user_id)
@@ -98,7 +142,7 @@ def process_user(user_id):
     except:
         pass
 
-# ✅ GOOD: Explicit error handling
+// ✅ GOOD: Explicit error handling
 def process_user(user_id):
     if not user_id or user_id <= 0:
         raise ValueError(f"Invalid user_id: {user_id}")
@@ -189,12 +233,12 @@ When performing a code review, check for performance issues:
 
 ### Examples
 ```python
-# ❌ BAD: N+1 query problem
+// ❌ BAD: N+1 query problem
 users = User.query.all()
 for user in users:
     orders = Order.query.filter_by(user_id=user.id).all()  # N+1!
 
-# ✅ GOOD: Use JOIN or eager loading
+// ✅ GOOD: Use JOIN or eager loading
 users = User.query.options(joinedload(User.orders)).all()
 for user in users:
     orders = user.orders

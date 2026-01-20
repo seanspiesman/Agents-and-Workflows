@@ -1,3 +1,7 @@
+---
+applyTo: '*'
+---
+
 # Global Agent Instructions
 
 > [!IMPORTANT]
@@ -47,7 +51,7 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
 ### C. Log CLI History
 *   **File**: `agent-output/logs/cli_history.md`
 *   **Requirement**: Log ALL `run_command` executions.
-*   **Format**: `[Timestamp] [Agent] [Command]`
+*   **Format**: `[Timestamp] [Agent] [Tool] [Command]`
 *   **Command**:
     ```bash
     echo "- [$(date -u)] [YourAgent] \`[your-command-here]\`" >> agent-output/logs/cli_history.md
