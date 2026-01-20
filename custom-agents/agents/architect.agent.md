@@ -163,6 +163,7 @@ Escalation:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
 2.  **Design**: Define system boundaries, data models, and components.
 3.  **Produce**: Generate `agent-output/architecture/System-Architecture.md` (Status: Draft) + Mermaid Flowchart.
+    -   *CONSTRAINT*: You MUST include a "Design System" section in this artifact with the exact `tailwind.config.js` `theme.extend` snippet (colors, fonts) that the Implementer must use. Do not vaguely say "Neon Green". Define `#39ff14`.
 4.  **Review**: You **MUST** call the **Critic** agent to review the Architecture Doc.
     - Prompt for Critic: "Please review the System Architecture for the Zero to Hero workflow."
 5.  **STOP**: Do NOT mark task as complete until Critic approves.

@@ -95,6 +95,20 @@ Prefer small, focused scopes delivering value quickly.
 
 **Large scope**: Document justification. Critic must explicitly approve.
 
+
+## Time & Prioritization Constraints (AI-First)
+
+**1. Time Scale**: AI Agents work in milliseconds, not weeks.
+*   **FORBIDDEN**: Creating "Week 1", "Week 2" schedules.
+*   **REQUIRED**: "Phase 1 (Immediate)", "Phase 2 (Next)". Scopes must be executable *now* or in the next prompt turn.
+*   **Day 1 Prototype**: The goal is ALWAYS a working prototype by the end of the current run.
+
+**2. The "Hero" Feature Priority**:
+*   Identify the ONE feature that makes the app special (the "Hero Moment").
+*   **Prioritize** this feature in the FIRST phase of implementation.
+*   Do not defer the "cool part" to "Week 8". Build the emulator/tuner/visualizer NOW.
+*   CRUD and Login screens are boring; do them last unless strictly required.
+
 ## Analyst Consultation
 
 **REQUIRED when**: Unknown APIs need experimentation, multiple approaches need comparison, high-risk assumptions, plan blocked without validated constraints.
@@ -183,6 +197,7 @@ Actions: If ambiguous, respond with questions, wait for direction. If technical 
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
 2.  **Plan**: Break down the project into Phased Implementation Plans.
 3.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
+    -   *Verification*: Check that the file exists and is not empty.
 4.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
     - Prompt for Critic: "Please review the Master Implementation Plan for the Zero to Hero workflow."
 5.  **STOP**: Do NOT mark task as complete until Critic approves.

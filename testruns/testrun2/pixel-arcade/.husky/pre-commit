@@ -1,0 +1,12 @@
+#!/bin/sh
+# This hook runs lint-staged to format and lint staged files
+dir=$(CDPATH= code .husky && pwd)
+
+export HUSKY="$dir"
+
+if [ -z "$HUSKY" ]; then
+  echo "Error: HUSKY not set" >&2
+  exit 1
+fi
+
+npx lint-staged
