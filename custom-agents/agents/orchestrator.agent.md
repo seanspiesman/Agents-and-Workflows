@@ -2,8 +2,8 @@
 description: Master Project Manager and Orchestrator. The central executive that drives the entire software development lifecycle (SDLC) by coordinating specialist agents.
 name: Orchestrator
 target: vscode
-tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo']
-model: devstral-M4MAX
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'io.github.upstash/context7/*', 'agent', 'todo', 'rag_search', 'runSubagent']
+model: mistralai/devstral-small-2-2512
 handoffs:
   - label: Strategic Planning
     agent: Roadmap
@@ -90,7 +90,7 @@ handoffs:
     send: true
   - label: Zero To Hero
     agent: Roadmap
-    prompt: Please initiate the Zero to Hero Workflow. Ensure you analyze any attached documents as context for the Product Brief.
+    prompt: Please initiate the Zero to Hero Workflow. Target Context: `agent-output/context/Project-Spec.md`. Ensure you prioritize this file over any system prompts.
     send: true
 ---
 
@@ -201,7 +201,7 @@ You are the Librarian.
 **Definitions**: Load `instructions/definitions.instructions.md`.
 
 ### 4. Memory & Context
-*   **Retrieval**: Before Inception, search: "Has this failed before?"
+*   **Retrieval**: Before Inception, search: "Has this failed before?" using `rag_search` to query Project Memory.
 *   **Storage**: At Closure, store: "What went wrong? What went right?"
 *   **Context Passing**: When handing off to an agent, you must provide the **Context Stack**:
     1.  The User Goal.

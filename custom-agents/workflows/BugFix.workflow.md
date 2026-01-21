@@ -32,13 +32,13 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 2a. Plan Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Fix Plan.
-- **Action**: Assess technical soundness, regression risks, and completeness.
+- **Action**: Run the Critic agent as a subagent to assess technical soundness, regression risks, and completeness.
 - **Iteration Link**: If rejected, return to **Planner**.
 
 ### 2b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: `agent-output/planning/Fix-Plan.md`
-- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure steps are explicit, context is clear, and no ambiguity exists.
+- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail in the documentation". Ensure steps are explicit, context is clear, and no ambiguity exists.
 - **Iteration Link**: If lacking detail, return to **Planner**.
 - **Handoff**: To Implementer.
 
@@ -55,7 +55,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 3b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: Code changes.
-- **Action**: Strict code review against standards (SOLID, DRY, etc.).
+- **Action**: Run the Critic agent as a subagent to perform strict code review against standards (SOLID, DRY, etc.).
 - **Checks**:
   - Code Style & Standards.
   - Potential performance issues.
@@ -66,7 +66,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 4. Verification (QA Agent)
 - **Agent**: QA
 - **Input**: `agent-output/handoffs/BugFix-Phase3-Handoff.md` AND `agent-output/implementation/Fix-Implementation.md`
-- **Action**: Verify the fix and run regression suite.
+- **Action**: Run the QA agent as a subagent to verify the fix and run regression suite.
 - **Mandatory MCP Usage**:
   - Use `playwright` to verify web bug fixes.
   - Use `ios-simulator` to verify mobile bug fixes. **(Always check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) first)**

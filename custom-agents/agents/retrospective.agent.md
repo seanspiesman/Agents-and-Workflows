@@ -3,8 +3,8 @@ description: Captures lessons learned, architectural decisions, and patterns aft
 name: Retrospective
 target: vscode
 argument-hint: Reference the completed plan or release to retrospect on
-tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-M4MAX
+tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'edit/createDirectory', 'edit/createFile', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*', 'runSubagent']
+model: mistralai/devstral-small-2-2512
 handoffs:
   - label: Update Architecture
     agent: Architect

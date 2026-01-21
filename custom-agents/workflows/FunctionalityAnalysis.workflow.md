@@ -11,7 +11,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 1. Scope Definition & Discovery (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: User-defined functionality name or entry point (e.g., "User Submission Flow").
-- **Action**: Identify the core files, entry points, and dependencies related to the requested functionality.
+- **Action**: Run the Analyst agent as a subagent to identify the core files, entry points, and dependencies related to the requested functionality.
 - **Mandatory MCP Usage**:
   - Use `find_by_name` to locate relevant files matching the functionality keywords.
   - Use `grep_search` to find usage of key terms or components.
@@ -22,7 +22,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 2. Structural Analysis & Logic Tracing (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Scope Definition document.
-- **Action**: Deep dive into the code to trace execution paths, data flow, and state management.
+- **Action**: Run the Analyst agent as a subagent to deep dive into the code to trace execution paths, data flow, and state management.
 - **Mandatory MCP Usage**:
   - Use `view_file` to read the code logic.
   - Use `view_code_item` to inspect specific functions or classes.
@@ -36,7 +36,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 3. Code Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Existing Structure document and Raw Code.
-- **Action**: Evaluate the implementation against best practices, performance standards, and maintainability guidelines.
+- **Action**: Run the Critic agent as a subagent to evaluate the implementation against best practices, performance standards, and maintainability guidelines.
 - **Checks**:
   - **Code Quality**: DRY principles, naming conventions, complexity.
   - **Performance**: Potential bottlenecks, unnecessary renders/computations.
@@ -48,7 +48,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 4. Visual Synthesis (Architect Agent)
 - **Agent**: Architect
 - **Input**: Existing Structure document.
-- **Action**: Generate Mermaid diagrams to visualize the control flow and architecture.
+- **Action**: Run the Architect agent as a subagent to generate Mermaid diagrams to visualize the control flow and architecture.
 - **Visual Requirements**:
   - **Mandatory Skill**: Load `mermaid-diagramming` skill.
   - **Action**: Follow all syntax rules and best practices defined in the skill to generate error-free diagrams.
@@ -58,7 +58,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 5. Improvement Proposals (Planner Agent)
 - **Agent**: Planner
 - **Input**: Critique document and Architecture Diagrams.
-- **Action**: Propose concrete, actionable updates to address the critique and improve the structure.
+- **Action**: Run the Planner agent as a subagent to propose concrete, actionable updates to address the critique and improve the structure.
 - **Action**: Create a plan for refactoring or enhancing the functionality.
 - **Output**: A "Suggested Updates" document in `agent-output/planning/` (e.g., `005-suggested-updates.md`) containing:
   - Refactoring plan.

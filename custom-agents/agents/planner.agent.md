@@ -3,8 +3,10 @@ description: High-rigor planning assistant for upcoming feature changes.
 name: Planner
 target: vscode
 argument-hint: Describe the feature, epic, or change to plan
-tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*']
-model: devstral-M4MAX
+tools: ['vscode', 'agent', 'execute/*', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit', 'search', 'web', 'todo', 'io.github.upstash/context7/*', 'copilot-container-tools/*', 'runSubagent']
+skills:
+  - ../skills/release-procedures
+model: mistralai/devstral-small-2-2512
 handoffs:
   - label: Validate Roadmap Alignment
     agent: Roadmap

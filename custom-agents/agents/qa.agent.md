@@ -3,7 +3,10 @@ description: Dedicated QA specialist verifying test coverage and execution befor
 name: QA
 target: vscode
 argument-hint: Reference the implementation or plan to test (e.g., plan 002)
-tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'edit/editNotebook', 'search', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'execute/*', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'edit/editNotebook', 'search', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*', 'runSubagent']
+skills:
+  - ../skills/webapp-testing
+  - ../skills/testing-patterns
 model: devstral-3090
 handoffs:
   - label: Request Testing Infrastructure
@@ -44,7 +47,7 @@ Core Responsibilities:
 3. Verify plan ↔ implementation alignment, flag overreach/gaps
 4. **Constraint Audit**: Validate that implementation respects GLOBAL CONSTRAINTS (e.g. "Local Only"). Fail immediately if server-side code (NextAuth, AWS SDK) is detected in a Local-Only project.
 4. Audit implementer tests skeptically; quantify adequacy
-5. **Active Test Verification (MANDATORY)**: You MUST usage `run_command`, `browser_subagent`, `ios-simulator`, or `playwright` to actively interact with the running application. **Passive script execution (e.g., just `npm test`) is INSUFFICIENT for sign-off.**
+5. **Active Test Verification (MANDATORY)**: You MUST usage `run_command`, `runSubagent`, `ios-simulator`, or `playwright` to actively interact with the running application. **Passive script execution (e.g., just `npm test`) is INSUFFICIENT for sign-off.**
 6. Create QA test plan BEFORE implementation with infrastructure needs
 7. Identify test frameworks, libraries, config; call out in chat: "⚠️ TESTING INFRASTRUCTURE NEEDED: [list]"
 8. Create test files when needed; don't wait for implementer
@@ -307,6 +310,12 @@ Create markdown in `agent-output/qa/` matching plan name:
 
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
+
+## runSubagent
+- **Usage**: Use this tool to perform active test verification, visual regression checking, and complex user flow validation.
+- **Task Description**: Provide detailed, step-by-step instructions in the `Task` argument. The subagent is autonomous, so clearly define the test steps and what constitutes a "pass" or "fail".
+- **Video Recording**: Interactions are automatically recorded. Use meaningful `RecordingName` to make artifacts valid.
+
 
 ## run_command / execute
 - **Safe Execution (Non-Blocking)**:

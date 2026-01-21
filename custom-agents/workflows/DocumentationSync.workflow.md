@@ -11,7 +11,7 @@ Drift between code and documentation is a major source of confusion. This workfl
 ### 1. Drift Detection (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Codebase and existing documentation.
-- **Action**: Compare exported symbols, API signatures, and CLI arguments against the docs.
+- **Action**: Run the Analyst agent as a subagent to compare exported symbols, API signatures, and CLI arguments against the docs.
 - **Mandatory MCP Usage**:
   - Use `grep_search` to find exported functions.
   - Use `view_file` to read existing docs.
@@ -21,14 +21,14 @@ Drift between code and documentation is a major source of confusion. This workfl
 ### 2. Documentation Update (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Drift Report.
-- **Action**: Draft updated documentation.
+- **Action**: Run the Implementer agent as a subagent to draft updated documentation.
 - **Output**: Changes to `.md` files or inline comments.
 - **Handoff**: Passed to Critic/QA.
 
 ### 3. Accuracy Verification (Critic Agent)
 - **Agent**: Critic (or QA)
 - **Input**: Documentation Diff, Drift Report.
-- **Action**: Verify that the new text accurately describes the code behavior.
+- **Action**: Run the Critic agent as a subagent to verify that the new text accurately describes the code behavior.
 - **Checks**:
   - No "hallucinated" parameters.
   - Examples actually run/compile.
@@ -41,7 +41,7 @@ Drift between code and documentation is a major source of confusion. This workfl
 - **Agent**: Critic
 - **Input**: New Documentation.
 - **Focus**: "Lack of detail".
-- **Action**: Ensure the documentation is not just accurate, but **comprehensive**. Check for missing context, vague descriptions, or assumed knowledge.
+- **Action**: Run the Critic agent as a subagent to ensure the documentation is not just accurate, but **comprehensive**. Check for missing context, vague descriptions, or assumed knowledge.
 - **Iteration Loop**:
   - **FAIL**: Return to **Implementer**.
   - **PASS**: Approved.

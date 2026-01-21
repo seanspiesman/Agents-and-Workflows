@@ -11,7 +11,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 1. System Discovery (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: The raw codebase and repository root.
-- **Action**: The Analyst agent performs a deep discovery pass to identify entry points, core layers, data sources, and infrastructure.
+- **Action**: Run the Analyst agent as a subagent to perform a deep discovery pass to identify entry points, core layers, data sources, and infrastructure.
 - **Mandatory MCP Usage**:
   - Use `find_by_name` to locate configuration files (`package.json`, `pom.xml`, `Dockerfile`).
   - Use `grep_search` to find application entry points (e.g., `grep_search "main("`).
@@ -22,7 +22,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 2. Interaction Mapping (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: The System Discovery document.
-- **Action**: The Analyst traces specific user-facing flows to map the "behavioral" architecture.
+- **Action**: Run the Analyst agent as a subagent to trace specific user-facing flows to map the "behavioral" architecture.
 - **Mandatory MCP Usage**:
   - Use `view_file` to read the actual code of entry points and controllers.
   - Use `view_code_item` to inspect key classes/functions involved in the flow.
@@ -36,7 +36,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 3. Architectural Synthesis (Architect Agent)
 - **Agent**: Architect
 - **Input**: Interaction Flow document.
-- **Action**: Transform text findings into **detailed** Mermaid.js diagrams. "High-level" boxes are not enough; diagrams must be useful for developers.
+- **Action**: Run the Architect agent as a subagent to transform text findings into **detailed** Mermaid.js diagrams. "High-level" boxes are not enough; diagrams must be useful for developers.
 - **Visual Requirements**:
   - **UNIVERSAL DIAGRAM RULE**: **ALL** diagrams must use `flowchart` syntax (e.g., `flowchart TD` or `LR`).
   - **PROHIBITED SYNTAX**: Do NOT use `sequenceDiagram`, `classDiagram`, `stateDiagram`, `erDiagram`, or `gantt`.
@@ -57,7 +57,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 4. Design Review (Critic Agent)
 - **Agent**: Critic
 - **Input**: The System Architecture document and original Analysis docs.
-- **Action**: rigorous peer review of the proposed architecture.
+- **Action**: Run the Critic agent as a subagent to perform rigorous peer review of the proposed architecture.
 - **Checks**:
   - Do the diagrams match the standard patterns?
   - Are the Sequence Diagrams sufficiently detailed?
@@ -69,7 +69,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 5. Reality Check (QA Agent)
 - **Agent**: QA
 - **Input**: The System Architecture document.
-- **Action**: Audit the proposed architecture against the actual code execution to ensure accuracy.
+- **Action**: Run the QA agent as a subagent to audit the proposed architecture against the actual code execution to ensure accuracy.
 - **Mandatory MCP Usage**:
   - Use `view_code_item` to verify that methods listed in Class Diagrams actually exist.
   - Use `grep_search` to verify that calls listed in Sequence Diagrams actually happen.
@@ -82,7 +82,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 5b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Verified Architecture Document.
-- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure diagrams are fully explained, decisions have rationale, and system context is rich.
+- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail in the documentation". Ensure diagrams are fully explained, decisions have rationale, and system context is rich.
 - **Iteration Loop**:
 - **FAIL (Too Vague)**: Return to **Architect** (for detail expansion).
 - **PASS**: Approved for Final Assembly.
@@ -91,7 +91,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 6. Artifact Assembly (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Verified Architecture document.
-- **Action**: Compile the verified analysis and diagrams into a user-friendly `README-ARCH.md`.
+- **Action**: Run the Implementer agent as a subagent to compile the verified analysis and diagrams into a user-friendly `README-ARCH.md`.
 - **Output**: `README-ARCH.md` at the repository root.
 - **Validation**: Ensure all Mermaid diagrams render correctly.
 - **Handoff**: Passed to Critic.
@@ -99,7 +99,7 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 6b. Artifact Review (Critic Agent)
 - **Agent**: Critic
 - **Input**: Generated `README-ARCH.md`.
-- **Action**: Verify the final artifact styling and formatting.
+- **Action**: Run the Critic agent as a subagent to verify the final artifact styling and formatting.
 - **Iteration**: Return to **Implementer** if issues found.
 - **Handoff**: Passed to Orchestrator.
 

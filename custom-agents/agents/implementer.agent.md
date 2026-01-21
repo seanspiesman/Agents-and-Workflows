@@ -3,7 +3,11 @@ description: Execution-focused coding agent that implements approved plans.
 name: Implementer
 target: vscode
 argument-hint: Reference the approved plan to implement (e.g., plan 002)
-tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*']
+tools: ['vscode', 'agent', 'vscode/vscodeAPI', 'execute/*', 'read', 'edit', 'search', 'web', 'ms-python.python/getPythonEnvironmentInfo', 'ms-python.python/getPythonExecutableCommand', 'ms-python.python/installPythonPackage', 'ms-python.python/configurePythonEnvironment', 'todo', 'ios-simulator/*', 'microsoft/playwright-mcp/*', 'io.github.upstash/context7/*', 'io.github.ChromeDevTools/chrome-devtools-mcp/*', 'copilot-container-tools/*', 'rag_search', 'runSubagent']
+skills:
+  - ../skills/engineering-standards
+  - ../skills/collaboration-tracking
+  - ../skills/testing-patterns
 model: devstral-3090
 handoffs:
   - label: Request Analysis
@@ -123,7 +127,7 @@ Best design meeting requirements without over-engineering. Pragmatic craft (good
 ## Core Responsibilities
 1. Read roadmap + architecture BEFORE implementation. Understand epic outcomes, architectural constraints (Section 10). Read `agent-output/project_context.md` to ensure Stack/Constraint alignment.
 2. Validate Master Product Objective alignment. Ensure implementation supports master value statement.
-3. Read complete plan AND analysis (if exists) in full. These—not chat history—are authoritative.
+3. Read complete plan AND analysis (if exists) in full. These—not chat history—are authoritative. Use `rag_search` to clarify ambiguities or look up Design System specs (colors, typography) without reading the full architecture doc.
 4. **OPEN QUESTION GATE (CRITICAL)**: Scan plan for `OPEN QUESTION` items not marked as `[RESOLVED]` or `[CLOSED]`. If ANY exist:
    - List them prominently to user.
    - **STRONGLY RECOMMEND** halting implementation: "⚠️ This plan contains X unresolved open questions. Implementation should NOT proceed until these are resolved. Proceeding risks building on flawed assumptions."
@@ -357,6 +361,12 @@ See `TERMINOLOGY.md` for details.
 
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
+
+## runSubagent
+- **Usage**: Use this tool to verify your implementation visually or functionally (e.g., "Does the button click work?").
+- **Self-Correction**: Use the video/screenshot artifacts to catch UI issues before handing off to QA.
+- **Task Description**: Be specific (e.g., "Navigate to localhost:3000 and click the login button").
+
 
 ## context7
 **Usage**: context7 provides real-time, version-specific documentation and code examples.
