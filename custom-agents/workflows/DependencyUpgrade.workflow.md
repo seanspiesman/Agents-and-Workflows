@@ -11,19 +11,16 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 ### 1. Changelog Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Target package name and version.
-- **Action**: Run the Analyst agent as a subagent to read changelogs, migration guides, and release notes. Identify Breaking Changes.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Read changelogs, migration guides, and release notes for [Package]. Identify breaking changes. Output Impact Assessment."
 - **Output**: Upgrade Impact Assessment in `agent-output/analysis/`.
 - **Handoff**: Passed to Planner.
 
 ### 2. Upgrade Strategy (Planner Agent)
 - **Agent**: Planner
 - **Input**: Upgrade Impact Assessment.
-- **Action**: Run the Planner agent as a subagent to plan the upgrade.
-- **Decisions**:
-  - "Big Bang" vs Incremental?
-  - Which code paths need modification?
-  - What is the rollback plan?
-- **Output**: Upgrade Plan.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Plan the upgrade. Decide strategy (Big Bang vs Incremental). Output Upgrade Plan."
 - **Handoff**: Passed to Critic.
 
 ### 2a. Plan Critique (Critic Agent)
@@ -42,7 +39,8 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 ### 3. Execution (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Upgrade Plan.
-- **Action**: Run the Implementer agent as a subagent to update `package.json` (or equivalent), install, and fix build errors.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Update `package.json`, install, fix build errors. Output code changes."
 - **Output**: Code changes.
 - **Handoff**: Passed to QA.
 

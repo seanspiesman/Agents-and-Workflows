@@ -11,13 +11,8 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 1. Reproduction & Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Bug Report (User feedback, Sentry issue, etc.).
-- **Action**:
-  1.  Create a minimal reproduction case.
-  2.  Identify the Root Cause (Code, Config, or Data?).
-- **Mandatory MCP Usage**:
-  - Use `grep_search` to trace the error log.
-  - Use `view_file` to find the buggy logic.
-  - Use `context7` to verify library behavior against documentation if external libraries are involved.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Load Bug Report. Create minimal reproduction case. Identify Root Cause (Code/Config/Data) using `grep_search` and `view_file`. Output `Root-Cause-Analysis.md`."
 - **Output**: `agent-output/analysis/Root-Cause-Analysis.md`
 - **Handoff**: `agent-output/handoffs/BugFix-Phase1-Handoff.md` (Template: Data-Only, No Fluff)
 
@@ -25,7 +20,8 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Agent**: Planner
 - **Agent**: Planner
 - **Input**: `agent-output/handoffs/BugFix-Phase1-Handoff.md` AND `agent-output/analysis/Root-Cause-Analysis.md`
-- **Action**: Plan the fix + determine the Regression Test strategy.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Load Root Cause. Plan the fix and Regression Test strategy. Output `Fix-Plan.md`."
 - **Output**: `agent-output/planning/Fix-Plan.md`
 - **Handoff**: `agent-output/handoffs/BugFix-Phase2-Handoff.md` (Template: Data-Only, No Fluff)
 
@@ -45,10 +41,8 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 3. Implementation (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: `agent-output/handoffs/BugFix-Phase2-Handoff.md` AND `agent-output/planning/Fix-Plan.md`
-- **Action**:
-  1.  Write a failing test (reproduction).
-  2.  Fix the code.
-  3.  Verify the test passes.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Load Fix Plan. Write failing test (reproduction). Fix code. Verify test passes. Output Code changes and `Fix-Implementation.md`."
 - **Output**: Code changes + New Test + `agent-output/implementation/Fix-Implementation.md`
 - **Handoff**: `agent-output/handoffs/BugFix-Phase3-Handoff.md` (Template: Data-Only, No Fluff)
 

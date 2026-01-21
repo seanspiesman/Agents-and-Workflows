@@ -11,17 +11,15 @@ Drift between code and documentation is a major source of confusion. This workfl
 ### 1. Drift Detection (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Codebase and existing documentation.
-- **Action**: Run the Analyst agent as a subagent to compare exported symbols, API signatures, and CLI arguments against the docs.
-- **Mandatory MCP Usage**:
-  - Use `grep_search` to find exported functions.
-  - Use `view_file` to read existing docs.
-- **Output**: Drift Report in `agent-output/analysis/` listing specific discrepancies.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Compare exported symbols/API against docs using `grep_search` and `view_file`. Output Drift Report."
 - **Handoff**: Passed to Implementer.
 
 ### 2. Documentation Update (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Drift Report.
-- **Action**: Run the Implementer agent as a subagent to draft updated documentation.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Draft updated documentation based on Drift Report. Output `.md` changes."
 - **Output**: Changes to `.md` files or inline comments.
 - **Handoff**: Passed to Critic/QA.
 

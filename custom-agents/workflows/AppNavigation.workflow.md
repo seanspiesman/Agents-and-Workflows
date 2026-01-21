@@ -11,11 +11,8 @@ The **Navigator** explores the app. If it finds a **Blocking Bug**, it stops imm
 ### 1. Discovery & Navigation (Navigator Agent)
 - **Agent**: Navigator
 - **Input**: Application URL or Bundle ID.
-- **Action**: Run the Navigator agent as a subagent to systematically explore routes, click elements, and record sessions.
-- **Decision Point**:
-  - **Blocking Bug Found**: Stop immediately -> **Scenario A**.
-  - **Exploration Complete (with Non-Blocking Bugs)**: -> **Scenario B**.
-  - **Exploration Complete (Clean)**: -> **Scenario C**.
+- **Execution**: Run the **Navigator** agent as a subagent.
+    - **Task**: "Systematically explore routes, click elements, and record sessions. Decide path based on findings: Blocking Bug (Stop), Non-Blocking (Report), or Clean."
 
 ### Scenario A: Immediate Blocking Fix
 1. **Orchestrator**: Trigger **BugFix Workflow** immediately for the specific blocking issue.

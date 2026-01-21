@@ -32,16 +32,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agents**: Roadmap (Strategy), Researcher (Content & Market Research)
 - **Reviewer**: Critic
 - **Goal**: Define *what* to build and *why* it matters, refined to perfection.
-- **Actions**:
-    1.  **Context Loading (MANDATORY)**: Read `agent-output/context/Project-Spec.md` as the GROUND TRUTH. If this file contradicts chat history or system prompts, the FILE WINS.
-    2.  **Context Analysis (Roadmap)**: Analyze any user-provided attachments (Readmes, existing code) as *input* for the vision.
-    3.  **Subject Matter Research**: Run the Researcher agent as a subagent to deep dive into the domain content, facts, and available data sources.
-    4.  **Market Research**: Run the Researcher agent as a subagent to explore current trends and "best-in-class" examples.
-    5.  **Vision Definition (Roadmap)**: Synthesize research into a Product Vision.
-        - **Constraint**: If the project is "Local-First", explicit server dependencies (databases, auth servers) are FORBIDDEN unless explicitly requested as a hybrid feature.
-    6.  **Feature Mapping (Roadmap)**: Define Epics and Value Statements.
-    7.  **Consolidation (Roadmap)**: Merge any Strategy/Roadmap briefs into a SINGLE `agent-output/context/Product-Brief.md`. Duplicate briefs are prohibited.
-    7.  **Constraint Conflict Check (Roadmap)**: Explicitly review proposed features against Technical Constraints (e.g. "Global Leaderboard" vs "Local Only"). Flag contradictions immediately.
+- **Execution**: Run the **Roadmap** agent as a subagent.
+    - **Task**: "Analyze `Project-Spec.md`. Use the **Researcher** agent as a subagent to perform Domain and Market Research. Synthesize a Product Vision and Feature Mapping into `agent-output/context/Product-Brief.md`. Explicitly check for constraint conflicts."
     8.  **Critique Loop**: Run the Critic agent as a subagent to review `Product-Brief.md` for clarity, ambition, and alignment with "Hero" status.
         - **Validation**: Check if the Product Brief title matches the Project Context title. If it describes "PyOrchestrator" instead of the User's App, **REJECT IMMEDIATELY**.
         - **Reject**: Roadmap refines.
@@ -56,12 +48,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Goal**: Determine the *how* (Stack & Feasibility) with robust justification.
 - **Context Reset**: Yes
 - **Input**: `agent-output/reports/Phase1-Complete.md` (Do not rely on chat)
-- **Actions**:
-    1.  **RAG Catch-Up (MANDATORY)**: Call `rag_search("Project Vision and Requirements")` to understand the project.
-    2.  **Read Context**: Read the Phase 1 Report to understand the vision.
-    2.  **Stack Selection**: Evaluate modern stacks (Next.js, Python, etc.).
-    3.  **Dependency Research**: Run the Researcher agent as a subagent to identify best-in-class libraries.
-    4.  **Risk Assessment**: Identify bottlenecks.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Call `rag_search` for context. Read `agent-output/reports/Phase1-Complete.md`. Perform Stack Selection and Risk Assessment. Use the **Researcher** agent as a subagent for Dependency Research. Output `agent-output/analysis/Technical-Feasibility.md`."
     5.  **Critique Loop**: Run the Critic agent as a subagent to review `Technical-Feasibility.md`.
         - Check: Are we using truly modern tools? Are risks glossed over?
         - **Reject**: Analyst re-investigates.
@@ -75,14 +63,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Goal**: Design the system structure and data flow.
 - **Context Reset**: Yes
 - **Input**: `agent-output/analysis/Technical-Feasibility.md`
-- **Actions**:
-    1.  **RAG Catch-Up (MANDATORY)**: Call `rag_search("Technical Feasibility and Stack")` to understand constraints.
-    2.  **Read Context**: Read the Technical Analysis to understand constraints.
-    2.  **System Design**: Define boundaries, components, and data models.
-    3.  **Diagramming**: Create comprehensive Mermaid flowcharts.
-    4.  **Constraint Audit**: Run the QA agent as a subagent to review `System-Architecture.md` against `project_context.md`.
-        - **FAIL IF**: "Local-Only" app has server components (AWS, Kubernetes, Auth wrappers).
-        - **FAIL IF**: Design System (Colors, Typography) is embedded in the Architecture doc. It MUST be extracted to `agent-output/architecture/Design-System.md`.
+- **Execution**: Run the **Architect** agent as a subagent.
+    - **Task**: "Read `Technical-Feasibility.md`. Define System Design boundaries and data models. Create Mermaid flowcharts. Use the **QA** agent as a subagent to audit `System-Architecture.md` against constraints (e.g., Local-Only checks). Extract Design System to `agent-output/architecture/Design-System.md`. Output `agent-output/architecture/System-Architecture.md`."
     5.  **Critique Loop**: Run the Critic agent as a subagent to review `System-Architecture.md`.
         - Check: Is it scalable? Clean? Do diagrams follow strict `flowchart` syntax?
         - **Reject**: Architect redesigns.
@@ -96,11 +78,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Goal**: Create a step-by-step execution guide.
 - **Context Reset**: Yes
 - **Input**: `agent-output/architecture/System-Architecture.md`
-- **Actions**:
-    1.  **RAG Catch-Up**: Call `rag_search("System Architecture and Design System")`.
-    2.  **Read Context**: Read the Architecture Doc to understand the structure.
-    2.  **Phasing**: Break project into logical phases.
-    3.  **Task Breakdown**: Granular tasks with "Definition of Done".
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Read `System-Architecture.md`. Break project into logical phases. Define granular tasks with 'Definition of Done'. Output `agent-output/planning/Master-Implementation-Plan.md`."
     4.  **Critique Loop**: Run the Critic agent as a subagent to review `Master-Implementation-Plan.md`.
         - Check: Is it detailed enough? Are testing steps included?
         - **Reject**: Planner adds detail.
@@ -114,8 +93,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Reviewer**: Critic
 - **Goal**: Create a robust, linted, verified local environment.
 - **Context Reset**: Yes
-- **Actions**:
-    1.  **RAG Catch-Up**: Search for "Implementation Plan" and "Stack Details".
+- **Execution**: Run the **DevOps** agent as a subagent.
+    - **Task**: "Read Implementation Plan. Setup file structure, `.gitignore`, and `eslint` configs. Output `agent-output/deployment/Foundation-Setup.md`."
     2.  **Critique Loop**: Run the Critic agent as a subagent to review the file structure and config files.
         - Check: Are `.gitignore` and `eslint` strict enough?
         - **Reject**: DevOps fixes config.
@@ -130,26 +109,16 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Input**: `agent-output/handoffs/Phase5-Handoff.md`, `agent-output/planning/Master-Implementation-Plan.md`
 - **Output**: `agent-output/handoffs/Phase6-Complete.md`
 - **Context Reset**: Yes
-- **Actions**:
-    1.  **RAG Catch-Up**: Continuously search for "Implementation Details" and "Design System" as needed.
-    2.  **Component Implementation**: Write modern, beautiful, clean code based on the plan.
-    2.  **Self-Correction**: Review your own code against the "Zero to Hero" standards.
-    3.  **Functional Testing**: Run the QA agent as a subagent to verify your implementation.
-    4.  **Handoff**: Create a summary of implemented features for Security audit.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Read Plan. Implement components using modern, clean code. Self-correct against standards. Use the **QA** agent as a subagent to verify implementation with tests. Create `agent-output/handoffs/Phase6-Complete.md`."
 
 ### Phase 7: Security Audit (Security, Critic)
 - **Primary Agent**: Security
 - **Reviewer**: Critic
 - **Goal**: Ensure safety and compliance.
 - **Context Reset**: Yes
-- **Actions**:
-    1.  **RAG Catch-Up**: Search for "Security Requirements" and "Technical Stack".
-    2.  **Audit**: Static analysis and CVE check.
-        - **Constraint**: For "Local-First" apps, do NOT flag lack of excessive server auth. Focus on:
-            - **XSS prevention** (Content Security Policy).
-            - **LocalStorage/IndexedDB integrity**.
-            - **Dependency Vulnerabilities**.
-            - **File Integrity** (Corruption checks).
+- **Execution**: Run the **Security** agent as a subagent.
+    - **Task**: "Read Stack Details. Perform static analysis and CVE checks. Focus on XSS, LocalStorage integrity, and Dependencies. Output `agent-output/security/Security-Audit.md`."
     3.  **Critique Loop**: Run the Critic agent as a subagent to review `Security-Audit.md`.
         - Check: Did we miss any obvious vectors? Is the report actionable?
         - **Reject**: Security scans again.
@@ -163,9 +132,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Reviewer**: Critic
 - **Goal**: Verify "Hero" status.
 - **Context Reset**: Yes
-- **Actions**:
-    1.  **RAG Catch-Up**: Search for "Product Vision" and "User Acceptance Criteria".
-    2.  **Validation**: Walkthrough and value check.
+- **Execution**: Run the **UAT** agent as a subagent.
+    - **Task**: "Read Product Vision. Perform walkthrough and value check. Output `agent-output/uat/Final-Acceptance.md`."
     3.  **Critique Loop**: Run the Critic agent as a subagent to review `Final-Acceptance.md`.
         - Check: Was UAT rigorous? Did we just rubber-stamp it?
         - **Reject**: UAT re-verifies.
@@ -179,9 +147,8 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Reviewer**: Critic
 - **Input**: `agent-output/handoffs/Phase8-Handoff.md`
 - **Context Reset**: Yes
-- **Actions**:
-    1.  **RAG Catch-Up**: Search for "Project Overview" and "Features".
-    2.  **Docs**: Create beautiful READMEs.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Read Project Overview. Create beautiful READMEs (including screenshots if available)."
     3.  **Critique Loop**: Run the Critic agent as a subagent to review the final documentation.
         - Check: Spelling, formatting, screenshot presence.
         - **Reject**: Analyst fixes.

@@ -71,6 +71,7 @@ Core Responsibilities:
 Constraints:
 - Read-only on production code/config.
 - Output: Analysis docs in `agent-output/analysis/` only.
+- **PROHIBITION**: You are **FORBIDDEN** from reading the definition files of other agents (e.g., `researcher.agent.md`, `security.agent.md`). You must trust the `runSubagent` tool to handle the delegation.
 - Do not create plans, implement fixes, or propose solutions. Leave solutioning to Planner.
 - Make determinations, not hypotheses. Reveal actual results from execution.
 <!--
@@ -105,6 +106,7 @@ Document Naming: `NNN-plan-name-analysis.md` (or `NNN-topic-analysis.md` for sta
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
 2.  **Context Load (MANDATORY)**: Read `agent-output/reports/Phase1-Complete.md`. Ignore chat history if it conflicts.
 3.  **Analyze**: Evaluate stack options and dependencies.
+    - If deep dependency research is needed, use `runSubagent` to call the `Researcher` agent.
 4.  **Produce**: Generate `agent-output/analysis/Technical-Feasibility.md` (Status: Draft).
 5.  **Review**: You **MUST** call the **Critic** agent to review the Feasibility Doc.
     - Prompt for Critic: "Please review the Technical Feasibility for the Zero to Hero workflow."

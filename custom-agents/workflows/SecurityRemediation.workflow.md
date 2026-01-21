@@ -11,24 +11,23 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 ### 1. Triage & Assessment (Security Agent)
 - **Agent**: Security
 - **Input**: Vulnerability report (from tool or external source).
-- **Action**: Run the Security agent as a subagent to assess severity (CVSS), impact, and risk.
+- **Execution**: Run the **Security** agent as a subagent.
+    - **Task**: "Assess vulnerability severity and impact. Output Security Incident Ticket."
 - **Output**: Security Incident Ticket in `agent-output/security/Incident-Ticket.md`.
 - **Handoff**: `agent-output/handoffs/SecFix-Phase1-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 2. Root Cause Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: `agent-output/handoffs/SecFix-Phase1-Handoff.md` AND `agent-output/security/Incident-Ticket.md`
-- **Action**: Run the Analyst agent as a subagent to locate the vulnerability in code and uncovers the root cause.
-- **Mandatory MCP Usage**:
-  - Use `grep_search` to find all occurrences of the pattern.
-  - User `view_file` to trace the data flow from sink to source.
-- **Output**: Analysis Report detailing the "Sink", "Source", and "Data Flow" (`agent-output/analysis/Root-Cause.md`).
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Locate vulnerability in code. Trace from Sink to Source. Output Root Cause/Data Flow Analysis."
 - **Handoff**: `agent-output/handoffs/SecFix-Phase2-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 3. Remediation Planning (Planner Agent)
 - **Agent**: Planner
 - **Input**: `agent-output/handoffs/SecFix-Phase2-Handoff.md` AND `agent-output/analysis/Root-Cause.md`
-- **Action**: Run the Planner agent as a subagent to plan the fix.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Plan the fix (patch/upgrade/rewrite) considering side effects. Output Remediation Plan."
 - **Considerations**: patches, library upgrades, or code rewrites. Must consider side effects.
 - **Output**: `agent-output/planning/Remediation-Plan.md`.
 - **Handoff**: `agent-output/handoffs/SecFix-Phase3-Handoff.md` (Template: Data-Only, No Fluff)
@@ -49,7 +48,8 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 ### 4. Application of Fix (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: `agent-output/handoffs/SecFix-Phase3-Handoff.md` AND `agent-output/planning/Remediation-Plan.md`
-- **Action**: Run the Implementer agent as a subagent to apply the fix.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Apply the fix. Output Code changes."
 - **Output**: Code changes + `agent-output/implementation/Remediation-Impl.md`.
 - **Handoff**: `agent-output/handoffs/SecFix-Phase4-Handoff.md` (Template: Data-Only, No Fluff)
 
@@ -66,10 +66,8 @@ Security fixes must be precise. This workflow ensures we don't just "patch" the 
 ### 5. Verification (Security Agent)
 - **Agent**: Security
 - **Input**: `agent-output/handoffs/SecFix-Phase4-Handoff.md` AND `agent-output/implementation/Remediation-Impl.md`
-- **Action**: Run the Security agent as a subagent to verify the fix *specifically* addresses the vulnerability.
-- **Mandatory MCP Usage**:
-  - Use `view_file` to inspect the diff.
-  - Use `run_command` to run security scanners if available.
+- **Execution**: Run the **Security** agent as a subagent.
+    - **Task**: "Verify fix specifically addresses vulnerability. Use `view_file` and security scanners."
 - **Iteration Loop**:
   - **FAIL**: Fix is ineffective or incomplete. Return to **Analyst** (if root cause wrong) or **Implementer** (if implementation flawed).
   - **PASS**: Issue Resolved. Create `agent-output/handoffs/SecFix-Phase5-Handoff.md` (Template: Data-Only, No Fluff).

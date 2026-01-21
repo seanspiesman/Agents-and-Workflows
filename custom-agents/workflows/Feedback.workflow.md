@@ -15,16 +15,8 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 
 ### 2. Create Action Plan (Planner Agent)
 - **Agent**: Planner
-- **Action**: Run the Planner agent as a subagent to create a detailed action plan based on the feedback.
-- **Output**: A plan document in `agent-output/planning/` with:
-  - Value Statement and Business Objective
-  - Detailed steps for implementation
-  - Acceptance criteria
-  - Dependencies and risks
-  - Target release version (aligned with roadmap)
-- **Handoff**: The plan is submitted to the Critic agent for review.
-- **Validation**: Planner ensures the plan aligns with the Master Product Objective and architectural guidelines.
-- **Mandatory Tools**: Use `context7` to research capabilities if external libraries are involved.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Create a detailed action plan based on the feedback. Include Value Statement, Implementation Steps, Acceptance Criteria, and Risks. Use `context7` for research. Output to `agent-output/planning/`."
 
 ### 3. Plan Review (Critic Agent)
 - **Agent**: Critic
@@ -52,9 +44,8 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 
 ### 5. Implementation (Implementer Agent)
 - **Agent**: Implementer
-- **Action**: Run the Implementer agent as a subagent to implement the changes defined in the plan.
-- **Output**: Code changes and tests.
-- **Handoff**: Passed to QA.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Implement the changes defined in the plan using `run_command` and file edits. Output code changes and tests."
 
 - **Handoff**: Passed to Critic.
 
