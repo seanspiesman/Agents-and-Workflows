@@ -6,5 +6,6 @@
 **.mardownlint.json
 testruns/*
 ZeroToHeroPrompts/*
-agent-output/*s
+agent-output/*
 .github
+PyOrchestrator/backend/agent-output/*

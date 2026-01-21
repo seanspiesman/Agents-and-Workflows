@@ -11,25 +11,23 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 ### 1. Hotspot Identification (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Codebase, complexity metrics, or "gut feel" from developers.
-- **Action**: Identify specific areas of high complexity, cyclical dependencies, or legacy patterns.
-- **Mandatory MCP Usage**:
-  - Use `find_by_name` and `grep_search` to map dependencies.
-  - Use `view_file` to assess code readability and cyclomatic complexity.
-  - Use `context7` to understand library patterns in legacy code.
-- **Output**: A Refactoring Opportunity Doc in `agent-output/analysis/Refactoring-Opp.md`.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Identify hotspots (complexity, legacy patterns). Output Refactoring Opportunity Doc."
 - **Handoff**: `agent-output/handoffs/Refactor-Phase1-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 2. Pattern Selection (Architect Agent)
 - **Agent**: Architect
 - **Input**: `agent-output/handoffs/Refactor-Phase1-Handoff.md` AND `agent-output/analysis/Refactoring-Opp.md`
-- **Action**: Propose the new structure or design pattern (e.g., "Extract Strategy Pattern", "Replace Conditional with Polymorphism").
+- **Execution**: Run the **Architect** agent as a subagent.
+    - **Task**: "Propose new structure/design patterns. Output Architecture Decision Record (ADR)."
 - **Output**: An Architecture Decision Record (ADR) or Design Sketch in `agent-output/architecture/ADR.md`.
 - **Handoff**: `agent-output/handoffs/Refactor-Phase2-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 3. Step-by-Step Planning (Planner Agent)
 - **Agent**: Planner
 - **Input**: `agent-output/handoffs/Refactor-Phase2-Handoff.md` AND `agent-output/architecture/ADR.md`
-- **Action**: Break the refactoring into atomic, safe steps.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Break refactoring into atomic, safe steps that maintain compiling state. Output Refactoring Plan."
 - **Constraint**: Each step must leave the system in a compiling, passing state.
 - **Output**: A Refactoring Plan in `agent-output/planning/Refactor-Plan.md`.
 - **Handoff**: `agent-output/handoffs/Refactor-Phase3-Handoff.md` (Template: Data-Only, No Fluff)
@@ -37,32 +35,28 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 ### 3a. Method Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Refactoring Plan.
-- **Action**: Verify the plan follows the pattern correctly and maintains safety.
+- **Action**: Run the Critic agent as a subagent to verify the plan follows the pattern correctly and maintains safety.
 - **Iteration**: Return to **Planner** if unsafe.
 
 ### 3b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: `agent-output/planning/Refactor-Plan.md`
-- **Action**: **CRITICAL**: Review specifically for "lack of detail". Refactoring requires atomic precision. Ensure no step is vague.
+- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail". Refactoring requires atomic precision. Ensure no step is vague.
 - **Iteration**: Return to **Planner** if lacking detail.
 - **Handoff**: To Implementer.
 
 ### 4. Safe Implementation (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: `agent-output/handoffs/Refactor-Phase3-Handoff.md` AND `agent-output/planning/Refactor-Plan.md`
-- **Action**: detailed execution of the plan.
-- **Process**:
-  1.  Ensure existing tests pass (Gold Master).
-  2.  Apply refactoring for one step.
-  3.  Run tests.
-  4.  Commit.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Execute plan safely (Test -> Refactor -> Test cycle). Output Code changes."
 - **Output**: Code changes + `agent-output/implementation/Refactor-Impl.md`
 - **Handoff**: `agent-output/handoffs/Refactor-Phase4-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 4b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: Code changes.
-- **Action**: Check for regression in code quality or readability.
+- **Action**: Run the Critic agent as a subagent to check for regression in code quality or readability.
 - **Checks**:
   - Code Style & Standards.
   - Complexity metrics.
@@ -72,7 +66,7 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 ### 5. Regression Verification (QA Agent)
 - **Agent**: QA
 - **Input**: `agent-output/handoffs/Refactor-Phase4-Handoff.md` AND `agent-output/implementation/Refactor-Impl.md`
-- **Action**: Run the full regression suite. Verify no behavior changes.
+- **Action**: Run the QA agent as a subagent to run the full regression suite. Verify no behavior changes.
 - **Mandatory MCP Usage**:
   - Use `run_command` to execute test suites.
   - Use `playwright` (Web) or `ios-simulator` (Mobile) to verify UI behavior if applicable. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**

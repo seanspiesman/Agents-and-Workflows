@@ -11,32 +11,22 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 1. Scope Definition & Discovery (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: User-defined functionality name or entry point (e.g., "User Submission Flow").
-- **Action**: Identify the core files, entry points, and dependencies related to the requested functionality.
-- **Mandatory MCP Usage**:
-  - Use `find_by_name` to locate relevant files matching the functionality keywords.
-  - Use `grep_search` to find usage of key terms or components.
-  - Use `list_dir` to understand the surrounding file structure.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Identify core files and entry points for [Functionality] using `find_by_name`. Output Scope Definition."
 - **Output**: A Scope Definition document in `agent-output/analysis/` (e.g., `001-scope-definition.md`) listing all relevant files and entry points.
 - **Handoff**: Passed to Analyst for Phase 2.
 
 ### 2. Structural Analysis & Logic Tracing (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Scope Definition document.
-- **Action**: Deep dive into the code to trace execution paths, data flow, and state management.
-- **Mandatory MCP Usage**:
-  - Use `view_file` to read the code logic.
-  - Use `view_code_item` to inspect specific functions or classes.
-  - Use `context7` (if applicable) to understand library usage.
-- **Output**: An "Existing Structure" document in `agent-output/analysis/` (e.g., `002-existing-structure.md`) detailing:
-  - Step-by-step logic flow.
-  - State changes and side effects.
-  - Data models involved.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Trace execution paths and state management. Output Existing Logic/Structure document."
 - **Handoff**: Passed to Critic.
 
 ### 3. Code Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Existing Structure document and Raw Code.
-- **Action**: Evaluate the implementation against best practices, performance standards, and maintainability guidelines.
+- **Action**: Run the Critic agent as a subagent to evaluate the implementation against best practices, performance standards, and maintainability guidelines.
 - **Checks**:
   - **Code Quality**: DRY principles, naming conventions, complexity.
   - **Performance**: Potential bottlenecks, unnecessary renders/computations.
@@ -48,22 +38,16 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 4. Visual Synthesis (Architect Agent)
 - **Agent**: Architect
 - **Input**: Existing Structure document.
-- **Action**: Generate Mermaid diagrams to visualize the control flow and architecture.
-- **Visual Requirements**:
-  - **Mandatory Skill**: Load `mermaid-diagramming` skill.
-  - **Action**: Follow all syntax rules and best practices defined in the skill to generate error-free diagrams.
+- **Execution**: Run the **Architect** agent as a subagent.
+    - **Task**: "Generate Mermaid diagrams to visualize control flow using `mermaid-diagramming` skill. Output Diagrams document."
 - **Output**: An Architecture Diagrams document in `agent-output/architecture/` (e.g., `004-current-flow-diagrams.md`).
 - **Handoff**: Passed to Planner.
 
 ### 5. Improvement Proposals (Planner Agent)
 - **Agent**: Planner
 - **Input**: Critique document and Architecture Diagrams.
-- **Action**: Propose concrete, actionable updates to address the critique and improve the structure.
-- **Action**: Create a plan for refactoring or enhancing the functionality.
-- **Output**: A "Suggested Updates" document in `agent-output/planning/` (e.g., `005-suggested-updates.md`) containing:
-  - Refactoring plan.
-  - New feature suggestions.
-  - Architecture improvements.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Propose concrete actionable updates/refactoring. Output Suggested Updates document."
 - **Handoff**: Passed to Orchestrator.
 
 ### 6. Final Report Assembly (Orchestrator Agent)

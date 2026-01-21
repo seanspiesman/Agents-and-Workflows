@@ -12,18 +12,16 @@ Cycle: **Analysis (What is this?) -> Design (Combinatorial Matrix) -> Execution 
 ### 1. Widget Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Widget Source Code (`tsx`, `config.json`, `setting.tsx`).
-- **Action**: Deep dive into the widget's logic.
-- **Identify**:
-  - **Inputs**: Settings, Config properties, User inputs (text fields, toggles, dropdowns).
-  - **Outputs**: Map updates, Selection changes, Data source mutations.
-  - **States**: Loading, Empty, Error, Active.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Deep dive into widget logic. Identify Inputs, Outputs, and States. Output Widget Logic Map."
 - **Output**: Widget Logic Map in `agent-output/analysis/`.
 - **Handoff**: Passed to Planner.
 
 ### 2. Test Matrix Design (Planner Agent)
 - **Agent**: Planner
 - **Input**: Widget Logic Map.
-- **Action**: Design a **Robost Verification Matrix**.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Design Robust Verification Matrix covering all combinations. Output Test Matrix."
 - **Requirement**: Cover "All Combinations" of critical variables.
   - Example: `[Toggle A: On/Off] x [Dropdown B: Option 1/2] x [Map Selection: Yes/No]`
 - **Output**: Combinatorial Test Matrix (Markdown / JSON table).
@@ -32,20 +30,15 @@ Cycle: **Analysis (What is this?) -> Design (Combinatorial Matrix) -> Execution 
 ### 2b. Matrix Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Combinatorial Test Matrix.
-- **Action**: **CRITICAL**: Review specifically for "lack of detail". Ensure all combinations are explicitly listed or algorithmically defined.
+- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail". Ensure all combinations are explicitly listed or algorithmically defined.
 - **Iteration**: Return to **Planner** if vague.
 - **Handoff**: Passed to Navigator.
 
 ### 3. Interactive Verification (Navigator Agent)
 - **Agent**: Navigator
 - **Input**: Combinatorial Test Matrix.
-- **Action**: Execute the matrix using `playwright` (preferred for ExB widgets) or `ios-simulator`.
-- **Loop**: For each row in the matrix:
-  1.  Configure Widget State (via Setting or Input).
-  2.  Interact (Click, Type, Select).
-  3.  Verify Output (Screenshot + Log).
-  4.  Reset.
-- **Constraint**: **Safe Command Execution** (WaitMsBeforeAsync: 2000, 200s Timeout) for any build/serve steps.
+- **Execution**: Run the **Navigator** agent as a subagent.
+    - **Task**: "Execute the matrix using `playwright` or `ios-simulator`. For each row: Configure, Interact, Verify, Reset. Output Verification Logs and Screenshots."
 - **Output**:
   - `verification-logs.md`: Pass/Fail per matrix row.
   - Screenshots of each state.

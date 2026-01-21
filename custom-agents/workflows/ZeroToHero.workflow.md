@@ -16,44 +16,41 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 ## Workflow Steps
 
-### Phase 0: Environment Validation (Orchestrator)
-- **Goal**: Ensure the environment is ready for "Hero" work.
+### Phase 0: Environment Validation & Initialization (Orchestrator)
+- **Goal**: Ensure the environment is ready for "Hero" work and project backbone is established.
 - **Actions**:
-    1.  **Check Tools**: Verify `node -v`, `npm -v`, `git --version`.
-    2.  **Check Permissions**: Verify write access to `agent-output/`.
-    3.  **Result**: Write `agent-output/logs/env_check.md`.
-    4.  **Rescue**: If any tool is missing, HALT immediately.
+    1.  **Initialize Backbone**:
+        - Create directories: `management`, `logs`, `handoffs`, `reports`, `architecture`, `planning`, `analysis`.
+        - Create directories: `management`, `logs`, `handoffs`, `reports`, `architecture`, `planning`, `analysis`, `context`.
+        - Create files: `logs/cli_history.log`, `management/task.md`.
+    2.  **Check Tools**: Verify `node -v`, `npm -v`, `git --version`.
+    3.  **Check Permissions**: Verify write access to `agent-output/`.
+    4.  **Result**: Write `agent-output/logs/env_check.md`.
+    5.  **Rescue**: If any tool is missing, HALT immediately.
 
 ### Phase 1: Inception & Strategy (Roadmap, Researcher, Critic)
-- **Primary Agents**: Researcher (Content & Market Research), Roadmap (Strategy)
+- **Primary Agents**: Roadmap (Strategy), Researcher (Content & Market Research)
 - **Reviewer**: Critic
 - **Goal**: Define *what* to build and *why* it matters, refined to perfection.
-- **Actions**:
-    1.  **Context Analysis (Roadmap)**: Analyze any user-provided attachments (Readmes, existing code) as *input* for the vision.
-    2.  **Subject Matter Research (Researcher)**: Deep dive into the domain content, facts, and available data sources.
-    3.  **Market Research (Researcher)**: Explore current trends and "best-in-class" examples.
-    2.  **Vision Definition (Roadmap)**: Synthesize research into a Product Vision.
-    3.  **Feature Mapping (Roadmap)**: Define Epics and Value Statements.
-    4.  **Constraint Conflict Check (Roadmap)**: Explicitly review proposed features against Technical Constraints (e.g. "Global Leaderboard" vs "Local Only"). Flag contradictions immediately.
-    5.  **Critique Loop (Critic)**:
-        - Review `Product-Brief.md` for clarity, ambition, and alignment with "Hero" status.
+- **Execution**: Run the **Roadmap** agent as a subagent.
+    - **Task**: "Analyze `Project-Spec.md`. Use the **Researcher** agent as a subagent to perform Domain and Market Research. Synthesize a Product Vision and Feature Mapping into `agent-output/context/Product-Brief.md`. Explicitly check for constraint conflicts."
+    8.  **Critique Loop**: Run the Critic agent as a subagent to review `Product-Brief.md` for clarity, ambition, and alignment with "Hero" status.
+        - **Validation**: Check if the Product Brief title matches the Project Context title. If it describes "PyOrchestrator" instead of the User's App, **REJECT IMMEDIATELY**.
         - **Reject**: Roadmap refines.
         - **Approve**: Proceed to Analysis.
 - **Output**: `agent-output/reports/Phase1-Complete.md` (Contains links to Product Brief and Research Report)
-- **Handoff**: To Analyst.
+- **Artifact**: `agent-output/context/Project-Spec.md` (MUST contain Project Name, Tech Stack, and Constraints)
+- **Handoff**: To Analyst. (Template: Data-Only, No Fluff)
 
 ### Phase 2: Technical Analysis (Analyst, Critic)
 - **Primary Agent**: Analyst
 - **Reviewer**: Critic
 - **Goal**: Determine the *how* (Stack & Feasibility) with robust justification.
+- **Context Reset**: Yes
 - **Input**: `agent-output/reports/Phase1-Complete.md` (Do not rely on chat)
-- **Actions**:
-    1.  **Read Context**: Read the Phase 1 Report to understand the vision.
-    2.  **Stack Selection**: Evaluate modern stacks (Next.js, Python, etc.).
-    3.  **Dependency Research**: Identify best-in-class libraries.
-    4.  **Risk Assessment**: Identify bottlenecks.
-    5.  **Critique Loop (Critic)**:
-        - Review `Technical-Feasibility.md`.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Call `rag_search` for context. Read `agent-output/reports/Phase1-Complete.md`. Perform Stack Selection and Risk Assessment. Use the **Researcher** agent as a subagent for Dependency Research. Output `agent-output/analysis/Technical-Feasibility.md`."
+    5.  **Critique Loop**: Run the Critic agent as a subagent to review `Technical-Feasibility.md`.
         - Check: Are we using truly modern tools? Are risks glossed over?
         - **Reject**: Analyst re-investigates.
         - **Approve**: Proceed to Design.
@@ -64,16 +61,11 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agent**: Architect
 - **Reviewer**: Critic
 - **Goal**: Design the system structure and data flow.
+- **Context Reset**: Yes
 - **Input**: `agent-output/analysis/Technical-Feasibility.md`
-- **Actions**:
-    1.  **Read Context**: Read the Technical Analysis to understand constraints.
-    2.  **System Design**: Define boundaries, components, and data models.
-    3.  **Diagramming**: Create comprehensive Mermaid flowcharts.
-    4.  **Constraint Audit (QA)**:
-        - Review `System-Architecture.md` against `project_context.md`.
-        - **FAIL IF**: "Local-Only" app has server components (AWS, Kubernetes, Auth wrappers).
-    5.  **Critique Loop (Critic)**:
-        - Review `System-Architecture.md`.
+- **Execution**: Run the **Architect** agent as a subagent.
+    - **Task**: "Read `Technical-Feasibility.md`. Define System Design boundaries and data models. Create Mermaid flowcharts. Use the **QA** agent as a subagent to audit `System-Architecture.md` against constraints (e.g., Local-Only checks). Extract Design System to `agent-output/architecture/Design-System.md`. Output `agent-output/architecture/System-Architecture.md`."
+    5.  **Critique Loop**: Run the Critic agent as a subagent to review `System-Architecture.md`.
         - Check: Is it scalable? Clean? Do diagrams follow strict `flowchart` syntax?
         - **Reject**: Architect redesigns.
         - **Approve**: Proceed to Planning.
@@ -84,13 +76,11 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agent**: Planner
 - **Reviewer**: Critic
 - **Goal**: Create a step-by-step execution guide.
+- **Context Reset**: Yes
 - **Input**: `agent-output/architecture/System-Architecture.md`
-- **Actions**:
-    1.  **Read Context**: Read the Architecture Doc to understand the structure.
-    2.  **Phasing**: Break project into logical phases.
-    3.  **Task Breakdown**: Granular tasks with "Definition of Done".
-    4.  **Critique Loop (Critic)**:
-        - Review `Master-Implementation-Plan.md`.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Read `System-Architecture.md`. Break project into logical phases. Define granular tasks with 'Definition of Done'. Output `agent-output/planning/Master-Implementation-Plan.md`."
+    4.  **Critique Loop**: Run the Critic agent as a subagent to review `Master-Implementation-Plan.md`.
         - Check: Is it detailed enough? Are testing steps included?
         - **Reject**: Planner adds detail.
         - **Approve**: Proceed to Foundation.
@@ -102,10 +92,10 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agent**: DevOps
 - **Reviewer**: Critic
 - **Goal**: Create a robust, linted, verified local environment.
-- **Actions**:
-    1.  **Setup**: Initialize using standard CLI tools (e.g., `git init`, `npm create`, `dotnet new`). Manual file creation for boilerplate is FORBIDDEN.
-    2.  **Critique Loop (Critic)**:
-        - Review the file structure and config files.
+- **Context Reset**: Yes
+- **Execution**: Run the **DevOps** agent as a subagent.
+    - **Task**: "Read Implementation Plan. Setup file structure, `.gitignore`, and `eslint` configs. Output `agent-output/deployment/Foundation-Setup.md`."
+    2.  **Critique Loop**: Run the Critic agent as a subagent to review the file structure and config files.
         - Check: Are `.gitignore` and `eslint` strict enough?
         - **Reject**: DevOps fixes config.
         - **Approve**: Proceed to Implementation.
@@ -114,40 +104,22 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Handoff**: `agent-output/handoffs/Phase5-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### Phase 6: The Implementation Loop (Implementer, Critic, QA)
-*Repeat this cycle for each Feature Phase defined in the Plan.*
-
-#### 6a. Component Implementation (Implementer)
-- **Agent**: Implementer
-- **Input**: `agent-output/handoffs/Phase5-Handoff.md` AND `agent-output/planning/Master-Implementation-Plan.md`
-- **Output**: `agent-output/handoffs/Phase6a-Handoff.md` (Template: Data-Only, No Fluff)
-- **Action**: Write modern, beautiful, clean code. Use CLI tools for file generation and dependency management where available.
-
-#### 6b. Code Critique (Critic)
-- **Agent**: Critic
-- **Action**: Strict code review.
-- **Checks**:
-    - **Aesthetics**: Is it "Zero to Hero" quality?
-    - **Architecture**: Does it match Phase 3?
-    - **Quality**: Clean code principles?
-- **Result**:
-    - **Reject**: Send back to 6a.
-    - **Approve**: Move to 6c.
-
-#### 6c. Functional Testing (QA)
-- **Agent**: QA
-- **Input**: `agent-output/handoffs/Phase6a-Handoff.md`
-- **Action**: Run tests.
-- **Loop**: Failures go back to Implementer (6a).
-- **Output**: `agent-output/handoffs/Phase6c-Handoff.md` (Template: Data-Only, No Fluff)
+- **Primary Agent**: Implementer
+- **Goal**: Implement the components defined in the plan, ensuring high quality and testing correctness.
+- **Input**: `agent-output/handoffs/Phase5-Handoff.md`, `agent-output/planning/Master-Implementation-Plan.md`
+- **Output**: `agent-output/handoffs/Phase6-Complete.md`
+- **Context Reset**: Yes
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Read Plan. Implement components using modern, clean code. Self-correct against standards. Use the **QA** agent as a subagent to verify implementation with tests. Create `agent-output/handoffs/Phase6-Complete.md`."
 
 ### Phase 7: Security Audit (Security, Critic)
 - **Primary Agent**: Security
 - **Reviewer**: Critic
 - **Goal**: Ensure safety and compliance.
-- **Actions**:
-    1.  **Audit**: Static analysis and CVE check.
-    2.  **Critique Loop (Critic)**:
-        - Review `Security-Audit.md`.
+- **Context Reset**: Yes
+- **Execution**: Run the **Security** agent as a subagent.
+    - **Task**: "Read Stack Details. Perform static analysis and CVE checks. Focus on XSS, LocalStorage integrity, and Dependencies. Output `agent-output/security/Security-Audit.md`."
+    3.  **Critique Loop**: Run the Critic agent as a subagent to review `Security-Audit.md`.
         - Check: Did we miss any obvious vectors? Is the report actionable?
         - **Reject**: Security scans again.
         - **Approve**: Implementer applies fixes.
@@ -159,10 +131,10 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agent**: UAT
 - **Reviewer**: Critic
 - **Goal**: Verify "Hero" status.
-- **Actions**:
-    1.  **Validation**: Walkthrough and value check.
-    2.  **Critique Loop (Critic)**:
-        - Review `Final-Acceptance.md`.
+- **Context Reset**: Yes
+- **Execution**: Run the **UAT** agent as a subagent.
+    - **Task**: "Read Product Vision. Perform walkthrough and value check. Output `agent-output/uat/Final-Acceptance.md`."
+    3.  **Critique Loop**: Run the Critic agent as a subagent to review `Final-Acceptance.md`.
         - Check: Was UAT rigorous? Did we just rubber-stamp it?
         - **Reject**: UAT re-verifies.
         - **Approve**: Proceed to Completion.
@@ -174,10 +146,10 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Primary Agent**: Analyst
 - **Reviewer**: Critic
 - **Input**: `agent-output/handoffs/Phase8-Handoff.md`
-- **Actions**:
-    1.  **Docs**: Create beautiful READMEs.
-    2.  **Critique Loop (Critic)**:
-        - Review final documentation.
+- **Context Reset**: Yes
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Read Project Overview. Create beautiful READMEs (including screenshots if available)."
+    3.  **Critique Loop**: Run the Critic agent as a subagent to review the final documentation.
         - Check: Spelling, formatting, screenshot presence.
         - **Reject**: Analyst fixes.
         - **Approve**: Finish.

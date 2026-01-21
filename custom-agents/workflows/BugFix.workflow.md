@@ -11,13 +11,8 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 1. Reproduction & Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Bug Report (User feedback, Sentry issue, etc.).
-- **Action**:
-  1.  Create a minimal reproduction case.
-  2.  Identify the Root Cause (Code, Config, or Data?).
-- **Mandatory MCP Usage**:
-  - Use `grep_search` to trace the error log.
-  - Use `view_file` to find the buggy logic.
-  - Use `context7` to verify library behavior against documentation if external libraries are involved.
+- **Execution**: Run the **Analyst** agent as a subagent.
+    - **Task**: "Load Bug Report. Create minimal reproduction case. Identify Root Cause (Code/Config/Data) using `grep_search` and `view_file`. Output `Root-Cause-Analysis.md`."
 - **Output**: `agent-output/analysis/Root-Cause-Analysis.md`
 - **Handoff**: `agent-output/handoffs/BugFix-Phase1-Handoff.md` (Template: Data-Only, No Fluff)
 
@@ -25,37 +20,36 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Agent**: Planner
 - **Agent**: Planner
 - **Input**: `agent-output/handoffs/BugFix-Phase1-Handoff.md` AND `agent-output/analysis/Root-Cause-Analysis.md`
-- **Action**: Plan the fix + determine the Regression Test strategy.
+- **Execution**: Run the **Planner** agent as a subagent.
+    - **Task**: "Load Root Cause. Plan the fix and Regression Test strategy. Output `Fix-Plan.md`."
 - **Output**: `agent-output/planning/Fix-Plan.md`
 - **Handoff**: `agent-output/handoffs/BugFix-Phase2-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 2a. Plan Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Fix Plan.
-- **Action**: Assess technical soundness, regression risks, and completeness.
+- **Action**: Run the Critic agent as a subagent to assess technical soundness, regression risks, and completeness.
 - **Iteration Link**: If rejected, return to **Planner**.
 
 ### 2b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: `agent-output/planning/Fix-Plan.md`
-- **Action**: **CRITICAL**: Review specifically for "lack of detail in the documentation". Ensure steps are explicit, context is clear, and no ambiguity exists.
+- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail in the documentation". Ensure steps are explicit, context is clear, and no ambiguity exists.
 - **Iteration Link**: If lacking detail, return to **Planner**.
 - **Handoff**: To Implementer.
 
 ### 3. Implementation (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: `agent-output/handoffs/BugFix-Phase2-Handoff.md` AND `agent-output/planning/Fix-Plan.md`
-- **Action**:
-  1.  Write a failing test (reproduction).
-  2.  Fix the code.
-  3.  Verify the test passes.
+- **Execution**: Run the **Implementer** agent as a subagent.
+    - **Task**: "Load Fix Plan. Write failing test (reproduction). Fix code. Verify test passes. Output Code changes and `Fix-Implementation.md`."
 - **Output**: Code changes + New Test + `agent-output/implementation/Fix-Implementation.md`
 - **Handoff**: `agent-output/handoffs/BugFix-Phase3-Handoff.md` (Template: Data-Only, No Fluff)
 
 ### 3b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: Code changes.
-- **Action**: Strict code review against standards (SOLID, DRY, etc.).
+- **Action**: Run the Critic agent as a subagent to perform strict code review against standards (SOLID, DRY, etc.).
 - **Checks**:
   - Code Style & Standards.
   - Potential performance issues.
@@ -66,7 +60,7 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 ### 4. Verification (QA Agent)
 - **Agent**: QA
 - **Input**: `agent-output/handoffs/BugFix-Phase3-Handoff.md` AND `agent-output/implementation/Fix-Implementation.md`
-- **Action**: Verify the fix and run regression suite.
+- **Action**: Run the QA agent as a subagent to verify the fix and run regression suite.
 - **Mandatory MCP Usage**:
   - Use `playwright` to verify web bug fixes.
   - Use `ios-simulator` to verify mobile bug fixes. **(Always check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) first)**

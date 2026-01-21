@@ -3,7 +3,7 @@ description: Constructive reviewer and program manager that stress-tests plannin
 name: Critic
 target: vscode
 argument-hint: Reference the plan or architecture document to critique (e.g., plan 002)
-tools: ['vscode', 'agent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 model: devstral-M4MAX
 handoffs:
   - label: Revise Strategy (Phase 1 Reject)
