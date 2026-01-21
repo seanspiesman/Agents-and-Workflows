@@ -107,7 +107,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
         - **Approve**: Proceed to Foundation.
 - **Output**: `agent-output/planning/Master-Implementation-Plan.md` (Status: APPROVED)
 - **Rescue Path**: If the Plan file is missing or 0 bytes, **HALT**. Do not proceed to Foundation. Report error to user.
-- **Handoff**: To DevOps. (Template: Data-Only, No Fluff)
+- **Handoff**: To DevOps.
 
 ### Phase 5: Foundation Setup (DevOps, Critic)
 - **Primary Agent**: DevOps

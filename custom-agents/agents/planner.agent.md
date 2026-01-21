@@ -199,11 +199,10 @@ Actions: If ambiguous, respond with questions, wait for direction. If technical 
 **Input**: `agent-output/architecture/System-Architecture.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Context Load (MANDATORY)**: Read `agent-output/architecture/System-Architecture.md`. Ignore chat history if it conflicts.
-3.  **Plan**: Break down the project into Phased Implementation Plans.
-4.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
+2.  **Plan**: Break down the project into Phased Implementation Plans.
+3.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
     -   *Verification*: Check that the file exists and is not empty.
-5.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
+4.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
     - Prompt for Critic: "Please review the Master Implementation Plan for the Zero to Hero workflow."
 6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase4-Handoff.md` (No Fluff).
 7.  **STOP**: Do NOT mark task as complete until Critic approves.
