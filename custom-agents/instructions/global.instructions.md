@@ -146,3 +146,16 @@ Status: Active
 **Action**: Verify the file size of the generated artifact.
 **Rule**: If file size is 0 bytes, **FAIL** and **RETRY**. Do not proceed with empty files.
 **Command**: `ls -l [file_path]` to verify size > 0.
+
+---
+
+## 9. Security & Data Privacy (MANDATORY)
+
+**Global Constraint**: You are operating in a local environment with potential external tool access. You must PROTECT PROPRIETARY DATA.
+
+### External Tool Usage Rules (`context7`, `web`, `web_search`)
+These tools transmit data to external servers (Upstash, Search Engines).
+1.  **NEVER** send proprietary code, internal file paths, API keys, or secrets in queries or context to these tools.
+2.  **ALLOWED**: Searching for public library names (e.g., "react usage"), generic error messages (e.g., "TypeError: undefined"), or documentation lookups.
+3.  **FORBIDDEN**: "How do I fix [MyProprietaryClass]?", "Refactor this [internal code block]".
+4.  **Sanitization**: If you must query an error, strip all internal identifiers/paths first.
