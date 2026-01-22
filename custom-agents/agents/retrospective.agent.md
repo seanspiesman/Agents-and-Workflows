@@ -160,4 +160,8 @@ Create markdown in `agent-output/retrospectives/`:
 - **When to use**: Use to check details of libraries or tools mentioned in retrospectives.
 - **Best Practice**: Be specific about library versions.
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted.
+
 

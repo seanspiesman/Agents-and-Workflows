@@ -11,7 +11,7 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 ### 1. Changelog Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Target package name and version.
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Read changelogs, migration guides, and release notes for [Package]. Identify breaking changes. Output Impact Assessment."
 - **Output**: Upgrade Impact Assessment in `agent-output/analysis/`.
 - **Handoff**: Passed to Planner.
@@ -19,27 +19,27 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 ### 2. Upgrade Strategy (Planner Agent)
 - **Agent**: Planner
 - **Input**: Upgrade Impact Assessment.
-- **Execution**: Run the **Planner** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
     - **Task**: "Plan the upgrade. Decide strategy (Big Bang vs Incremental). Output Upgrade Plan."
 - **Handoff**: Passed to Critic.
 
 ### 2a. Plan Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Upgrade Plan.
-- **Action**: Run the Critic agent as a subagent to assess technical soundness and rollback strategy effectiveness.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to assess technical soundness and rollback strategy effectiveness.
 - **Iteration Link**: If rejected, return to **Planner**.
 
 ### 2b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Upgrade Plan.
-- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail in the documentation". Ensure steps are explicit and context is clear.
+- **Action**: **CRITICAL**: Use the `runSubagent` tool to run the Critic agent to review specifically for "lack of detail in the documentation". Ensure steps are explicit and context is clear.
 - **Iteration Link**: If lacking detail, return to **Planner**.
 - **Handoff**: Passed to Implementer.
 
 ### 3. Execution (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Upgrade Plan.
-- **Execution**: Run the **Implementer** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
     - **Task**: "Update `package.json`, install, fix build errors. Output code changes."
 - **Output**: Code changes.
 - **Handoff**: Passed to QA.
@@ -49,7 +49,7 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 ### 3b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: Code changes.
-- **Action**: Run the Critic agent as a subagent to strict code review against standards.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to strict code review against standards.
 - **Checks**:
   - Code Style & Standards.
   - Maintainability & Readability.
@@ -59,7 +59,7 @@ Upgrading dependencies is a common source of regressions. This workflow de-risks
 ### 4. Regression Testing (QA Agent)
 - **Agent**: QA
 - **Input**: Code changes.
-- **Action**: Run the QA agent as a subagent to run the full regression suite.
+- **Action**: Use the `runSubagent` tool to run the QA agent to run the full regression suite.
 - **Mandatory MCP Usage**:
   - Use `run_command` to execute tests.
   - Use `playwright` or `ios-simulator` for UI/mobile verification. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**

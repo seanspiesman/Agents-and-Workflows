@@ -294,13 +294,13 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 **Input**: Full Codebase + QA Report.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/Phase6c-Handoff.md` AND `agent-output/qa/QA-Report.md`. Ignore chat history if it conflicts.
+2.  **Context Load (MANDATORY)**: Read `agent-output/reports/implementation-complete.md` AND `agent-output/qa/QA-Report.md`. Ignore chat history if it conflicts.
 3.  **Audit**: Run Security Scan and Analysis.
     - **CONSTRAINT**: If "Local-First", do NOT flag missing server auth/databases as risks. Focus on XSS, dependency vulnerabilities, and local storage integrity.
-4.  **Produce**: `agent-output/security/Security-Audit.md` (Status: Draft).
+4.  **Produce**: `agent-output/security/security-audit.md` (Status: Draft).
 5.  **Review**: You **MUST** call the **Critic** agent to review the Security Audit.
     - Prompt for Critic: "Please review the Security Audit for the Zero to Hero workflow."
-6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase7-Handoff.md` (No Fluff).
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/phase-7-handoff.md` (No Fluff).
 7.  **STOP**: Do NOT mark task as complete until Critic approves.
 **Exit**: When approved, handoff to **UAT**.
 
@@ -342,6 +342,11 @@ Load `security-patterns` skill for detailed methodology. Quick reference:
 - **PATTERN**: Same vulnerability class found 3+ times (systemic issue)
 
 ---
+
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic), you **MUST** use the `runSubagent` tool.
+- **DO NOT** ask the user to relay the message.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 
 # Tool Usage Guidelines

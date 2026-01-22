@@ -6,6 +6,7 @@ argument-hint: Describe the feature, epic, or change to plan
 tools: ['vscode', 'agent', 'agent/runSubagent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 skills:
   - ../skills/release-procedures
+  - ../skills/agent-architecture-patterns
 model: devstral-M4MAX
 handoffs:
   - label: Validate Roadmap Alignment
@@ -177,6 +178,13 @@ Every plan MUST include final milestone for updating version artifacts to match 
 - **Reference Analysis**: Plans may reference analysis docs.
 - **QA issues**: QA sends bugs/failures to implementer to fix. Only re-plan if PLAN was fundamentally flawed.
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic, Researcher, or QA), you **MUST** use the `runSubagent` tool.
+- **DO NOT** ask the user to relay the message.
+- **DO NOT** simulate the subagent's response.
+- **DO NOT** send a message to the user asking them to run the agent.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
+
 ## Escalation Framework
 
 See `TERMINOLOGY.md`:
@@ -196,11 +204,11 @@ Actions: If ambiguous, respond with questions, wait for direction. If technical 
 ### Zero to Hero Workflow
 **Role**: Phase 4 Lead (Master Planning)
 **Trigger**: Handed off by Architect (Phase 3 Complete).
-**Input**: `agent-output/architecture/System-Architecture.md`.
+**Input**: `agent-output/architecture/system-architecture.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
 2.  **Plan**: Break down the project into Phased Implementation Plans.
-3.  **Produce**: Generate `agent-output/planning/Master-Implementation-Plan.md` (Status: Draft).
+3.  **Produce**: Generate `agent-output/planning/master-implementation-plan.md` (Status: Draft).
     -   *Verification*: Check that the file exists and is not empty.
 4.  **Review**: You **MUST** call the **Critic** agent to review the Master Plan.
     - Prompt for Critic: "Please review the Master Implementation Plan for the Zero to Hero workflow."

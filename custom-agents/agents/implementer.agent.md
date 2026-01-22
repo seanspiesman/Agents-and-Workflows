@@ -323,15 +323,15 @@ See `TERMINOLOGY.md` for details.
 ### Zero to Hero Workflow
 **Role**: Phase 6a Lead (Implementation Loop)
 **Trigger**: Handed off by DevOps (Phase 5) or QA (Phase 6 Fail).
-**Input**: `Master-Implementation-Plan.md`.
+**Input**: `master-implementation-plan.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/Phase5-Handoff.md` AND `agent-output/planning/Master-Implementation-Plan.md`. Ignore chat history if it conflicts.
+2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/phase-5-handoff.md` AND `agent-output/planning/master-implementation-plan.md`. Ignore chat history if it conflicts.
 3.  **Implement**: Write code for the current Feature Phase.
-4.  **Produce**: Code changes + Implementation Doc `agent-output/implementation/Impl-[Name].md`.
+4.  **Produce**: Code changes + Implementation Doc `agent-output/implementation/impl-[name].md`.
 5.  **Review**: You **MUST** call the **Critic** agent (Code Review) BEFORE QA.
     - Prompt for Critic: "Please critique this implementation for code quality and matching the Zero to Hero standard."
-6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase6a-Handoff.md` (No Fluff).
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/phase-6a-handoff.md` (No Fluff).
 7.  **STOP**: Do NOT mark task as complete yourself.
 **Exit**: When Critic approves, handoff to **QA**.
 
@@ -381,9 +381,15 @@ See `TERMINOLOGY.md` for details.
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
 
 ## runSubagent
-- **Usage**: Use this tool to verify your implementation visually or functionally (e.g., "Does the button click work?").
+- **Usage**: Use this tool to verify your implementation visually or functionally (e.g., "Does the button click work?") OR to call dependent agents (Critic, QA).
 - **Self-Correction**: Use the video/screenshot artifacts to catch UI issues before handing off to QA.
 - **Task Description**: Be specific (e.g., "Navigate to localhost:3000 and click the login button").
+- **Context Optimization**:
+    - **CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic, Researcher, or QA), you **MUST** use the `runSubagent` tool.
+    - **DO NOT** ask the user to relay the message.
+    - **DO NOT** simulate the subagent's response.
+    - **DO NOT** send a message to the user asking them to run the agent.
+    - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 
 ## context7

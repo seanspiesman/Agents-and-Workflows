@@ -6,6 +6,7 @@ argument-hint: Describe the feature, component, or system area requiring archite
 tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 skills:
   - ../skills/architecture-patterns
+  - ../skills/agent-architecture-patterns
   - ../skills/mermaid-diagramming
 model: devstral-M4MAX
 handoffs:
@@ -154,6 +155,13 @@ Agent Workflow:
 - **Implementer/QA**: Invokes if issues found. Architect provides guidance, updates doc.
 - **Audits**: Periodic health reviews independent of features.
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic, Researcher, or QA), you **MUST** use the `runSubagent` tool.
+- **DO NOT** ask the user to relay the message.
+- **DO NOT** simulate the subagent's response.
+- **DO NOT** send a message to the user asking them to run the agent.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
+
 Distinctions: Architect=system design; Analyst=API/library research; Critic=plan completeness; Planner=executable plans.
 
 Escalation:
@@ -171,13 +179,13 @@ Escalation:
 ### Zero to Hero Workflow
 **Role**: Phase 3 Lead (Architectural Design)
 **Trigger**: Handed off by Analyst (Phase 2 Complete).
-**Input**: `agent-output/analysis/Technical-Feasibility.md`.
+**Input**: `agent-output/analysis/technical-feasibility.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Context Load (MANDATORY)**: Read `agent-output/context/Project-Spec.md` (SSOT for restrictions) AND `agent-output/analysis/Technical-Feasibility.md`. Ignore chat history if it conflicts.
+2.  **Context Load (MANDATORY)**: Read `agent-output/context/project-spec.md` (SSOT for restrictions) AND `agent-output/analysis/technical-feasibility.md`. Ignore chat history if it conflicts.
 3.  **Design**: Define system boundaries, data models, and components.
-4.  **Produce**: Generate `agent-output/architecture/System-Architecture.md` (Status: Draft) + Mermaid Flowchart.
-    -   *CONSTRAINT*: You MUST include a "Design System" section in this artifact but EXTRACT the bulk of colors/typography to `agent-output/architecture/Design-System.md`.
+4.  **Produce**: Generate `agent-output/architecture/system-architecture.md` (Status: Draft) + Mermaid Flowchart.
+    -   *CONSTRAINT*: You MUST include a "Design System" section in this artifact but EXTRACT the bulk of colors/typography to `agent-output/architecture/design-system.md`.
     -   *CONSTRAINT*: If the app involves real-time audio processing, you MUST mandate **Audio Worklets** and forbid the main thread for DSP.
     -   *CONSTRAINT*: Define exact `tailwind.config.js` `theme.extend` snippet in the Design System file.
 5.  **Review**: You **MUST** call the **Critic** agent to review the Architecture Doc.

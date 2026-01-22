@@ -196,12 +196,12 @@ Part of structured workflow: planner → analyst → critic → architect → im
 **Input**: Working Application + Security Audit.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/Phase7-Handoff.md` AND `agent-output/security/Security-Audit.md`. Ignore chat history if it conflicts.
+2.  **Context Load (MANDATORY)**: Read `agent-output/handoffs/phase-7-handoff.md` AND `agent-output/security/security-audit.md`. Ignore chat history if it conflicts.
 3.  **Validate**: Walk through the "Hero" value statement and user journey.
-4.  **Produce**: `agent-output/uat/Final-Acceptance.md` (Status: Draft).
+4.  **Produce**: `agent-output/uat/final-acceptance.md` (Status: Draft).
 5.  **Review**: You **MUST** call the **Critic** agent to review the Final Acceptance.
     - Prompt for Critic: "Please review the Final Acceptance for the Zero to Hero workflow."
-6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase8-Handoff.md` (No Fluff).
+6.  **Handoff Creation**: If approved, create `agent-output/handoffs/phase-8-handoff.md` (No Fluff).
 7.  **STOP**: Do NOT mark task as complete until Critic approves.
 **Exit**: When approved, handoff to **Analyst** (Phase 9 Docs).
 
@@ -215,6 +215,9 @@ Part of structured workflow: planner → analyst → critic → architect → im
 - **Usage**: Use this tool to perform user acceptance testing, value verification, and detailed user journey simulations.
 - **Task Description**: Provide detailed, step-by-step instructions in the `Task` argument from the user's perspective (e.g., "As a user, finding X..."). The subagent is autonomous.
 - **Video Recording**: Interactions are automatically recorded. Use meaningful `RecordingName` to make artifacts valid evidence of UAT.
+- **Context Optimization**:
+    - **CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+    - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 
 ## run_command / execute

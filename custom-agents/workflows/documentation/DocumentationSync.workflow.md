@@ -11,14 +11,14 @@ Drift between code and documentation is a major source of confusion. This workfl
 ### 1. Drift Detection (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Codebase and existing documentation.
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Compare exported symbols/API against docs using `grep_search` and `view_file`. Output Drift Report."
 - **Handoff**: Passed to Implementer.
 
 ### 2. Documentation Update (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Drift Report.
-- **Execution**: Run the **Implementer** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
     - **Task**: "Draft updated documentation based on Drift Report. Output `.md` changes."
 - **Output**: Changes to `.md` files or inline comments.
 - **Handoff**: Passed to Critic/QA.
@@ -26,7 +26,7 @@ Drift between code and documentation is a major source of confusion. This workfl
 ### 3. Accuracy Verification (Critic Agent)
 - **Agent**: Critic (or QA)
 - **Input**: Documentation Diff, Drift Report.
-- **Action**: Run the Critic agent as a subagent to verify that the new text accurately describes the code behavior.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to verify that the new text accurately describes the code behavior.
 - **Checks**:
   - No "hallucinated" parameters.
   - Examples actually run/compile.
@@ -39,7 +39,7 @@ Drift between code and documentation is a major source of confusion. This workfl
 - **Agent**: Critic
 - **Input**: New Documentation.
 - **Focus**: "Lack of detail".
-- **Action**: Run the Critic agent as a subagent to ensure the documentation is not just accurate, but **comprehensive**. Check for missing context, vague descriptions, or assumed knowledge.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to ensure the documentation is not just accurate, but **comprehensive**. Check for missing context, vague descriptions, or assumed knowledge.
 - **Iteration Loop**:
   - **FAIL**: Return to **Implementer**.
   - **PASS**: Approved.

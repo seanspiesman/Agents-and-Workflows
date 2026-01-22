@@ -159,6 +159,10 @@ Create `agent-output/process-improvement/NNN-agent-instruction-updates.md` with:
 
 ## Escalation
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted.
+
 ### When to Escalate
 
 - **To escalation agent**: Recommendations fundamentally conflict with Master Product Objective or system architecture

@@ -315,6 +315,10 @@ Create markdown in `agent-output/qa/` matching plan name:
 - **Usage**: Use this tool to perform active test verification, visual regression checking, and complex user flow validation.
 - **Task Description**: Provide detailed, step-by-step instructions in the `Task` argument. The subagent is autonomous, so clearly define the test steps and what constitutes a "pass" or "fail".
 - **Video Recording**: Interactions are automatically recorded. Use meaningful `RecordingName` to make artifacts valid.
+- **Context Optimization**:
+    - **CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+    - **DO NOT** ask the user to relay the message.
+    - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted.
 
 
 ## run_command / execute

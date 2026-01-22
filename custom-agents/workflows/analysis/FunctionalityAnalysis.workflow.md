@@ -11,7 +11,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 1. Scope Definition & Discovery (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: User-defined functionality name or entry point (e.g., "User Submission Flow").
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Identify core files and entry points for [Functionality] using `find_by_name`. Output Scope Definition."
 - **Output**: A Scope Definition document in `agent-output/analysis/` (e.g., `001-scope-definition.md`) listing all relevant files and entry points.
 - **Handoff**: Passed to Analyst for Phase 2.
@@ -19,14 +19,14 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 2. Structural Analysis & Logic Tracing (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Scope Definition document.
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Trace execution paths and state management. Output Existing Logic/Structure document."
 - **Handoff**: Passed to Critic.
 
 ### 3. Code Critique (Critic Agent)
 - **Agent**: Critic
 - **Input**: Existing Structure document and Raw Code.
-- **Action**: Run the Critic agent as a subagent to evaluate the implementation against best practices, performance standards, and maintainability guidelines.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to evaluate the implementation against best practices, performance standards, and maintainability guidelines.
 - **Checks**:
   - **Code Quality**: DRY principles, naming conventions, complexity.
   - **Performance**: Potential bottlenecks, unnecessary renders/computations.
@@ -38,7 +38,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 4. Visual Synthesis (Architect Agent)
 - **Agent**: Architect
 - **Input**: Existing Structure document.
-- **Execution**: Run the **Architect** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Architect** agent.
     - **Task**: "Generate Mermaid diagrams to visualize control flow using `mermaid-diagramming` skill. Output Diagrams document."
 - **Output**: An Architecture Diagrams document in `agent-output/architecture/` (e.g., `004-current-flow-diagrams.md`).
 - **Handoff**: Passed to Planner.
@@ -46,7 +46,7 @@ This workflow is designed to be thorough and agent-driven, utilizing the Analyst
 ### 5. Improvement Proposals (Planner Agent)
 - **Agent**: Planner
 - **Input**: Critique document and Architecture Diagrams.
-- **Execution**: Run the **Planner** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
     - **Task**: "Propose concrete actionable updates/refactoring. Output Suggested Updates document."
 - **Handoff**: Passed to Orchestrator.
 

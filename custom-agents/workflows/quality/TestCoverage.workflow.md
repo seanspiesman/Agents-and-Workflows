@@ -11,7 +11,7 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 ### 1. Gap Analysis (QA Agent)
 - **Agent**: QA
 - **Input**: Coverage reports (LCOV, JaCoCo, etc.) or manual analysis.
-- **Execution**: Run the **QA** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **QA** agent.
     - **Task**: "Identify critical paths with low/no coverage. Output Coverage Gap Report."
 - **Output**: Coverage Gap Report in `agent-output/qa/`.
 - **Handoff**: Passed to Analyst.
@@ -19,7 +19,7 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 ### 2. Logic Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Coverage Gap Report.
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Deep-dive into uncovered code logic. Output Test Case Specification (Input -> Output)."
 - **Output**: Test Case Specification in `agent-output/analysis/` (inputs -> expected outputs).
 - **Handoff**: Passed to Critic.
@@ -27,14 +27,14 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 ### 2b. Spec Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Test Case Specification.
-- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail". Ensure test cases are fully defined (Input + Expected Output).
+- **Action**: **CRITICAL**: Use the `runSubagent` tool to run the Critic agent to review specifically for "lack of detail". Ensure test cases are fully defined (Input + Expected Output).
 - **Iteration**: Return to **Analyst** if vague.
 - **Handoff**: Passed to Implementer.
 
 ### 3. Test Implementation (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Test Case Specification.
-- **Execution**: Run the **Implementer** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
     - **Task**: "Write unit/integration tests. Do NOT modify production code unless necessary. Output New test files."
 - **Output**: New test files.
 - **Handoff**: Passed to QA.
@@ -44,7 +44,7 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 ### 3b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: New Tests.
-- **Action**: Run the Critic agent as a subagent to ensure tests are clean, readable, and not brittle.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to ensure tests are clean, readable, and not brittle.
 - **Checks**:
   - Test Patterns (AAAs).
   - No Hardcoding.
@@ -54,7 +54,7 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 ### 4. Verification (QA Agent)
 - **Agent**: QA
 - **Input**: New tests.
-- **Execution**: Run the **QA** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **QA** agent.
     - **Task**: "Run tests and check coverage metrics. Verify targets met."
 - **Iteration Loop**:
   - **FAIL**: Coverage target missed or tests fail. Return to **Implementer**.

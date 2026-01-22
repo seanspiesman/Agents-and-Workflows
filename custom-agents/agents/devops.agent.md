@@ -167,6 +167,11 @@ Agent Workflow:
 - **Hands off to retrospective** after completion.
 - **Final gate** before production.
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic or Retrospective), you **MUST** use the `runSubagent` tool.
+- **DO NOT** ask the user to relay the message.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
+
 Distinctions: DevOps=packaging/deploying; Implementer=writes code; QA=test coverage; UAT=value validation.
 
 Completion Criteria: QA "QA Complete", UAT "APPROVED FOR RELEASE", version verified, package built, user confirmed.
@@ -186,12 +191,12 @@ Escalation:
 ### Zero to Hero Workflow
 **Role**: Phase 5 Lead (Foundation Setup)
 **Trigger**: Handed off by Planner (Phase 4 Complete).
-**Input**: `agent-output/planning/Master-Implementation-Plan.md`.
+**Input**: `agent-output/planning/master-implementation-plan.md`.
 **Action**:
 1.  **Log**: IMMEDIATELY log the receipt of this request using the `collaboration-tracking` skill.
-2.  **Context Load (MANDATORY)**: Read `agent-output/planning/Master-Implementation-Plan.md`. Ignore chat history if it conflicts.
+2.  **Context Load (MANDATORY)**: Read `agent-output/planning/master-implementation-plan.md`. Ignore chat history if it conflicts.
 3.  **Setup**: Initialize Git, Linting, Formatting, and Framework structure.
-4.  **Produce**: Verified Local Environment + `agent-output/deployment/Foundation-Setup.md` (Status: Draft).
+4.  **Produce**: Verified Local Environment + `agent-output/deployment/foundation-setup.md` (Status: Draft).
 5.  **Review**: You **MUST** call the **Critic** agent to review the Environment Configuration.
     - Prompt for Critic: "Please review the Foundation Setup for the Zero to Hero workflow."
 6.  **Handoff Creation**: If approved, create `agent-output/handoffs/Phase5-Handoff.md` (No Fluff).

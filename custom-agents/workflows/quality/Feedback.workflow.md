@@ -15,12 +15,12 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 
 ### 2. Create Action Plan (Planner Agent)
 - **Agent**: Planner
-- **Execution**: Run the **Planner** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
     - **Task**: "Create a detailed action plan based on the feedback. Include Value Statement, Implementation Steps, Acceptance Criteria, and Risks. Use `context7` for research. Output to `agent-output/planning/`."
 
 ### 3. Plan Review (Critic Agent)
 - **Agent**: Critic
-- **Action**: Run the Critic agent as a subagent to review the plan for clarity, completeness, and alignment with architectural guidelines.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to review the plan for clarity, completeness, and alignment with architectural guidelines.
 - **Output**: A critique document in `agent-output/critiques/` with:
   - Findings (Critical/Medium/Low)
   - Questions or concerns
@@ -29,7 +29,7 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 
 ### 4. Architectural Validation (Architect Agent)
 - **Agent**: Architect
-- **Action**: Run the Architect agent as a subagent to validate the plan's architectural alignment and identify potential risks or improvements.
+- **Action**: Use the `runSubagent` tool to run the Architect agent to validate the plan's architectural alignment and identify potential risks or improvements.
 - **Output**: Architectural review document with:
   - Alignment assessment
   - Potential risks or improvements
@@ -39,12 +39,12 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 ### 4b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Approved Plan.
-- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail in the documentation". Ensure all acceptance criteria and implementation steps are exhaustive.
+- **Action**: **CRITICAL**: Use the `runSubagent` tool to run the Critic agent to review specifically for "lack of detail in the documentation". Ensure all acceptance criteria and implementation steps are exhaustive.
 - **Iteration**: If lacking detail, return to **Planner**.
 
 ### 5. Implementation (Implementer Agent)
 - **Agent**: Implementer
-- **Execution**: Run the **Implementer** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
     - **Task**: "Implement the changes defined in the plan using `run_command` and file edits. Output code changes and tests."
 
 - **Handoff**: Passed to Critic.
@@ -52,7 +52,7 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 ### 5b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: Code changes.
-- **Action**: Run the Critic agent as a subagent to perform strict code review against standards.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to perform strict code review against standards.
 - **Checks**:
   - Code Style & Standards.
   - Potential performance issues.
@@ -62,24 +62,24 @@ This workflow ensures that feedback is systematically analyzed, planned, impleme
 
 ### 6. Quality Assurance (QA Agent)
 - **Agent**: QA
-- **Action**: Run the QA agent as a subagent to verify the implementation through testing and validation.
+- **Action**: Use the `runSubagent` tool to run the QA agent to verify the implementation through testing and validation.
 - **Output**: QA report in `agent-output/qa/`.
 - **Handoff**: If QA passes, the implementation is handed off to the UAT agent. If not, it is sent back to the Implementer for fixes.
 
 ### 7. User Acceptance Testing (UAT Agent)
 - **Agent**: UAT
-- **Action**: Run the UAT agent as a subagent to validate that the implementation meets user expectations and delivers the intended value.
+- **Action**: Use the `runSubagent` tool to run the UAT agent to validate that the implementation meets user expectations and delivers the intended value.
 - **Output**: UAT report in `agent-output/uat/`.
 - **Handoff**: If UAT passes, the workflow is complete (to Retrospective).
 
 ### 8. Retrospective (Retrospective Agent)
 - **Agent**: Retrospective
-- **Action**: Run the Retrospective agent as a subagent to capture lessons learned.
+- **Action**: Use the `runSubagent` tool to run the Retrospective agent to capture lessons learned.
 - **Output**: Retrospective document in `agent-output/retrospectives/`.
 
 ### 9. Process Improvement (PI Agent)
 - **Agent**: PI
-- **Action**: Run the PI agent as a subagent to update workflows or agent instructions.
+- **Action**: Use the `runSubagent` tool to run the PI agent to update workflows or agent instructions.
 - **Output**: Process improvement document.
 - **Handoff**: Workflow complete.
 

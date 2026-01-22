@@ -113,6 +113,9 @@ Think of yourself as a **Systematic Cartographer + QA Scout**.
 - **Usage**: Use this tool to perform complex browser interactions, debugging, or visual verification that requires a persistent browser session.
 - **Task Description**: Provide detailed, step-by-step instructions in the `Task` argument. The subagent is autonomous, so be specific about the goal and success criteria.
 - **Video Recording**: Interactions are automatically recorded. Use meaningful `RecordingName` to make artifacts valid.
+- **Context Optimization**:
+    - **CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+    - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted.
 
 
 ## run_command

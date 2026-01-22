@@ -4,6 +4,8 @@ name: Critic
 target: vscode
 argument-hint: Reference the plan or architecture document to critique (e.g., plan 002)
 tools: ['vscode', 'agent', 'agent/runSubagent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+skills:
+  - ../skills/agent-architecture-patterns
 model: devstral-M4MAX
 handoffs:
   - label: Revise Strategy (Phase 1 Reject)
@@ -142,6 +144,12 @@ Agent Workflow:
 - **References analyst**: Check if findings incorporated into plan.
 - **Feedback to planner**: Planner revises. Critic updates critique with revision history.
 - **Handoff to implementer**: Once approved, implementer proceeds with critique as context.
+
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Researcher or QA), you **MUST** use the `runSubagent` tool.
+- **DO NOT** ask the user to relay the message.
+- **DO NOT** simulate the subagent's response.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 Distinction from reviewer: Critic=BEFORE implementation; Reviewer=AFTER implementation.
 

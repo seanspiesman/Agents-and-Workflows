@@ -187,6 +187,10 @@ So that [business value/benefit].
 
 ## Workflow Responsibilities
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted.
+
 ### Zero to Hero Workflow
 **Role**: Phase 1 Lead (Inception & Strategy)
 **Trigger**: Handed off by Orchestrator with "Zero to Hero" request.
@@ -201,14 +205,14 @@ So that [business value/benefit].
     - Prompt for Navigator: "Please conduct market research for the project defined in `agent-output/context/Project-Spec.md`. Do NOT research PyOrchestrator."
     - **Consultation (MANDATORY)**: You **MUST** use the `agent` tool to call the **Researcher** agent to conduct deep dive content research on the subject matter.
     - Prompt for Researcher: "Please conduct detailed subject matter research for the project defined in `agent-output/context/Project-Spec.md`."
-5.  **Produce**: Generate `agent-output/context/Product-Brief.md`.
-    -   *CONSTRAINT*: Consolidate any Strategy or Roadmap briefs into this SINGLE file. Do NOT create `strategy/Product-Brief.md` or `roadmap/Product-Brief.md`.
-    -   *CONSTRAINT*: Ensure the file exists at `agent-output/context/Product-Brief.md`.
+5.  **Produce**: Generate `agent-output/context/product-brief.md`.
+    -   *CONSTRAINT*: Consolidate any Strategy or Roadmap briefs into this SINGLE file. Do NOT create `strategy/product-brief.md` or `roadmap/product-brief.md`.
+    -   *CONSTRAINT*: Ensure the file exists at `agent-output/context/product-brief.md`.
     - Prompt for Critic: "Please review the Product Brief for the Zero to Hero workflow."
 6.  **EXIT PROTOCOL**:
-    -   **IF** Critic REJECTS: Refine the `Product-Brief.md` and re-submit.
+    -   **IF** Critic REJECTS: Refine the `product-brief.md` and re-submit.
     -   **IF** Critic APPROVES: You **MUST** immediately use the **"Begin Technical Analysis"** handoff to call the **Analyst** agent.
     -   **DO NOT** create any "Handoff Files" (e.g., `PHASE_2_HANDOFF.md`). The tool call IS the handoff.
     -   **DO NOT** create arbitrary directories like `phase-1/`. Use ONLY `agent-output/roadmap/` and `agent-output/reports/`.
     -   **STOP**: Once you call the Analyst, your task is DONE. Do not "verify" or "summarize" further.
-**Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `Product-Brief.md`. The task is ONLY complete when you explicitly hand off to the Analyst.
+**Constraint**: Do NOT assume the attachment is the "Plan". You must still create the `product-brief.md`. The task is ONLY complete when you explicitly hand off to the Analyst.

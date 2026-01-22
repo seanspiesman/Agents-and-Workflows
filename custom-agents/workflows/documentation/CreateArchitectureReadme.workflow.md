@@ -11,27 +11,22 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 1. System Discovery (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: The raw codebase and repository root.
-- **Execution**: Run the **Analyst** agent as a subagent.
-    - **Task**: "Perform deep discovery pass to identify entry points, core layers, data sources, and infrastructure using MCP tools (find_by_name, grep_search). Output `001-system-discovery.md`."
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Perform deep discovery pass to identify entry points, core layers, data sources, and infrastructure using MCP tools (find_by_name, grep_search). Output `001-system-discovery.md`."
 - **Handoff**: Passed to the Analyst for Phase 2.
 
 ### 2. Interaction Mapping (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: The System Discovery document.
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Trace specific user-facing flows to map 'behavioral' architecture. Use `view_file` on entry points. Output `002-interaction-flows.md`."
-
-### 3. Architectural Synthesis (Architect Agent)
-- **Agent**: Architect
-- **Input**: Interaction Flow document.
-- **Execution**: Run the **Architect** agent as a subagent.
-    - **Task**: "Transform text findings into detailed Mermaid.js diagrams using `flowchart` syntax only. Output `003-system-architecture.md`."
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Transform text findings into detailed Mermaid.js diagrams using `flowchart` syntax only. Output `003-system-architecture.md`."
 - **Handoff**: Passed to Critic for Review.
 
 ### 4. Design Review (Critic Agent)
 - **Agent**: Critic
 - **Input**: The System Architecture document and original Analysis docs.
-- **Action**: Run the Critic agent as a subagent to perform rigorous peer review of the proposed architecture.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to perform rigorous peer review of the proposed architecture.
 - **Checks**:
   - Do the diagrams match the standard patterns?
   - Are the Sequence Diagrams sufficiently detailed?
@@ -43,14 +38,14 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 5. Reality Check (QA Agent)
 - **Agent**: QA
 - **Input**: The System Architecture document.
-- **Execution**: Run the **QA** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **QA** agent.
     - **Task**: "Audit proposed architecture against actual code execution. Use `view_code_item` and `grep_search`. Output verification report."
 - **Handoff**: Passed to Critic.
 
 ### 5b. Documentation Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Verified Architecture Document.
-- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail in the documentation". Ensure diagrams are fully explained, decisions have rationale, and system context is rich.
+- **Action**: **CRITICAL**: Use the `runSubagent` tool to run the Critic agent to review specifically for "lack of detail in the documentation". Ensure diagrams are fully explained, decisions have rationale, and system context is rich.
 - **Iteration Loop**:
 - **FAIL (Too Vague)**: Return to **Architect** (for detail expansion).
 - **PASS**: Approved for Final Assembly.
@@ -59,14 +54,14 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 ### 6. Artifact Assembly (Implementer Agent)
 - **Agent**: Implementer
 - **Input**: Verified Architecture document.
-- **Execution**: Run the **Implementer** agent as a subagent.
-    - **Task**: "Compile verified analysis and diagrams into `README-ARCH.md` at repository root. Ensure Mermaid renders."
+- **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Compile verified analysis and diagrams into `README-ARCH.md` at repository root. Ensure Mermaid renders."
 - **Handoff**: Passed to Critic.
 
 ### 6b. Artifact Review (Critic Agent)
 - **Agent**: Critic
 - **Input**: Generated `README-ARCH.md`.
-- **Action**: Run the Critic agent as a subagent to verify the final artifact styling and formatting.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to verify the final artifact styling and formatting.
 - **Iteration**: Return to **Implementer** if issues found.
 - **Handoff**: Passed to Orchestrator.
 

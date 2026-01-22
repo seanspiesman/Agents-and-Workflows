@@ -12,7 +12,7 @@ Cycle: **Analysis (What is this?) -> Design (Combinatorial Matrix) -> Execution 
 ### 1. Widget Analysis (Analyst Agent)
 - **Agent**: Analyst
 - **Input**: Widget Source Code (`tsx`, `config.json`, `setting.tsx`).
-- **Execution**: Run the **Analyst** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Deep dive into widget logic. Identify Inputs, Outputs, and States. Output Widget Logic Map."
 - **Output**: Widget Logic Map in `agent-output/analysis/`.
 - **Handoff**: Passed to Planner.
@@ -20,7 +20,7 @@ Cycle: **Analysis (What is this?) -> Design (Combinatorial Matrix) -> Execution 
 ### 2. Test Matrix Design (Planner Agent)
 - **Agent**: Planner
 - **Input**: Widget Logic Map.
-- **Execution**: Run the **Planner** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
     - **Task**: "Design Robust Verification Matrix covering all combinations. Output Test Matrix."
 - **Requirement**: Cover "All Combinations" of critical variables.
   - Example: `[Toggle A: On/Off] x [Dropdown B: Option 1/2] x [Map Selection: Yes/No]`
@@ -30,14 +30,14 @@ Cycle: **Analysis (What is this?) -> Design (Combinatorial Matrix) -> Execution 
 ### 2b. Matrix Detail Verification (Critic Agent)
 - **Agent**: Critic
 - **Input**: Combinatorial Test Matrix.
-- **Action**: **CRITICAL**: Run the Critic agent as a subagent to review specifically for "lack of detail". Ensure all combinations are explicitly listed or algorithmically defined.
+- **Action**: **CRITICAL**: Use the `runSubagent` tool to run the Critic agent to review specifically for "lack of detail". Ensure all combinations are explicitly listed or algorithmically defined.
 - **Iteration**: Return to **Planner** if vague.
 - **Handoff**: Passed to Navigator.
 
 ### 3. Interactive Verification (Navigator Agent)
 - **Agent**: Navigator
 - **Input**: Combinatorial Test Matrix.
-- **Execution**: Run the **Navigator** agent as a subagent.
+- **Execution**: Use the `runSubagent` tool to run the **Navigator** agent.
     - **Task**: "Execute the matrix using `playwright` or `ios-simulator`. For each row: Configure, Interact, Verify, Reset. Output Verification Logs and Screenshots."
 - **Output**:
   - `verification-logs.md`: Pass/Fail per matrix row.
