@@ -18,7 +18,6 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 
 ### 2. Fix Planning (Planner Agent)
 - **Agent**: Planner
-- **Agent**: Planner
 - **Input**: `agent-output/handoffs/bug-fix-phase-1-handoff.md` AND `agent-output/analysis/root-cause-analysis.md`
 - **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
     - **Task**: "Read `custom-agents/instructions/output_standards.md`. Load Root Cause. Plan the fix and Regression Test strategy. Output `fix-plan.md`."
