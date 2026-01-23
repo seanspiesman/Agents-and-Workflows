@@ -3,7 +3,7 @@ description: Maintains architectural coherence across features and reviews techn
 name: Architect
 target: vscode
 argument-hint: Describe the feature, component, or system area requiring architectural review
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 skills:
   - ../skills/architecture-patterns
   - ../skills/agent-architecture-patterns

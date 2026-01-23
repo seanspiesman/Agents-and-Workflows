@@ -3,7 +3,7 @@ description: Execution-focused coding agent that implements approved plans.
 name: Implementer
 target: vscode
 argument-hint: Reference the approved plan to implement (e.g., plan 002)
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'vscode/vscodeAPI', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'vscode/vscodeAPI', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
 skills:
   - ../skills/engineering-standards
   - ../skills/collaboration-tracking

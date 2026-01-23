@@ -1,6 +1,5 @@
 #!/bin/bash
-# chmod +x scripts/sync-agents.sh && bash scripts/sync-agents.sh
-# Sync Agents Script
+#bash scripts/sync-agents.sh
 # Syncs the custom-agents folder from Agents-and-Workflows to all .github folders in Documents
 
 set -e
@@ -12,7 +11,9 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Source directory (this repository's custom-agents folder)
-SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/custom-agents"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SOURCE_DIR="$ROOT_DIR/custom-agents"
+RAG_SOURCE_DIR="$ROOT_DIR/scripts/rag"
 DOCUMENTS_DIR="$HOME/Documents"
 
 echo -e "${YELLOW}======================================${NC}"
@@ -20,6 +21,7 @@ echo -e "${YELLOW}Agent Folder Sync Tool${NC}"
 echo -e "${YELLOW}======================================${NC}"
 echo ""
 echo -e "Source: ${GREEN}${SOURCE_DIR}${NC}"
+echo -e "RAG Source: ${GREEN}${RAG_SOURCE_DIR}${NC}"
 echo -e "Searching in: ${GREEN}${DOCUMENTS_DIR}${NC}"
 echo ""
 
@@ -27,6 +29,11 @@ echo ""
 if [ ! -d "$SOURCE_DIR" ]; then
     echo -e "${RED}Error: Source directory not found: ${SOURCE_DIR}${NC}"
     exit 1
+fi
+
+# Check if RAG source directory exists
+if [ ! -d "$RAG_SOURCE_DIR" ]; then
+    echo -e "${YELLOW}Warning: RAG source directory not found: ${RAG_SOURCE_DIR}${NC}"
 fi
 
 # Find all .github directories in Documents
@@ -119,6 +126,20 @@ for target_dir in "${TARGET_DIRS[@]}"; do
             fi
         fi
     done
+
+    # 3. Sync RAG scripts to .github/rag
+    if [ -d "$RAG_SOURCE_DIR" ]; then
+        target_rag_dir="$target_dir/rag"
+        echo -e "  Syncing RAG scripts to ${target_rag_dir}..."
+        mkdir -p "$target_rag_dir"
+        
+        if rsync -av --delete "$RAG_SOURCE_DIR/" "$target_rag_dir/"; then
+             echo -e "    ✓ RAG scripts synced"
+        else
+             echo -e "    ${RED}✗ RAG scripts sync failed${NC}"
+             local_fail=1
+        fi
+    fi
 
     if [ $local_fail -eq 0 ]; then
         ((SUCCESS_COUNT++))

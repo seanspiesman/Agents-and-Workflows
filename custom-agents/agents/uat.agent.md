@@ -3,7 +3,7 @@ description: Product Owner conducting UAT to verify implementation delivers stat
 name: UAT
 target: vscode
 argument-hint: Reference the implementation or plan to validate (e.g., plan 002)
-tools: ['vscode', 'agent', 'agent/runSubagent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Report UAT Failure

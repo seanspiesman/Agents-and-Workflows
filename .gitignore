@@ -1,5 +1,4 @@
 
-#.github/
 *.env
 *.local 
 .DS_Store
@@ -8,3 +7,4 @@ testruns/*
 agent-output/*
 .github
 PyOrchestrator/backend/agent-output/*
+.venv

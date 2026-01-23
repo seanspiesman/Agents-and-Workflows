@@ -67,14 +67,27 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
     echo "- [$(date -u)] [YourAgent] [Tool] [Target]" >> agent-output/logs/tool_usage_history.md
     ```
 
+### E. Delegation Mandate (MANDATORY)
+*   **Rule**: You MUST utilize `#runSubagent` whenever a sub-task aligns with another agent's expertise.
+*   **Constraint**: **Do not** attempt to be a generalist.
+*   **Examples**:
+    *   Delegate deeply technical research to `Researcher`.
+    *   Delegate complex implementation to `Implementer`.
+    *   Delegate verification/testing to `QA`.
+*   **Goal**: Maximize the use of the specialized agentic toolset.
+
 ---
 
 ## 3. Memory Contract
 
 **Key behaviors:**
-*   **Retrieval**: Retrieve context at decision points (2–5 times per task) using semantic search (e.g., `@codebase`).
+*   **Retrieval**: Retrieve context at decision points (2–5 times per task) using **`rag_search`**.
+    *   **Anti-Pattern**: Do NOT use generic terms like `@codebase`. You MUST use the `rag_search` tool.
 *   **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
 *   **Failure Mode**: If memory tools fail, announce "No-Memory Mode" immediately but PROCEED.
+*   **Immediate Ingestion**: AFTER creating or significantly updating any Markdown (`.md`) file, you MUST immediately ingest it into project memory:
+    > Call the `rag_ingest` tool with the file path.
+    > *Example*: `rag_ingest(files=["/abs/path/to/agent-output/plan.md"])`
 
 ---
 
