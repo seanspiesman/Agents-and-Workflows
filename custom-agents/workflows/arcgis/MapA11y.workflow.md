@@ -44,6 +44,14 @@ Maps are visually dense and often inaccessible. This workflow enforces **Visual 
     2.  **Verify**: Ensure screen reader descriptions for features are non-repetitive but descriptive.
 - **Output**: `agent-output/reports/a11y-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Interaction Gaps| P3[Implementer: Labeling/Styling]
     P3 -->|Enhanced UI| P4[Critic: Compliance Review]
     P4 -->|Fail| P3
-    P4 -->|Pass| End([Map Accessible])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Map Accessible])
 ```
 
 ## Governance

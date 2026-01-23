@@ -25,7 +25,7 @@ Performance issues in GIS apps are often silent. This workflow enforces a rigoro
 - **Goal**: Propose specific technical fixes for identified bottlenecks.
 - **Execution**: Use `runSubagent` tool to run the **Architect** agent.
     - **Task**: "Read `spatial-bottlenecks.md`. Recommend `DefinitionExpression` changes, layer tiling strategies, or client-side projection fixes. Output `agent-output/analysis/geo-remediation.md`."
-- **Critique Loop**: Use **Critic** agent to verify the proposed fixes will not alter spatial correctness.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the proposed fixes will not alter spatial correctness.
 - **Output**: `agent-output/analysis/geo-remediation.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -42,8 +42,16 @@ Performance issues in GIS apps are often silent. This workflow enforces a rigoro
 - **Goal**: Measure performance gains and verify spatial integrity.
 - **Actions**:
     1.  **QA**: Use `run_command` or `playwright` to measure layer load times (simulated).
-    2.  **Critic**: Ensure documentation clearly explains the *reasoning* for each performance fix.
+    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to ensure documentation clearly explains the *reasoning* for each performance fix.
 - **Output**: `agent-output/reports/geo-performance-score.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -63,7 +71,8 @@ flowchart TD
     P1 -->|Findings| P2[Architect: Strategy]
     P2 -->|Fix Plan| P3[Implementer: Code Fixes]
     P3 -->|Optimized Code| P4[QA & Critic: Validation]
-    P4 -->|Pass| End([Performance Verified])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Performance Verified])
     P4 -->|Fail| P3
 ```
 

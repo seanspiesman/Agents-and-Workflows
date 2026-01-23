@@ -25,7 +25,7 @@ Porting web components to mobile requires architectural shifts. This workflow en
 - **Goal**: Map React paradigms to Flutter/MAUI equivalents.
 - **Execution**: Use `runSubagent` tool to run the **Architect** agent.
     - **Task**: "Read `react-porting-blueprint.md`. Map React Hooks to Flutter `StateProvider` or MAUI `ViewModel`. Map CSS flexbox to Mobile `Column/Row` layouts. Recommend mobile-native UX shifts (e.g. 'dropdown' -> 'bottom sheet'). Output `agent-output/analysis/mobile-mapping-design.md`."
-- **Critique Loop**: Use **Critic** agent to verify that the mobile design follows Material/Cupertino best practices.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify that the mobile design follows Material/Cupertino best practices.
 - **Output**: `agent-output/analysis/mobile-mapping-design.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -42,8 +42,16 @@ Porting web components to mobile requires architectural shifts. This workflow en
 - **Goal**: Ensure the mobile component behaves identically to the React original.
 - **Actions**:
     1.  **QA**: Use `ios-simulator` to verify the mobile UI. Trigger all interactive states (clicks, inputs).
-    2.  **Critic**: Audit the code for "web-isms" that should be native mobile patterns.
+    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to audit the code for "web-isms" that should be native mobile patterns.
 - **Output**: `agent-output/reports/porting-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -64,7 +72,8 @@ flowchart TD
     P2 -->|Design Docs| P3[Implementer: Draft Mobile]
     P3 -->|C# / Dart| P4[QA & Critic: Parity Test]
     P4 -->|UX Issues| P2
-    P4 -->|Pass| End([Mobile Module Ready])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Mobile Module Ready])
 ```
 
 ## Governance

@@ -41,6 +41,14 @@ Sync failures are difficult to reproduce. This workflow enforces **Multi-Platfor
     2.  **Verify**: Ensure the app handles "Stale Data" gracefully if sync is delayed.
 - **Output**: `agent-output/reports/sync-ux-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -59,7 +67,8 @@ flowchart TD
     P2 -->|Time Logs| P3[Analyst: Analyze Latency]
     P3 -->|Bottlenecks| P4[Critic: UX Review]
     P4 -->|Slow/Broken| P1
-    P4 -->|Pass| End([Sync Verified])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Sync Verified])
 ```
 
 ## Governance

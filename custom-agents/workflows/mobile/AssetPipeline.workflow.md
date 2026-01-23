@@ -41,6 +41,14 @@ Managing assets for multiple platforms is prone to manual error. This workflow e
     2.  **Critic**: Check if naming conventions follow `custom-agents/instructions/output_standards.md`.
 - **Output**: `agent-output/reports/asset-sync-report.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -59,7 +67,8 @@ flowchart TD
     P2 -->|Files Copied| P3[Implementer: Update Manifests]
     P3 -->|Ready| P4[QA & Critic: Verify]
     P4 -->|Incomplete| P2
-    P4 -->|Success| End([Assets Deployed])
+    P4 -->|Success| P5[Retrospective]
+    P5 --> End([Assets Deployed])
 ```
 
 ## Governance

@@ -44,6 +44,14 @@ Logic drift between platforms causes data integrity issues. This workflow enforc
     2.  **Verify**: Ensure all edge cases (null geometries, empty extents) are handled.
 - **Output**: `agent-output/reports/logic-review-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Ported Code| P3[QA: Parity Test]
     P3 -->|Mismatch| P2
     P3 -->|Match| P4[Critic: Final Review]
-    P4 -->|Approve| End([Logic Ported])
+    P4 -->|Approve| P5[Retrospective]
+    P5 --> End([Logic Ported])
 ```
 
 ## Governance

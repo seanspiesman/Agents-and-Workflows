@@ -82,42 +82,27 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 - **Input**: `agent-output/architecture/system-architecture.md`
 - **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `system-architecture.md`. Break project into logical phases. Define granular tasks with 'Definition of Done'. Output `agent-output/planning/master-implementation-plan.md`."
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `system-architecture.md`. Break project into logical phases. Define granular tasks with 'Definition of Done'. Ensure the master plan is aligned with the original guide document (`agent-output/context/product-brief.md`). Output `agent-output/planning/master-implementation-plan.md`."
     4.  **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to review `master-implementation-plan.md`.
-        - Check: Is it detailed enough? Are testing steps included?
+        - Check: Is it detailed enough? Does it align with `product-brief.md`? Are testing steps included?
         - **Reject**: Planner adds detail.
-        - **Approve**: Proceed to Foundation.
-- **Output**: `agent-output/planning/master-implementation-plan.md` (Status: APPROVED)
-- **Rescue Path**: If the Plan file is missing or 0 bytes, **HALT**. Do not proceed to Foundation. Report error to user.
-- **Handoff**: To DevOps.
-
-### Phase 5: Foundation Setup (DevOps, Critic)
-- **Primary Agent**: DevOps
-- **Reviewer**: Critic
-- **Goal**: Create a robust, linted, verified local environment.
-
-- **Input**: `agent-output/planning/master-implementation-plan.md`
-- **Execution**: Use the `runSubagent` tool to run the **DevOps** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read Implementation Plan. Setup file structure, `.gitignore`, and `eslint` configs. Record setup in `agent-output/deployment/foundation-setup.md`."
-    2.  **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to review the file structure and config files.
-        - Check: Are `.gitignore` and `eslint` strict enough?
-        - **Reject**: DevOps fixes config.
         - **Approve**: Proceed to Implementation.
-- **Output**: `agent-output/deployment/foundation-setup.md`
+- **Output**: `agent-output/planning/master-implementation-plan.md` (Status: APPROVED)
+- **Rescue Path**: If the Plan file is missing or 0 bytes, **HALT**. Do not proceed to Implementation. Report error to user.
 - **Handoff**: To Implementer.
 
-### Phase 6: The Implementation Loop (Implementer, QA, Critic)
+### Phase 5: The Implementation Loop (Implementer, QA, Critic)
 - **Primary Agent**: Implementer
 - **Support Agents**: QA, Critic
 - **Goal**: Implement components defined in the plan, ensuring high quality and testing correctness via a tight subagent feedback loop.
 
 - **Input**: `agent-output/planning/master-implementation-plan.md`
 - **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. You are responsible for the Development Loop. DO NOT exit this loop until specific components are complete and verified.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. You are responsible for the Development Loop. Ensure alignment with the original guide document (`agent-output/context/product-brief.md`). DO NOT exit this loop until specific components are complete and verified.
       1.  **Read Plan**: Identify the next component to build from `master-implementation-plan.md`.
       2.  **Implement**: Write the code for the component.
       3.  **Verification Loop (Subagent Delegation)**:
-          -   Call **QA** agent: 'Write and run tests for [Component]. Verify it meets specs.'
+          -   Call **QA** agent: 'Write and run tests for [Component]. Verify it meets specs. MUST use `ios-simulator` MCP for mobile apps or `playwright` MCP for web apps.'
           -   **If Tests Fail**: You (Implementer) MUST fix the code and Ask QA to re-run. Repeat until Pass.
           -   **If Tests Pass**: Call **Critic** agent: 'Review code style and logic for [Component].'
       4.  **Refine**: Address Critic feedback immediately.
@@ -126,7 +111,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
       7.  **Finish**: When all components are built and verified, write `agent-output/reports/implementation-complete.md`."
 - **Output**: `agent-output/reports/implementation-complete.md` (Verified by QA/Critic during loop)
 
-### Phase 7: Security Audit (Security, Critic)
+### Phase 6: Security Audit (Security, Critic)
 - **Primary Agent**: Security
 - **Reviewer**: Critic
 - **Goal**: Ensure safety and compliance.
@@ -141,14 +126,14 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Output**: `agent-output/security/security-audit.md`
 - **Handoff**: To UAT.
 
-### Phase 8: User Acceptance (UAT, Critic)
+### Phase 7: User Acceptance (UAT, Critic)
 - **Primary Agent**: UAT
 - **Reviewer**: Critic
 - **Goal**: Verify "Hero" status.
 
 - **Input**: `agent-output/security/security-audit.md`
 - **Execution**: Use the `runSubagent` tool to run the **UAT** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read Product Vision. Perform walkthrough and value check. Output `agent-output/uat/final-acceptance.md`."
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read Product Vision. Perform walkthrough and value check. MUST use `ios-simulator` MCP for mobile applications and `playwright` MCP for web apps. Output `agent-output/uat/final-acceptance.md`."
     3.  **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to review `final-acceptance.md`.
         - Check: Was UAT rigorous? Did we just rubber-stamp it?
         - **Reject**: UAT re-verifies.
@@ -156,7 +141,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Output**: `agent-output/uat/final-acceptance.md`
 - **Handoff**: To Completion.
 
-### Phase 9: Documentation & Completion (Analyst, Critic)
+### Phase 8: Documentation & Completion (Analyst, Critic)
 - **Primary Agent**: Analyst
 - **Reviewer**: Critic
 - **Input**: `agent-output/uat/final-acceptance.md`
@@ -165,7 +150,18 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
     3.  **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to review the final documentation.
         - Check: Spelling, formatting, screenshot presence.
         - **Reject**: Analyst fixes.
-        - **Approve**: Finish.
+        - **Approve**: Proceed to Retrospective.
+- **Output**: `agent-output/docs/README.md`
+- **Handoff**: To Retrospective.
+
+### Phase 9: Retrospective (Retrospective)
+- **Primary Agent**: Retrospective
+- **Goal**: Analyze the entire workflow for process improvements.
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read all artifacts. Run the Retrospective process to identify improvements for the next iteration. Output `agent-output/retrospectives/retrospective-[id].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[id].md`
+- **Handoff**: End of Workflow.
 
 ## Workflow Visualization
 
@@ -193,31 +189,31 @@ flowchart TD
     end
     Crit4 -->|Approve| Phase5
 
-    subgraph Phase5 [Foundation]
-        DevOps --> Crit5{Review}
-    end
-    Crit5 -->|Approve| Phase6
-
-    subgraph Phase6 [Implementation Loop]
+    subgraph Phase5 [Implementation Loop]
         Impl[Implementer] <--> QA[QA Test]
-        Impl <--> Crit6[Critic Review]
+        Impl <--> Crit5[Critic Review]
     end
-    Phase6 --> Phase7
+    Phase5 --> Phase6
 
-    subgraph Phase7 [Security]
-        Sec[Security] --> Crit7{Review}
+    subgraph Phase6 [Security]
+        Sec[Security] --> Crit6{Review}
+    end
+    Crit6 -->|Approve| Phase7
+
+    subgraph Phase7 [Verification]
+        UAT[UAT] --> Crit7{Review}
     end
     Crit7 -->|Approve| Phase8
 
-    subgraph Phase8 [Verification]
-        UAT[UAT] --> Crit8{Review}
+    subgraph Phase8 [Completion]
+        Doc[Analyst] --> Crit8{Review}
     end
     Crit8 -->|Approve| Phase9
 
-    subgraph Phase9 [Completion]
-        Doc[Analyst] --> Crit9{Review}
+    subgraph Phase9 [Retrospective]
+        Retro[Retrospective]
     end
-    Crit9 -->|Approve| End([Ready Locally])
+    Phase9 --> End([Ready Locally])
 ```
 
 ## Special Instructions

@@ -44,6 +44,14 @@ Location leaks are a major liability. This workflow enforces **Permission Audit 
     2.  **Verify**: Ensure no "Background Location" activity occurs without explicit user consent.
 - **Output**: `agent-output/reports/privacy-sentinel-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Leaks Found| P3[Implementer: Mask/Harden]
     P3 -->|Hardened Code| P4[Critic: Compliance Check]
     P4 -->|Fail| P3
-    P4 -->|Pass| End([Privacy Sentinel Done])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Privacy Sentinel Done])
 ```
 
 ## Governance

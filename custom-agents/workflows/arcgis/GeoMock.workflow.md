@@ -25,7 +25,7 @@ Reliable spatial testing requires reproducible scenarios. This workflow enforces
 - **Goal**: Define the mocking strategy for each platform's SDK.
 - **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
     - **Task**: "Read `test-scenario.json`. Design Mock providers for Flutter, MAUI, and React. Map expected spatial query responses for each checkpoint. Output `agent-output/analysis/mock-blueprint.md`."
-- **Critique Loop**: Use **Critic** agent to verify that the scenario covers edge cases (e.g. crossing anti-meridian, coordinate wraps).
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify that the scenario covers edge cases (e.g. crossing anti-meridian, coordinate wraps).
 - **Output**: `agent-output/analysis/mock-blueprint.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -43,8 +43,16 @@ Reliable spatial testing requires reproducible scenarios. This workflow enforces
 - **Actions**:
     1.  **QA**: Use `playwright` or `ios-simulator` to "play" the scenario.
     2.  **QA**: Monitor logs for expected event triggers (e.g. `EnteredGeofence`).
-    3.  **Critic**: Ensure the test logs are actionable and highly detailed.
+    3.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to ensure the test logs are actionable and highly detailed.
 - **Output**: `agent-output/reports/geo-test-log.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -64,7 +72,8 @@ flowchart TD
     P2 -->|Blueprint| P3[Implementer: Inject Mocks]
     P3 -->|Service| P4[QA & Critic: Scenario Run]
     P4 -->|Trigger Fail| P2
-    P4 -->|Pass| End([Tests Verified])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Tests Verified])
 ```
 
 ## Governance

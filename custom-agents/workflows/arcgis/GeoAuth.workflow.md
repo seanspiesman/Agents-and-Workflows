@@ -44,6 +44,14 @@ Authentication is a critical security boundary. This workflow enforces **Vulnera
     2.  **Verify**: Ensure the app uses secure system browsers (ASWebAuthenticationSession / CustomTabs) for auth.
 - **Output**: `agent-output/reports/security-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Services| P3[QA: Handshake Test]
     P3 -->|Success| P4[Critic: Final Review]
     P3 -->|Fail| P2
-    P4 -->|Approve| End([Auth Secured])
+    P4 -->|Approve| P5[Retrospective]
+    P5 --> End([Auth Secured])
 ```
 
 ## Governance

@@ -25,7 +25,7 @@ SDK upgrades are high-risk. This workflow enforces **Impact Analysis -> Package 
 - **Goal**: Decide the upgrade sequence (Big Bang vs Incremental) and rollback strategy.
 - **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
     - **Task**: "Read `migration-impact.md`. Map every breaking change to a specific file/module. Formulate a step-by-step upgrade plan. Output `agent-output/planning/migration-strategy.md`."
-- **Critique Loop**: Use **Critic** agent to verify the rollback strategy.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the rollback strategy.
 - **Output**: `agent-output/planning/migration-strategy.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -43,8 +43,16 @@ SDK upgrades are high-risk. This workflow enforces **Impact Analysis -> Package 
 - **Actions**:
     1.  **QA**: Use `run_command` to execute the full spatial test suite.
     2.  **QA**: Use `playwright` or `ios-simulator` to verify rendering performance hasn't degraded.
-    3.  **Critic**: Review refactored code for architectural alignment with the new SDK.
+    3.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to review refactored code for architectural alignment with the new SDK.
 - **Output**: `agent-output/reports/upgrade-summary.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -64,7 +72,8 @@ flowchart TD
     P2 -->|Plan| P3[Implementer: Migration]
     P3 -->|Upgraded Code| P4[QA & Critic: Verification]
     P4 -->|Major Regressions| P3
-    P4 -->|Success| End([SDK Upgraded])
+    P4 -->|Success| P5[Retrospective]
+    P5 --> End([SDK Upgraded])
 ```
 
 ## Governance

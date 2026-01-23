@@ -66,7 +66,16 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 - **Output**:
   - Move terminal artifacts to `agent-output/closed/`
   - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
-  - **STOP** (End of Workflow)
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - Proceed to Phase 6.
+
+### 6. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+- **STOP** (End of Workflow)
 
 ## Agent Roles Summary
 
@@ -88,5 +97,6 @@ flowchart TD
     E -->|Target Missed| D
     E -->|Coverage Up| F[Success]
     F --> G[Project Completion]
-    G --> H[End]
+    G --> I[Retrospective]
+    I --> H[End]
 ```

@@ -75,7 +75,15 @@ This workflow provides a standardized process for reproducible bug fixes, ensuri
 - **Output**:
   - Move terminal artifacts to `agent-output/closed/`
   - Generate **Single** Project Completion Report: `agent-output/reports/[ID]-completion-report.md`
-  - **STOP** (End of Workflow)
+  - Proceed to Phase 6.
+
+### 6. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis on the Bug Fix process. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+- **Stop**: End of Workflow.
 
 ## Agent Roles Summary
 
@@ -100,5 +108,6 @@ flowchart TD
     E -->|Regression| C
     E -->|Verified| F[Released]
     F --> G[Project Completion]
-    G --> H[End]
+    G --> I[Retrospective]
+    I --> H[End]
 ```

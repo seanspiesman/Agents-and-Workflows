@@ -25,7 +25,7 @@ Writing native interop is brittle and manual. This workflow enforces **Platform 
 - **Goal**: Design the cross-platform interface and method signatures.
 - **Execution**: Use `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Read `native-api-spec.md`. Design the `MethodChannel` interface (Flutter) or `IDependency` interface (MAUI). Map and handle platform-specific data types (e.g. `Map` vs `NSDictionary`). Output `agent-output/analysis/interop-blueprint.md`."
-- **Critique Loop**: Use **Critic** agent to verify the error handling for "Platform Not Supported" cases.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the error handling for "Platform Not Supported" cases.
 - **Output**: `agent-output/analysis/interop-blueprint.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -43,6 +43,14 @@ Writing native interop is brittle and manual. This workflow enforces **Platform 
 - **Execution**: Use `runSubagent` tool to run the **QA** agent.
     - **Task**: "Deploy to an ios-simulator. Verify the bridge call returns the expected native value (or mock it). Ensure no crashes occur when the bridge is invoked. Output `agent-output/reports/interop-verification.md`."
 - **Output**: `agent-output/reports/interop-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Blueprint| P3[Implementer: Generate 3+ Languages]
     P3 -->|Swift/Kotlin/Dart| P4[QA: Connectivity Test]
     P4 -->|Method Not Found| P2
-    P4 -->|Pass| End([Interop Wrapper Ready])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Interop Wrapper Ready])
 ```
 
 ## Governance

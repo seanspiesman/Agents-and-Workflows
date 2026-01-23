@@ -25,7 +25,7 @@ Production logs are noisy. This workflow enforces **Log Indexing -> Multi-Platfo
 - **Goal**: Identify shared failure points (e.g., API payload drift).
 - **Execution**: Use `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Read `crash-logs-indexed.json`. Trace stack traces back to specific files in the repository. Look for shared logic failures (e.g. date parsing) that appear on both MAUI and Flutter. Output `agent-output/analysis/log-rca-summary.md`."
-- **Critique Loop**: Use **Critic** agent to verify that the RCA isn't just "blaming the library" but finds the root coding error.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify that the RCA isn't just "blaming the library" but finds the root coding error.
 - **Output**: `agent-output/analysis/log-rca-summary.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -43,6 +43,14 @@ Production logs are noisy. This workflow enforces **Log Indexing -> Multi-Platfo
 - **Execution**: Use `runSubagent` tool to run the **QA** agent.
     - **Task**: "Define a reproduction test case that mimics the crash log scenario. Verify the app now handles the scenario gracefully without crashing. Output `agent-output/reports/log-fix-verification.md`."
 - **Output**: `agent-output/reports/log-fix-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|RCA Summary| P3[Implementer: Defensive Fix]
     P3 -->|Fixed Code| P4[QA: Repro Test]
     P4 -->|Still Crashes| P3
-    P4 -->|Pass| End([Crash Resolved])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Crash Resolved])
 ```
 
 ## Governance

@@ -25,7 +25,7 @@ Offline sync is one of the most complex spatial workflows. This process enforces
 - **Goal**: Design the geodatabase parameters and conflict resolution strategy.
 - **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
     - **Task**: "Read `sync-capabilities.md`. Design `GenerateGeodatabaseParameters`. Define `SyncModel` and conflict policy. Output `agent-output/analysis/geodatabase-strategy.md`."
-- **Critique Loop**: Use **Critic** agent to verify the technical soundness of the sync strategy.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the technical soundness of the sync strategy.
 - **Output**: `agent-output/analysis/geodatabase-strategy.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -42,8 +42,16 @@ Offline sync is one of the most complex spatial workflows. This process enforces
 - **Goal**: Verify job parameters and mock sync responses.
 - **Actions**:
     1.  **QA**: Use `runSubagent` to verify the code meets the design. Mock a successful sync job.
-    2.  **Critic**: Ensure the documentation for the sync service is comprehensive.
+    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to ensure the documentation for the sync service is comprehensive.
 - **Output**: `agent-output/reports/sync-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -62,7 +70,8 @@ flowchart TD
     P1 -->|Metadata| P2[Analyst: Strategy]
     P2 -->|GDB Strategy| P3[Implementer: Service Code]
     P3 -->|Service| P4[QA & Critic: Verification]
-    P4 -->|Pass| End([Ready])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Ready])
     P4 -->|Fail| P3
 ```
 

@@ -44,6 +44,14 @@ Inconsistent translations harm international user trust. This workflow enforces 
     2.  **Verify**: Ensure right-to-left (RTL) locales have basic layout support if requested.
 - **Output**: `agent-output/reports/localization-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Updated Resx/Arb/Json| P3[QA: Build Verify]
     P3 -->|Compile Error| P2
     P3 -->|Pass| P4[Critic: Cultural Review]
-    P4 -->|Pass| End([L10n Synced])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([L10n Synced])
 ```
 
 ## Governance

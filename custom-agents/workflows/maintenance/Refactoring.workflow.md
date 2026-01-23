@@ -82,7 +82,16 @@ Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Ana
 - **Output**:
   - Move terminal artifacts to `agent-output/closed/`
   - Generate **Single** Project Completion Report: `agent-output/reports/[ID]-completion-report.md`
-  - **STOP** (End of Workflow)
+  - Generate **Single** Project Completion Report: `agent-output/reports/[ID]-completion-report.md`
+  - Proceed to Phase 7.
+
+### 7. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+- **Stop**: End of Workflow.
 
 ## Agent Roles Summary
 
@@ -107,5 +116,6 @@ flowchart TD
     F -->|Tests Fail| E
     F -->|Tests Pass| G[Success]
     G --> H[Project Completion]
-    H --> I[End]
+    H --> I[Retrospective]
+    I --> J[End]
 ```

@@ -25,7 +25,7 @@ Duplicate logic increases technical debt. This workflow enforces **Redundancy Sc
 - **Goal**: Design the interface for the shared logic repository.
 - **Execution**: Use `runSubagent` tool to run the **Architect** agent.
     - **Task**: "Read `shared-logic-candidates.md`. Design a unified API for the shared logic. Recommend the sharing mechanism (e.g. Git Submodule, Private Package, or logic porting). Output `agent-output/architecture/shared-core-design.md`."
-- **Critique Loop**: Use **Critic** agent to verify that the shared design is decoupled from platform-specific UI.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify that the shared design is decoupled from platform-specific UI.
 - **Output**: `agent-output/architecture/shared-core-design.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -42,8 +42,16 @@ Duplicate logic increases technical debt. This workflow enforces **Redundancy Sc
 - **Goal**: Ensure no functional behavior was changed during extraction.
 - **Actions**:
     1.  **QA**: Use `run_command` to execute unit tests on all 3 platforms. Verify code-coverage has not dropped.
-    2.  **Critic**: Audit the shared library for "platform leaks" (e.g. accidentally including a React hook in a shared core).
+    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to audit the shared library for "platform leaks" (e.g. accidentally including a React hook in a shared core).
 - **Output**: `agent-output/reports/extraction-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -64,7 +72,8 @@ flowchart TD
     P2 -->|Design| P3[Implementer: Extract & Refactor]
     P3 -->|New Structure| P4[QA & Critic: Regression Test]
     P4 -->|Behavior Shift| P3
-    P4 -->|Pass| End([Logic Shared])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Logic Shared])
 ```
 
 ## Governance

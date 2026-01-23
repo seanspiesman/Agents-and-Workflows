@@ -25,7 +25,7 @@ Static testing tools are too rigid. This workflow enforces **Schema Absorption -
 - **Goal**: Layout the QA Dashboard and define input field types.
 - **Execution**: Use `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Read `absorbed-contract.json`. Design a QA Dashboard with endpoint grouping. Map schema types (enum, date, string) to React Formik/Hook-Form inputs. Define a 'Response Observer' with JSON tree-view. Output `agent-output/analysis/workbench-design.md`."
-- **Critique Loop**: Use **Critic** agent to verify the design provides clear visual feedback for non-200 status codes.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the design provides clear visual feedback for non-200 status codes.
 - **Output**: `agent-output/analysis/workbench-design.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -42,8 +42,16 @@ Static testing tools are too rigid. This workflow enforces **Schema Absorption -
 - **Goal**: Ensure the workbench correctly represents the absorbed API contract.
 - **Actions**:
     1.  **QA**: Use `playwright` to open the generated workbench. Verify every absorbed endpoint is listed and forms render correctly.
-    2.  **Critic**: Audit the workbench UI for "Hero" grade aesthetics and ease of use.
+    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to audit the workbench UI for "Hero" grade aesthetics and ease of use.
 - **Output**: `agent-output/reports/workbench-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 
@@ -64,7 +72,8 @@ flowchart TD
     P2 -->|Design Specs| P3[Implementer: Generate React App]
     P3 -->|Ready App| P4[QA & Critic: Loopback Test]
     P4 -->|Field Miss| P3
-    P4 -->|Pass| End([QA Workbench Live])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([QA Workbench Live])
 ```
 
 ## Governance

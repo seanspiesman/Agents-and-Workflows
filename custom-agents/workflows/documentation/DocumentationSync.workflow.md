@@ -50,7 +50,16 @@ Drift between code and documentation is a major source of confusion. This workfl
 - **Output**:
   - Move terminal artifacts to `agent-output/closed/`
   - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
-  - **STOP** (End of Workflow)
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - Proceed to Phase 5.
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+- **STOP** (End of Workflow)
 
 ## Agent Roles Summary
 
@@ -71,5 +80,6 @@ flowchart TD
     D -->|Inaccurate| C
     D -->|Synced| E[End]
     E --> F[Project Completion]
-    F --> G[End]
+    F --> H[Retrospective]
+    H --> G[End]
 ```

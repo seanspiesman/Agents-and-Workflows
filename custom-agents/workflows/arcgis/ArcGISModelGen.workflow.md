@@ -25,7 +25,7 @@ No model is generated until the **Researcher** has extracted the schema and the 
 - **Goal**: Map ArcGIS types to language-specific primitives.
 - **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
     - **Task**: "Read `layer-schema.json`. Map `esriFieldType` values to C#, Dart, and TypeScript types. Output a mapping report to `agent-output/analysis/type-mapping.md`."
-- **Critique Loop**: Use `runSubagent` for **Critic** to verify mapping accuracy.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify mapping accuracy.
 - **Output**: `agent-output/analysis/type-mapping.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -42,8 +42,16 @@ No model is generated until the **Researcher** has extracted the schema and the 
 - **Goal**: Ensure syntactic correctness and schema parity.
 - **Actions**:
     1.  **QA**: Use `run_command` to verify syntax if possible. Ensure every field from the schema is present.
-    2.  **Critic**: Use `runSubagent` to review code style and documentation detail.
+    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to review code style and documentation detail.
 - **Output**: `agent-output/reports/model-gen-verification.md`
+
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
 
 ## Agent Roles Summary
 

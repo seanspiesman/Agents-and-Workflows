@@ -25,7 +25,7 @@ Hand-coding UI for maps is tedious. This workflow enforces **Metadata Harvesting
 - **Goal**: Design the UI hierarchy based on the map's contents.
 - **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
     - **Task**: "Read `webmap-summary.json`. Design Sidebar, Legend, and Popup templates for [Target Platform]. Map layer visibility toggles. Output `agent-output/analysis/ui-scaffolding-blueprint.md`."
-- **Critique Loop**: Use **Critic** agent to verify the UI plan meets design standards.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the UI plan meets design standards.
 - **Output**: `agent-output/analysis/ui-scaffolding-blueprint.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -45,6 +45,14 @@ Hand-coding UI for maps is tedious. This workflow enforces **Metadata Harvesting
     2.  **QA**: Confirm that Popups display the correct fields defined in the Web Map.
 - **Output**: `agent-output/reports/scaffolding-verification.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Blueprint| P3[Implementer: Generate UI]
     P3 -->|Components| P4[QA: Interactive Text]
     P4 -->|Visual Fail| P3
-    P4 -->|Pass| End([UI Ready])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([UI Ready])
 ```
 
 ## Governance

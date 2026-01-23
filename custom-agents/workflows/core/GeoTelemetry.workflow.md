@@ -44,6 +44,14 @@ Inconsistent telemetry makes cross-platform analytics impossible. This workflow 
     2.  **Verify**: Ensure no Personally Identifiable Information (PII) is inadvertently captured in location properties.
 - **Output**: `agent-output/reports/telemetry-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Service Code| P3[QA: Handshake Test]
     P3 -->|Schema Mismatch| P2
     P3 -->|Pass| P4[Critic: Privacy Review]
-    P4 -->|Pass| End([Telemetry Harmonized])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Telemetry Harmonized])
 ```
 
 ## Governance

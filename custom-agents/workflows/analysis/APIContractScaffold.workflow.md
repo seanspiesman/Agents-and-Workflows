@@ -41,6 +41,14 @@ Manual API integration is error-prone. This workflow enforces **Contract Analysi
     2.  **Critic**: Audit the generated code for "Any" or "Object" types that should be strongly typed.
 - **Output**: `agent-output/reports/api-scaffold-verification.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -59,7 +67,8 @@ flowchart TD
     P2 -->|Generated Code| P3[Implementer: Inject Security]
     P3 -->|Final Code| P4[QA & Critic: Conformance Test]
     P4 -->|Type Gaps| P2
-    P4 -->|Pass| End([API Clients Ready])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([API Clients Ready])
 ```
 
 ## Governance

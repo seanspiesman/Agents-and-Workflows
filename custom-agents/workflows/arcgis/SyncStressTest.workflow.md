@@ -44,6 +44,14 @@ Offline apps fail in the field, not the office. This workflow enforces **Failure
     2.  **Verify**: Ensure user notifications during failure are clear and non-technical.
 - **Output**: `agent-output/reports/resilience-audit.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Mocks Ready| P3[QA: Run Scenarios]
     P3 -->|Logs/Results| P4[Critic: Resilience Review]
     P4 -->|Fragile| P2
-    P4 -->|Resilient| End([Sync Hardened])
+    P4 -->|Resilient| P5[Retrospective]
+    P5 --> End([Sync Hardened])
 ```
 
 ## Governance

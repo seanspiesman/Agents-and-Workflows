@@ -34,7 +34,16 @@ The **Navigator** explores the app. If it finds a **Blocking Bug**, it stops imm
 - **Output**:
   - Move terminal artifacts to `agent-output/closed/`
   - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
-  - **STOP** (End of Workflow)
+  - Generate **Single** Project Completion Report: `agent-output/completion/[ID]-completion-report.md`
+  - Proceed to Retrospective.
+
+### Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+- **STOP** (End of Workflow)
 
 ## Agent Roles Summary
 
@@ -54,5 +63,6 @@ flowchart TD
     FixBatch --> Nav
     Nav -->|Clean Traversal| Success[Success]
     Success --> Finish[Project Completion]
-    Finish --> End[End]
+    Finish --> Retro[Retrospective]
+    Retro --> End[End]
 ```

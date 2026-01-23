@@ -44,6 +44,14 @@ Heavy spatial assets degrade mobile experiences. This workflow enforces **Invent
     2.  **Verify**: Ensure naming conventions for optimized assets are consistent.
 - **Output**: `agent-output/reports/asset-optimization-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Small Assets| P3[QA: Benchmark]
     P3 -->|Visual Artifacts| P2
     P3 -->|Pass| P4[Critic: Integrity Review]
-    P4 -->|Pass| End([Assets Optimized])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Assets Optimized])
 ```
 
 ## Governance

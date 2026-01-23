@@ -44,6 +44,14 @@ Identity is the primary entryway to your spatial data. This workflow enforces **
     2.  **Critic**: Verify that requested OAuth2 Scopes are minimal (no unnecessary `admin` rights).
 - **Output**: `agent-output/reports/identity-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -63,7 +71,8 @@ flowchart TD
     P2 -->|Storage Issues| P3[Implementer: Hardening]
     P3 -->|Hardened Code| P4[QA & Critic: Sign-off]
     P4 -->|Fail| P3
-    P4 -->|Pass| End([Identity Auditor Done])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Identity Auditor Done])
 ```
 
 ## Governance

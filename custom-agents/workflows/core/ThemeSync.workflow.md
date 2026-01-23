@@ -44,6 +44,14 @@ Visual drift between platforms harms the brand. This workflow enforces **Token M
     2.  **Verify**: Ensure Dark/Light mode tokens are correctly mapped for each OS.
 - **Output**: `agent-output/reports/design-sign-off.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Updated CSS/Xaml/Dart| P3[QA: Visual Parity]
     P3 -->|Color Drift| P2
     P3 -->|Pass| P4[Critic: Fidelity Review]
-    P4 -->|Pass| End([Theme Harmonized])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([Theme Harmonized])
 ```
 
 ## Governance

@@ -44,6 +44,14 @@ Environment drift causes "wrong map" bugs. This workflow enforces **Config Disco
     2.  **Verify**: Ensure environment synchronization is logged accurately.
 - **Output**: `agent-output/reports/env-verification.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -62,7 +70,8 @@ flowchart TD
     P2 -->|Updated Files| P3[QA: Reachability Test]
     P3 -->|Success| P4[Critic: Leak Audit]
     P3 -->|Fail| P2
-    P4 -->|Approve| End([Environment Synced])
+    P4 -->|Approve| P5[Retrospective]
+    P5 --> End([Environment Synced])
 ```
 
 ## Governance

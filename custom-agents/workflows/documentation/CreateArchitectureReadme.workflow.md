@@ -65,6 +65,14 @@ This workflow transforms a raw codebase into a high-quality `README-ARCH.md` and
 - **Iteration**: Return to **Implementer** if issues found.
 - **Handoff**: Passed to Orchestrator.
 
+### 7. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+- **Handoff**: End of Workflow.
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -88,5 +96,6 @@ flowchart TD
     F -->|Inaccurate| B
     F -->|Lazy Diagram| D
     F -->|Verified| G[Artifact Assembly]
-    G -->|README-ARCH.md| H[End]
+    G -->|README-ARCH.md| I[Retrospective]
+    I --> H[End]
 ```

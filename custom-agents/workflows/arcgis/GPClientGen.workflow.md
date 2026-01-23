@@ -25,7 +25,7 @@ GP Services are asynchronous and complex. This workflow enforces **Metadata Intr
 - **Goal**: Define the polling and status-handling strategy for the GP Job.
 - **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
     - **Task**: "Read `gp-service-spec.json`. Design the client Job Wrapper. Map status messages (Succeeded, Failed, Executing) to UI events. Output a Technical Design to `agent-output/analysis/gp-client-blueprint.md`."
-- **Critique Loop**: Use **Critic** agent to verify polling intervals and error handling patterns.
+- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify polling intervals and error handling patterns.
 - **Output**: `agent-output/analysis/gp-client-blueprint.md` (APPROVED)
 - **Handoff**: To Implementer.
 
@@ -44,6 +44,14 @@ GP Services are asynchronous and complex. This workflow enforces **Metadata Intr
     - **Task**: "Mock a GP Service response for a successful job. Verify the client correctly deserializes the geometry results. Output `agent-output/reports/gp-client-verification.md`."
 - **Output**: `agent-output/reports/gp-client-verification.md`
 
+### 5. Retrospective (Retrospective)
+- **Agent**: Retrospective
+- **Input**: All `agent-output/` artifacts.
+- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
+- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
+
+
 ## Agent Roles Summary
 
 | Agent | Role | Output Location |
@@ -61,7 +69,8 @@ flowchart TD
     P2 -->|Blueprint| P3[Implementer: Generate Client]
     P3 -->|Client Code| P4[QA: Serialization Test]
     P4 -->|Fail| P3
-    P4 -->|Pass| End([GP Client Ready])
+    P4 -->|Pass| P5[Retrospective]
+    P5 --> End([GP Client Ready])
 ```
 
 ## Governance
