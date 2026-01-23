@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# chmod +x scripts/sync-agents.sh && bash scripts/sync-agents.sh
 # Sync Agents Script
 # Syncs the custom-agents folder from Agents-and-Workflows to all .github folders in Documents
 
