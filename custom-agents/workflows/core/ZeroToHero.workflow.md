@@ -52,7 +52,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 - **Input**: `agent-output/context/product-brief.md`
 - **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Call `rag_search` for context. Read `agent-output/context/product-brief.md`. Perform Stack Selection and Risk Assessment. Use the **Researcher** agent as a subagent for Dependency Research. Output `agent-output/analysis/technical-feasibility.md`."
+    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Call `rag/rag_search` for context. Read `agent-output/context/product-brief.md`. Perform Stack Selection and Risk Assessment. Use the **Researcher** agent as a subagent for Dependency Research. Output `agent-output/analysis/technical-feasibility.md`."
     5.  **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to review `technical-feasibility.md`.
         - Check: Are we using truly modern tools? Are risks glossed over?
         - **Reject**: Analyst re-investigates.

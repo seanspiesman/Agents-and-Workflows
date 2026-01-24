@@ -2,7 +2,7 @@
 description: Autonomous explorer that navigates applications, records evidence, and identifies blocking/non-blocking bugs.
 name: Navigator
 target: vscode
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Report Blocking Bug

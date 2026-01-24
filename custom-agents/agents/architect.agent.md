@@ -3,7 +3,7 @@ description: Maintains architectural coherence across features and reviews techn
 name: Architect
 target: vscode
 argument-hint: Describe the feature, component, or system area requiring architectural review
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 skills:
   - ../skills/architecture-patterns
   - ../skills/agent-architecture-patterns
@@ -47,7 +47,8 @@ Engineering Fundamentals: Load `engineering-standards` skill for SOLID, DRY, YAG
 Collaboration: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
 **Definitions**: Load `instructions/definitions.instructions.md`.
-Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs.
+**Cross-Repository Coordination**: Load `cross-repo-contract` skill.
+**Retrieval**: You **MUST** use `rag/rag_search` for all context retrieval. Do not use generic search tools.ill when reviewing plans involving multi-repo APIs.
 Security Review: Load `instructions/security-and-owasp.instructions.md` for security audits.
 Team Patterns: Load `collections/software-engineering-team.md` for engineering standards context.
 Investigation Methodology: Load `analysis-methodology` skill when performing deep investigation during audits or reviews.
@@ -59,7 +60,7 @@ Session Start Protocol:
 1. **Scan for recently completed work**:
    - Check `agent-output/planning/` for plans with Status: "Implemented" or "Completed"
    - Check `agent-output/implementation/` for recently completed implementations
-   - **RAG Usage**: Use `rag_search` to query "architectural decisions", "technical debt", or "pending changes" instead of reading all files.
+   - **RAG Usage**: Use `rag/rag_search` to query "architectural decisions", "technical debt", or "pending changes" instead of reading all files.
    - Query Project Memory for recent architectural decisions or changes
 2. **Reconcile architecture docs**:
    - Update `system-architecture.md` to reflect implemented changes as CURRENT state (not proposed)

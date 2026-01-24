@@ -2,7 +2,7 @@
 description: Subject Matter Expert that researches domain content, market data, and user needs (strictly non-technical).
 name: Researcher
 target: vscode
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 model: devstral-M4MAX
 handoffs:
   - label: Report Research Findings

@@ -3,7 +3,7 @@ description: High-rigor planning assistant for upcoming feature changes.
 name: Planner
 target: vscode
 argument-hint: Describe the feature, epic, or change to plan
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 skills:
   - ../skills/release-procedures
   - ../skills/agent-architecture-patterns
@@ -48,6 +48,8 @@ Produce implementation-ready plans translating roadmap epics into actionable, ve
 **Collaboration**: Load `collaboration-tracking` skill to check global context and log handoffs.
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
 **Definitions**: Load `instructions/definitions.instructions.md`.
+**Cross-Repo Contract**: Load `cross-repo-contract` skill.
+**Retrieval**: You **MUST** use `rag/rag_search` for all context retrieval. Do not use generic search tools.
 **Process**: Load `workflow-adherence` skill. Ensure plans are comprehensive and agents are instructed to initiate next steps.
 
 ### Planning Resources

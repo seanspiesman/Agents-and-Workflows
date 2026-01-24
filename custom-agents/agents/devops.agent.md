@@ -3,7 +3,7 @@ description: DevOps specialist responsible for packaging, versioning, deployment
 name: DevOps
 target: vscode
 argument-hint: Specify the version to release or deployment task to perform
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'todo', 'io.github.upstash/context7/*']
 model: devstral-3090
 handoffs:
   - label: Request Implementation Fixes

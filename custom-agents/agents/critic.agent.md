@@ -3,7 +3,7 @@ description: Constructive reviewer and program manager that stress-tests plannin
 name: Critic
 target: vscode
 argument-hint: Reference the plan or architecture document to critique (e.g., plan 002)
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'io.github.upstash/context7/*']
 skills:
   - ../skills/agent-architecture-patterns
 model: devstral-M4MAX
@@ -86,6 +86,7 @@ Collaboration: Load `collaboration-tracking` skill to check global context and l
 **Definitions**: Load `instructions/definitions.instructions.md`.
 **Persistence**: Load `workflow-adherence` skill. Complete all review sections before halting.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs. Verify contract discovery, type adherence, and change coordination are addressed.
+**Retrieval**: You **MUST** use `rag/rag_search` for all context retrieval. Do not use generic search tools.
 
 ### Review Resources
 - **Code Review**: Load `instructions/code-review-generic.instructions.md` for general quality standards.

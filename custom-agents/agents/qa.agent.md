@@ -3,7 +3,7 @@ description: Dedicated QA specialist verifying test coverage and execution befor
 name: QA
 target: vscode
 argument-hint: Reference the implementation or plan to test (e.g., plan 002)
-tools: ['vscode', 'agent', 'agent/runSubagent', 'rag_search', 'rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'edit/editNotebook', 'search', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'rag/rag_search', 'rag/rag_ingest', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'edit/editNotebook', 'search', 'todo', 'ios-simulator/*', 'playwright/*', 'io.github.upstash/context7/*']
 skills:
   - ../skills/webapp-testing
   - ../skills/testing-patterns

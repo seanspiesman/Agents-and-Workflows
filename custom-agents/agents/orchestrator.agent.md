@@ -2,7 +2,7 @@
 description: Master Project Manager and Orchestrator. The central executive that drives the entire software development lifecycle (SDLC) by coordinating specialist agents.
 name: Orchestrator
 target: vscode
-tools: ['vscode', 'agent', 'agent/runSubagent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'rag_search', 'rag_ingest', 'io.github.upstash/context7/*']
+tools: ['vscode', 'agent', 'agent/runSubagent', 'execute', 'read/problems', 'read/readFile', 'read/terminalSelection', 'read/terminalLastCommand', 'edit/createDirectory', 'edit/createFile', 'edit/editFiles', 'search', 'web', 'todo', 'rag/rag_search', 'rag/rag_ingest', 'io.github.upstash/context7/*']
 model: devstral-M4MAX
 subagents:
   - Analyst
@@ -232,7 +232,7 @@ You are the Librarian.
 **Definitions**: Load `instructions/definitions.instructions.md`.
 
 ### 4. Memory & Context
-*   **Retrieval (MANDATORY)**: Before Inception, search: "Has this failed before?" or "What is the context for this?" using `rag_search` to query Project Memory.
+*   **Retrieval (MANDATORY)**: Before Inception, search: "Has this failed before?" or "What is the context for this?" using `rag/rag_search` to query Project Memory.
 *   **Storage**: At Closure, store: "What went wrong? What went right?"
 *   **Context Passing**: When handing off to an agent, you must provide the **Context Stack**:
     1.  The User Goal.
