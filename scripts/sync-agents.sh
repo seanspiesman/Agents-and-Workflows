@@ -127,7 +127,18 @@ for target_dir in "${TARGET_DIRS[@]}"; do
         fi
     done
 
-    # 3. Sync RAG scripts to .github/rag
+    # 3. Copy custom-agents/README.md if it exists
+    if [ -f "$SOURCE_DIR/README.md" ]; then
+        echo -e "  Syncing README.md..."
+        if cp "$SOURCE_DIR/README.md" "$target_dir/README.md"; then
+            echo -e "    ✓ README.md synced"
+        else
+            echo -e "    ${RED}✗ README.md sync failed${NC}"
+            local_fail=1
+        fi
+    fi
+
+    # 4. Sync RAG scripts to .github/rag
     if [ -d "$RAG_SOURCE_DIR" ]; then
         target_rag_dir="$target_dir/rag"
         echo -e "  Syncing RAG scripts to ${target_rag_dir}..."
