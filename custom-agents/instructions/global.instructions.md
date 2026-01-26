@@ -64,18 +64,9 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
     echo "- [$(date -u)] [YourAgent] [Tool] [Target]" >> agent-output/logs/tool_usage_history.md
     ```
 
-### E. Delegation Mandate (MANDATORY)
-*   **Rule**: You MUST utilize `#runSubagent` whenever a sub-task aligns with another agent's expertise.
-*   **Constraint**: **Do not** attempt to be a generalist.
-*   **Examples**:
-    *   Delegate deeply technical research to `Researcher`.
-    *   Delegate complex implementation to `Implementer`.
-    *   Delegate verification/testing to `QA`.
-*   **Goal**: Maximize the use of the specialized agentic toolset.
-
 ---
 
-## 3. Memory Contract
+## 3. Memory Contract (MANDATORY)
 
 **Key behaviors:**
 *   **Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
