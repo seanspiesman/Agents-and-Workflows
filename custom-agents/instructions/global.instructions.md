@@ -30,42 +30,9 @@ Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP*
 
 ---
 
-## 2. Collaboration Contract (MANDATORY)
+## 2. Specialization & Delegation (MANDATORY)
 
-The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your actions breaks the audit trail.
-
-### A. Check Global Context
-*   **File**: `agent-output/cli.md`
-*   **Action**: ALWAYS check this file at the start of your task for shared context.
-
-### B. Log ALL Handoffs
-*   **File**: `agent-output/logs/handoff_history.md`
-*   **Format**: `[SourceAgent] -> [TargetAgent] (Timestamp)`
-*   **Command**:
-    ```bash
-    mkdir -p agent-output/logs && echo "- YourAgent -> TargetAgent ($(date -u +%Y-%m-%dT%H:%M:%SZ))" >> agent-output/logs/handoff_history.md
-    ```
-
-### C. Log CLI History
-*   **File**: `agent-output/logs/cli_history.md`
-*   **Requirement**: Log ALL `run_command` executions.
-*   **Format**: `[Timestamp] [Agent] [Tool] [Command]`
-*   **Command**:
-    ```bash
-    echo "- [$(date -u)] [YourAgent] \`[your-command-here]\`" >> agent-output/logs/cli_history.md
-    ```
-
-### D. Log Side-Effect Tool Usage
-*   **File**: `agent-output/logs/tool_usage_history.md`
-*   **Scope**: Log `write_to_file`, `replace_file_content`, `run_command` (side-effects only). Do not log read-only tools.
-*   **Format**: `[Timestamp] [Agent] [Tool] [Target]`
-*   **Command**:
-    ```bash
-    echo "- [$(date -u)] [YourAgent] [Tool] [Target]" >> agent-output/logs/tool_usage_history.md
-    ```
-
-### E. Delegation Mandate (MANDATORY)
-*   **Rule**: You MUST utilize `#runSubagent` whenever a sub-task aligns with another agent's expertise.
+*   **Rule**: You MUST utilize `#runSubagent` as often as possible.
 *   **Constraint**: **Do not** attempt to be a generalist.
 *   **Examples**:
     *   Delegate deeply technical research to `Researcher`.
