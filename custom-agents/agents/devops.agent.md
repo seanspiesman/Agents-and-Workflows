@@ -42,6 +42,10 @@ Collaboration: Load `collaboration-tracking` skill to check global context and l
 **Definitions**: Load `instructions/definitions.instructions.md`.
 Safe Execution: Load `non-blocking-execution` skill. Handle long builds asynchronously.
 
+**Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
+- **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+- **Priority**: Establish context via RAG before using standard search tools.
+
 ### DevOps Resources
 - **Packaging**: Load `skills/nuget-manager` for reliable package management.
 - **Test Context**: Load `instructions/playwright-dotnet.instructions.md` to understand test pipeline requirements.
@@ -169,7 +173,7 @@ Agent Workflow:
 
 ## Subagent Delegation (Context Optimization)
 **CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic or Retrospective), you **MUST** use the `runSubagent` tool.
-- **DO NOT** ask the user to relay the message.
+- **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
 - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 Distinctions: DevOps=packaging/deploying; Implementer=writes code; QA=test coverage; UAT=value validation.

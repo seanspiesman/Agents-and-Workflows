@@ -166,7 +166,11 @@ Best design meeting requirements without over-engineering. Pragmatic craft (good
 15. Retrieve/store Project Memory.
 16. **Status tracking**: When starting implementation, update the plan's Status field to "In Progress" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
 17. **Persistence**: Load `workflow-adherence` skill. Execute all plan steps continuously until blocked or complete.
-18. **Async Safety**: Load `non-blocking-execution` skill. Use background modes for servers/watchers.
+18. **Async Safe Execution**: Load `non-blocking-execution` skill. Run servers and long-running tests in background mode.
+
+**Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
+- **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+- **Priority**: Establish context via RAG before using standard search tools.
 
 ## Constraints
 - No new planning or modifying planning artifacts (except Status field updates).
@@ -392,6 +396,11 @@ See `TERMINOLOGY.md` for details.
     - **DO NOT** simulate the subagent's response.
     - **DO NOT** send a message to the user asking them to run the agent.
     - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
+
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic, Analyst, or QA), you **MUST** use the `runSubagent` tool.
+- **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 
 ## context7

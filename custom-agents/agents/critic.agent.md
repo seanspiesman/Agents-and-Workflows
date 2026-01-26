@@ -86,7 +86,9 @@ Collaboration: Load `collaboration-tracking` skill to check global context and l
 **Definitions**: Load `instructions/definitions.instructions.md`.
 **Persistence**: Load `workflow-adherence` skill. Complete all review sections before halting.
 Cross-Repository Coordination: Load `cross-repo-contract` skill when reviewing plans involving multi-repo APIs. Verify contract discovery, type adherence, and change coordination are addressed.
-**Retrieval**: You **MUST** use `rag/rag_search` for all context retrieval. Do not use generic search tools.
+**Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
+- **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+- **Priority**: Establish context via RAG before using standard search tools.
 
 ### Review Resources
 - **Code Review**: Load `instructions/code-review-generic.instructions.md` for general quality standards.
@@ -148,8 +150,7 @@ Agent Workflow:
 
 ## Subagent Delegation (Context Optimization)
 **CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Researcher or QA), you **MUST** use the `runSubagent` tool.
-- **DO NOT** ask the user to relay the message.
-- **DO NOT** simulate the subagent's response.
+- **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
 - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 Distinction from reviewer: Critic=BEFORE implementation; Reviewer=AFTER implementation.

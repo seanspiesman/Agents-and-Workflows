@@ -60,8 +60,11 @@ Core Responsibilities:
 16. **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
 17. **Definitions**: Load `instructions/definitions.instructions.md`.
 18. **Persistence**: Load `workflow-adherence` skill. Validate all user stories and acceptance criteria fully.
-16. **Environment Control**: Load `non-blocking-execution` skill. Start/stop test environments safely.
+19. **Environment Control**: Load `non-blocking-execution` skill. Start/stop test environments safely.
 
+**Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
+- **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+- **Priority**: Establish context via RAG before using standard search tools.
 Constraints:
 
 - Don't request new features or scope changes; focus on plan compliance
@@ -211,13 +214,15 @@ Part of structured workflow: planner → analyst → critic → architect → im
 ## ios-simulator
 **MANDATORY**: Always refer to the [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) and [Plain Text Guide for LLMs](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md) for correct usage patterns before using this tool.
 
+## Subagent Delegation (Context Optimization)
+**CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+- **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
+- **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
+
 ## runSubagent
 - **Usage**: Use this tool to perform user acceptance testing, value verification, and detailed user journey simulations.
 - **Task Description**: Provide detailed, step-by-step instructions in the `Task` argument from the user's perspective (e.g., "As a user, finding X..."). The subagent is autonomous.
 - **Video Recording**: Interactions are automatically recorded. Use meaningful `RecordingName` to make artifacts valid evidence of UAT.
-- **Context Optimization**:
-    - **CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
-    - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 
 ## run_command / execute

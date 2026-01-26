@@ -14,10 +14,14 @@ handoffs:
     agent: Planner
     prompt: Retrospective identifies process improvements for future planning.
     send: true
-  - label: Update Roadmap
+- label: Update Roadmap
     agent: Roadmap
     prompt: Retrospective is closed for this plan. Please update the roadmap accordingly.
     send: true
+
+**Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
+- **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+- **Priority**: Establish context via RAG before using standard search tools.
 ---
 Purpose:
 
@@ -162,6 +166,7 @@ Create markdown in `agent-output/retrospectives/`:
 
 ## Subagent Delegation (Context Optimization)
 **CRITICAL**: When this agent needs to delegate work to another agent, you **MUST** use the `runSubagent` tool.
+- **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
 - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted.
 
 

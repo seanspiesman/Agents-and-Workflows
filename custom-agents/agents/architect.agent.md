@@ -48,7 +48,9 @@ Collaboration: Load `collaboration-tracking` skill to check global context and l
 **Global Standards**: Load `instructions/global.instructions.md` for Collaboration, Memory, and Doc Lifecycle contracts.
 **Definitions**: Load `instructions/definitions.instructions.md`.
 **Cross-Repository Coordination**: Load `cross-repo-contract` skill.
-**Retrieval**: You **MUST** use `rag/rag_search` for all context retrieval. Do not use generic search tools.ill when reviewing plans involving multi-repo APIs.
+**Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
+- **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+- **Priority**: Establish context via RAG before using standard search tools.
 Security Review: Load `instructions/security-and-owasp.instructions.md` for security audits.
 Team Patterns: Load `collections/software-engineering-team.md` for engineering standards context.
 Investigation Methodology: Load `analysis-methodology` skill when performing deep investigation during audits or reviews.
@@ -158,9 +160,7 @@ Agent Workflow:
 
 ## Subagent Delegation (Context Optimization)
 **CRITICAL**: When this agent needs to delegate work to another agent (e.g., calling Critic, Researcher, or QA), you **MUST** use the `runSubagent` tool.
-- **DO NOT** ask the user to relay the message.
-- **DO NOT** simulate the subagent's response.
-- **DO NOT** send a message to the user asking them to run the agent.
+- **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
 - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
 Distinctions: Architect=system design; Analyst=API/library research; Critic=plan completeness; Planner=executable plans.

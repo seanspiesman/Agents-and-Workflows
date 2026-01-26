@@ -46,7 +46,9 @@ Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP*
 
 **Key behaviors:**
 *   **Retrieval (MANDATORY)**: You **MUST** use **`rag/rag_search`** for ALL conceptual, architectural, or "how-to" queries.
-    *   **FORBIDDEN**: Do NOT use standard text search tools (grep, find, codebase_search) for understanding concepts, patterns, or architecture. Only use them for finding specific string literals (e.g., variable names).
+    *   **Tool Aliases**: If a user request uses **`#rag_search`**, you MUST use the **`rag/rag_search`** tool. If it uses **`#rag_ingest`**, you MUST use the **`rag/rag_ingest`** tool.
+    *   **FORBIDDEN**: Do NOT use standard text search tools (grep, find, codebase_search) for understanding concepts, patterns, or architecture. Only use them for finding specific string literals (e.g., variable names) AFTER you have established context via RAG.
+    *   **Priority Rule**: RAG-based search is your PRIMARY tool for codebase exploration. Standard search is a SECONDARY tool for literal matching.
     *   **Anti-Pattern**: Do NOT use generic terms like `@codebase`. You MUST use the `rag/rag_search` tool.
 *   **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
 *   **Failure Mode**: If memory tools fail, announce "No-Memory Mode" immediately but PROCEED.
