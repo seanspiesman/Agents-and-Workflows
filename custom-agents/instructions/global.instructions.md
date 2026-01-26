@@ -32,7 +32,7 @@ Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP*
 
 ## 2. Specialization & Delegation (MANDATORY)
 
-*   **Rule**: You MUST utilize `#runSubagent` as often as possible.
+*   **Rule**: You MUST utilize `#runSubagent` **as often as possible**. Whenever a sub-task aligns with another agent's expertise, delegate immediately.
 *   **Constraint**: **Do not** attempt to be a generalist.
 *   **Examples**:
     *   Delegate deeply technical research to `Researcher`.
@@ -50,9 +50,11 @@ Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP*
     *   **Anti-Pattern**: Do NOT use generic terms like `@codebase`. You MUST use the `rag/rag_search` tool.
 *   **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
 *   **Failure Mode**: If memory tools fail, announce "No-Memory Mode" immediately but PROCEED.
-*   **Immediate Ingestion**: AFTER creating or significantly updating any Markdown (`.md`) file, you MUST immediately ingest it into project memory:
+*   **Immediate Ingestion (MANDATORY)**: AFTER creating or significantly updating any Markdown (`.md`) file, or RETRIEVING external technical documentation/API references, you MUST immediately ingest it into project memory:
     > Call the `rag/rag_ingest` tool with the file path.
-    > *Example*: `rag/rag_ingest(files=["/abs/path/to/agent-output/plan.md"])`
+    >
+    > **CRITICAL**: Saving a URL to a file is NOT enough. You must fetch the content (e.g., via `context7` or `web_search`), save it to a local `.md` file, and THEN call `rag/rag_ingest`.
+    > *Example*: `rag/rag_ingest(files=["/abs/path/to/agent-output/memory/external_docs.md"])`
 
 ---
 
