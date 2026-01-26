@@ -30,39 +30,15 @@ Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP*
 
 ---
 
-## 2. Collaboration Contract (MANDATORY)
+## 2. Specialization & Delegation (MANDATORY)
 
-The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your actions breaks the audit trail.
-
-### A. Check Global Context
-*   **File**: `agent-output/cli.md`
-*   **Action**: ALWAYS check this file at the start of your task for shared context.
-
-### B. Log ALL Handoffs
-*   **File**: `agent-output/logs/handoff_history.md`
-*   **Format**: `[SourceAgent] -> [TargetAgent] (Timestamp)`
-*   **Command**:
-    ```bash
-    mkdir -p agent-output/logs && echo "- YourAgent -> TargetAgent ($(date -u +%Y-%m-%dT%H:%M:%SZ))" >> agent-output/logs/handoff_history.md
-    ```
-
-### C. Log CLI History
-*   **File**: `agent-output/logs/cli_history.md`
-*   **Requirement**: Log ALL `run_command` executions.
-*   **Format**: `[Timestamp] [Agent] [Tool] [Command]`
-*   **Command**:
-    ```bash
-    echo "- [$(date -u)] [YourAgent] \`[your-command-here]\`" >> agent-output/logs/cli_history.md
-    ```
-
-### D. Log Side-Effect Tool Usage
-*   **File**: `agent-output/logs/tool_usage_history.md`
-*   **Scope**: Log `write_to_file`, `replace_file_content`, `run_command` (side-effects only). Do not log read-only tools.
-*   **Format**: `[Timestamp] [Agent] [Tool] [Target]`
-*   **Command**:
-    ```bash
-    echo "- [$(date -u)] [YourAgent] [Tool] [Target]" >> agent-output/logs/tool_usage_history.md
-    ```
+*   **Rule**: You MUST utilize `#runSubagent` **as often as possible**. Whenever a sub-task aligns with another agent's expertise, delegate immediately.
+*   **Constraint**: **Do not** attempt to be a generalist.
+*   **Examples**:
+    *   Delegate deeply technical research to `Researcher`.
+    *   Delegate complex implementation to `Implementer`.
+    *   Delegate verification/testing to `QA`.
+*   **Goal**: Maximize the use of the specialized agentic toolset.
 
 ---
 
@@ -74,9 +50,11 @@ The `collaboration-tracking` skill is **NON-OPTIONAL**. Failure to log your acti
     *   **Anti-Pattern**: Do NOT use generic terms like `@codebase`. You MUST use the `rag/rag_search` tool.
 *   **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
 *   **Failure Mode**: If memory tools fail, announce "No-Memory Mode" immediately but PROCEED.
-*   **Immediate Ingestion**: AFTER creating or significantly updating any Markdown (`.md`) file, you MUST immediately ingest it into project memory:
+*   **Immediate Ingestion (MANDATORY)**: AFTER creating or significantly updating any Markdown (`.md`) file, or RETRIEVING external technical documentation/API references, you MUST immediately ingest it into project memory:
     > Call the `rag/rag_ingest` tool with the file path.
-    > *Example*: `rag/rag_ingest(files=["/abs/path/to/agent-output/plan.md"])`
+    >
+    > **CRITICAL**: Saving a URL to a file is NOT enough. You must fetch the content (e.g., via `context7` or `web_search`), save it to a local `.md` file, and THEN call `rag/rag_ingest`.
+    > *Example*: `rag/rag_ingest(files=["/abs/path/to/agent-output/memory/external_docs.md"])`
 
 ---
 
