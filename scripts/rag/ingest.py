@@ -118,20 +118,31 @@ def run_ingest(files=None, root_dir=None):
     target_files = []
     
     if files:
-        print(f"Incremental Ingestion: Processing {len(files)} specific files...")
+        print(f"Incremental Ingestion: Processing {len(files)} target(s)...")
         for f in files:
-            # We assume paths are relative to CWD (project root usually) or absolute
             abs_path = os.path.abspath(f)
             if not os.path.exists(abs_path):
-                print(f"Warning: File not found: {f}")
+                print(f"Warning: Target not found: {f}")
                 continue
-                
-            # Quick extension check
-            _, ext = os.path.splitext(abs_path)
-            if ext in INCLUDE_EXTENSIONS:
-                target_files.append(abs_path)
+            
+            if os.path.isdir(abs_path):
+                print(f"Scanning directory: {abs_path}")
+                # Recursively find files in this directory
+                for root, _, filenames in os.walk(abs_path):
+                    if should_ignore(root):
+                        continue
+                    for filename in filenames:
+                        file_abs = os.path.join(root, filename)
+                        _, ext = os.path.splitext(file_abs)
+                        if ext in INCLUDE_EXTENSIONS:
+                            target_files.append(file_abs)
             else:
-                print(f"Skipping {f}: Extension {ext} not in whitelist.")
+                # Quick extension check for single files
+                _, ext = os.path.splitext(abs_path)
+                if ext in INCLUDE_EXTENSIONS:
+                    target_files.append(abs_path)
+                else:
+                    print(f"Skipping {f}: Extension {ext} not in whitelist.")
     else:
         print(f"Full Scan: Scanning directory: {root_dir}")
         target_files = get_files_to_ingest(root_dir)
