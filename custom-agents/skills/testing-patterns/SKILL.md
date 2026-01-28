@@ -1,6 +1,6 @@
 ---
 name: testing-patterns
-description: TDD workflow and test strategy patterns including test pyramid, coverage strategies, mocking approaches, and anti-patterns. Load when writing tests, designing test strategies, or reviewing test coverage.
+description: TDD workflow and test strategy patterns. DEPRECATED FOR AGENTS - PREFER BLACK BOX INTERACTION.
 license: MIT
 metadata:
   author: groupzer0
@@ -17,6 +17,9 @@ Systematic approach to effective testing. Use this skill when:
 
 ---
 
+> [!WARNING]
+> **DEPRECATED FOR AGENTS**: Agents should primarily use Black-Box Interaction Testing (Playwright/Simulator) instead of TDD. Unit tests are often brittle when written by agents. Use this skill only if specifically requested by the user.
+ 
 ## Test-Driven Development (TDD)
 
 **TDD is MANDATORY for new feature code.** Write tests before implementation.

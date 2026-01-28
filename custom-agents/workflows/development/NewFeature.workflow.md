@@ -4,7 +4,7 @@ This workflow is specialized for adding a new feature to an existing application
 
 ## Workflow Overview
 
-Unlike "Zero to Hero" which builds an entire app, this workflow assumes an existing context. It leverages **Analyst** for fit-gap analysis and **Implementer** for a tight "Red-Green-Refactor" loop.
+Unlike "Zero to Hero" which builds an entire app, this workflow assumes an existing context. It leverages **Analyst** for fit-gap analysis and **Implementer** for a tight "Implement-Interact-Refactor" loop.
 
 ## Trigger & Entry Point
 
@@ -55,15 +55,15 @@ Unlike "Zero to Hero" which builds an entire app, this workflow assumes an exist
 ### Phase 3: The Development Loop (Implementer, QA, Critic)
 - **Primary Agent**: Implementer
 - **Support Agents**: QA, Critic
-- **Goal**: Write code, test, and refine until the feature is fully functional.
+- **Goal**: Write code, interactively verify, and refine.
 - **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
     - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `feature-implementation-plan.md`. Execute the Development Loop:
       1.  **Read Step**: Pick the next item from the plan.
       2.  **Implement**: Write/Modify code in the codebase.
       3.  **Verification Loop (Subagent Delegation)**:
-          -   Call **QA** agent: 'Write/Run tests for this specific feature. Verify functional correctness. MUST use `ios-simulator` MCP for mobile or `playwright` MCP for web.'
-          -   **If Tests Fail**: Fix code. Repeat.
-          -   **If Tests Pass**: Use `runSubagent` to call the **Critic** agent: 'Review code style and integration.'
+          -   Call **QA** agent: 'Tests MUST be interactive (Playwright/Puppeteer/Simulator). DO NOT write unit tests. Verify feature works in running app.'
+          -   **If Verification Fails**: Fix code. Repeat.
+          -   **If Verification Passes**: Use `runSubagent` to call the **Critic** agent: 'Review code style and integration.'
       4.  **Refine**: Fix Critic findings.
       5.  **Loop**: Repeat until feature is complete.
       6.  **Finish**: Write `agent-output/reports/feature-complete.md`."

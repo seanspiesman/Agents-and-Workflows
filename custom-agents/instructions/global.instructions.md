@@ -81,14 +81,16 @@ Status: Active
 
 ---
 
-## 5. TDD Gate Procedure (Mandatory for Code Changes)
-
-**Execute for EACH new function or class:**
-1.  **STOP**: Do NOT write implementation code yet.
-2.  **WRITE**: Create test file with failing test.
-3.  **RUN**: Execute test and verify it fails with the RIGHT reason (ModuleNotFoundError, undefined, AssertionError).
-4.  **REPORT**: State "TDD Gate: Test `test_X` fails as expected: [error]. Proceeding."
-5.  **IMPLEMENT**: Write ONLY the minimal code to make the test pass.
+## 5. Interaction Verification Gate (Mandatory for Code Changes)
+ 
+**Context**: Agents cannot reliably write unit tests. Interaction with the running app is the only true verification.
+ 
+**Procedure**:
+1.  **IMPLEMENT**: Write the code.
+2.  **LAUNCH**: Ensure the app is running (`npm run dev`).
+3.  **INTERACT**: Use `playwright` or `ios-simulator` to verify the feature works.
+4.  **REPORT**: State "Interaction Gate: Verified feature works via [Method]. Proceeding."
+5.  **PASS**: Only proceed if you have seen it work.he test pass.
 6.  **VERIFY**: Run test again, confirm it passes.
 
 ---

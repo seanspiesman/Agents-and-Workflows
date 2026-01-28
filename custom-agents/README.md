@@ -12,7 +12,7 @@ Specialized AI personas, each with a dedicated role and specific toolset. Agents
 | **Orchestrator** | **Master Project Manager**. The central executive that drives the entire SDLC by coordinating specialist agents. | `agent/runSubagent`, Coordination, Handoff Management. |
 | **Analyst** | **Technical Investigator**. Specialist for code-level investigation, determination, and fit-gap analysis. | `vscode`, `search`, `web`, `context7`, Code exploration. |
 | **Architect** | **System Designer**. Maintains architectural coherence across features and reviews technical debt accumulation. | `rag/rag_search`, `context7`, ADR creation, Design Review. |
-| **Implementer** | **Execution Expert**. Coding agent that implements approved plans with a rigorous test-driven loop. | `playwright`, `ios-simulator`, `rag/rag_search`, `context7`, TDD. |
+| **Implementer** | **Execution Expert**. Coding agent that implements approved plans with a rigorous interaction verification loop. | `playwright`, `ios-simulator`, `rag/rag_search`, `context7`. |
 | **Planner** | **Strategy Assistant**. High-rigor planning for upcoming feature changes and atomic task breakdown. | `read/problems`, `search`, `web`, `context7`, Step-by-step planning. |
 | **Critic** | **Program Reviewer**. Constructive reviewer that stress-tests planning documents and code quality. | `read/problems`, `search`, `context7`, Rigorous review, Quality Gate. |
 | **QA** | **Quality Assurance**. Verifies test coverage and execution before implementation approval. | `playwright`, `ios-simulator`, `rag/rag_search`, `edit/editNotebook`. |
@@ -44,7 +44,7 @@ Curated groupings of instructions and agents for specific domains.
 The "core mandates" and technology-specific coding standards that ensure consistency.
 
 ### Core & Global
-- **[Global Instructions](instructions/global.instructions.md)**: Non-negotiable core mandates and mandatory TDD gate procedures.
+- **[Global Instructions](instructions/global.instructions.md)**: Non-negotiable core mandates and mandatory verification procedures.
 - **[Shared Definitions](instructions/definitions.instructions.md)**: Standard terminology (Woodshed, Juke Joint, Zero to Hero) for collective alignment.
 - **[Output Standards](instructions/output_standards.md)**: Strict rules for naming conventions (kebab-case) and content efficiency.
 - **[Task Implementation](instructions/task-implementation.instructions.md)**: Progressive tracking and change records in `.copilot-tracking`.
@@ -125,7 +125,7 @@ Standardized, multi-phase processes for completing complex SDLC tasks. Organized
 
 ### [Development](workflows/development/)
 - **[API Integration](workflows/development/APIIntegration.workflow.md)**: Connecting applications to external or internal API services.
-- **[New Feature](workflows/development/NewFeature.workflow.md)**: Sifting context and implementing new features with TDD and fit-gap precision.
+- **[New Feature](workflows/development/NewFeature.workflow.md)**: Sifting context and implementing new features with interaction-first precision.
 - **[Spike](workflows/development/Spike.workflow.md)**: Time-boxed research and experimentation to de-risk technical unknowns.
 - **[UI Component](workflows/development/UIComponent.workflow.md)**: Designing and implementing reusable UI components with visual verification.
 

@@ -151,7 +151,7 @@ Deployment Workflow:
 1. Query Roadmap for release status: All plans for target version must be "Committed".
 2. If any plans incomplete: Report status, list pending plans, await further commits.
 3. Verify version consistency across ALL committed changes.
-4. Validate packaging: Build, package, verify all bundled changes.
+4. Validate packaging: Build, package, and ensure "QA Verification (Black Box)" is complete.
 5. Check workspace: All plan commits present, no uncommitted changes.
 6. Create deployment readiness doc listing ALL included plans.
 
@@ -207,9 +207,9 @@ Agent Workflow:
 - **RAG Requirement**: When delegating, you MUST explicitly instruct the subagent to use `#rag_search` for context retrieval in their task prompt.
 - **Reason**: This encapsulates the subagent's activity and prevents the main context window from becoming polluted with the subagent's internal thought process.
 
-Distinctions: DevOps=packaging/deploying; Implementer=writes code; QA=test coverage; UAT=value validation.
-
-Completion Criteria: QA "QA Complete", UAT "APPROVED FOR RELEASE", version verified, package built, user confirmed.
+Distinctions: DevOps=packaging/deploying; Implementer=writes code; QA=black box verification; UAT=value validation.
+ 
+Completion Criteria: QA "QA Complete" (Black Box), UAT "APPROVED FOR RELEASE", version verified, package built, user confirmed.
 
 Escalation:
 - **IMMEDIATE**: Production deployment fails mid-execution.

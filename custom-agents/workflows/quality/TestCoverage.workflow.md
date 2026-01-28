@@ -4,24 +4,24 @@ This workflow systematically increases test coverage for legacy or critical code
 
 ## Workflow Overview
 
-Coverage is not just a number; it's confidence. This workflow targets "dark corners" of the codebase and illuminates them with tests, without modifying the logic itself.
+Coverage is not just a number; it's confidence. This workflow targets "dark corners" of the USER EXPERIENCE and illuminates them with interaction tests (Playwright/Simulator).
 
 ## Workflow Steps
 
-### 1. Gap Analysis (QA Agent)
+### 1. Journey Gap Analysis (QA Agent)
 - **Agent**: QA
-- **Input**: Coverage reports (LCOV, JaCoCo, etc.) or manual analysis.
+- **Input**: Product Brief, Existing Playwright/Simulator Specs.
 - **Execution**: Use the `runSubagent` tool to run the **QA** agent.
-    - **Task**: "Identify critical paths with low/no coverage. Output Coverage Gap Report."
-- **Output**: Coverage Gap Report in `agent-output/qa/`.
+    - **Task**: "Identify critical USER JOURNEYS that are not currently automated. Output Journey Gap Report."
+- **Output**: Journey Gap Report in `agent-output/qa/`.
 - **Handoff**: Passed to Analyst.
 
-### 2. Logic Analysis (Analyst Agent)
+### 2. Journey Specification (Analyst Agent)
 - **Agent**: Analyst
-- **Input**: Coverage Gap Report.
+- **Input**: Journey Gap Report.
 - **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
-    - **Task**: "Deep-dive into uncovered code logic. Output Test Case Specification (Input -> Output)."
-- **Output**: Test Case Specification in `agent-output/analysis/` (inputs -> expected outputs).
+    - **Task**: "Define the exact steps (Click X, Type Y, See Z) for the missing journeys. Output Interaction Spec."
+- **Output**: Interaction Spec in `agent-output/analysis/`.
 - **Handoff**: Passed to Critic.
 
 ### 2b. Spec Detail Verification (Critic Agent)
@@ -31,12 +31,12 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 - **Iteration**: Return to **Analyst** if vague.
 - **Handoff**: Passed to Implementer.
 
-### 3. Test Implementation (Implementer Agent)
+### 3. Automation Implementation (Implementer/QA Agent)
 - **Agent**: Implementer
-- **Input**: Test Case Specification.
+- **Input**: Interaction Spec.
 - **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Write unit/integration tests. Do NOT modify production code unless necessary. Output New test files."
-- **Output**: New test files.
+    - **Task**: "Write Playwright/Puppeteer/Simulator scripts. Do NOT modify production code. Output New automation scripts."
+- **Output**: New automation scripts.
 - **Handoff**: Passed to QA.
 
 - **Handoff**: Passed to Critic.
@@ -44,10 +44,10 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 ### 3b. Code Review & Refinement (Critic Agent)
 - **Agent**: Critic
 - **Input**: New Tests.
-- **Action**: Use the `runSubagent` tool to run the Critic agent to ensure tests are clean, readable, and not brittle.
+- **Action**: Use the `runSubagent` tool to run the Critic agent to ensure scripts are robust and not brittle.
 - **Checks**:
-  - Test Patterns (AAAs).
-  - No Hardcoding.
+  - Uses resilient selectors (test-ids, roles).
+  - No hardcoded sleeps.
 - **Iteration**: Any findings must be addressed by **Implementer** before Verification.
 - **Handoff**: Passed to QA.
 
@@ -57,8 +57,8 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 - **Execution**: Use the `runSubagent` tool to run the **QA** agent.
     - **Task**: "Run tests and check coverage metrics. Verify targets met."
 - **Iteration Loop**:
-  - **FAIL**: Coverage target missed or tests fail. Return to **Implementer**.
-  - **PASS**: Coverage improved.
+  - **FAIL**: Script implies the feature is broken OR script is flaky. Implementer fixes script.
+  - **PASS**: User Journey is now automated.
 
 ### 5. Project Completion (Orchestrator)
 - **Agent**: Orchestrator
@@ -90,12 +90,12 @@ Coverage is not just a number; it's confidence. This workflow targets "dark corn
 
 ```mermaid
 flowchart TD
-    A[Coverage Gap] --> B[QA Analysis]
+    A[Journey Gap] --> B[QA Analysis]
     B -->|Gap Report| C[Analyst Specs]
-    C -->|Test Cases| D[Implementer Coding]
-    D -->|New Tests| E[QA Verification]
-    E -->|Target Missed| D
-    E -->|Coverage Up| F[Success]
+    C -->|Interaction Steps| D[Implementer Scripting]
+    D -->|New Scripts| E[QA Verification]
+    E -->|Flaky/Fail| D
+    E -->|Automated| F[Success]
     F --> G[Project Completion]
     G --> I[Retrospective]
     I --> H[End]

@@ -102,13 +102,13 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
       1.  **Read Plan**: Identify the next component to build from `master-implementation-plan.md`.
       2.  **Implement**: Write the code for the component.
       3.  **Verification Loop (Subagent Delegation)**:
-          -   Call **QA** agent: 'Write and run tests for [Component]. Verify it meets specs. MUST use `ios-simulator` MCP for mobile apps or `playwright` MCP for web apps.'
+          -   Call **QA** agent: 'Tests MUST be interactive (Playwright/Puppeteer/Simulator). DO NOT write unit tests. Verify [Component] meets the Product Vision in `agent-output/context/product-brief.md`.'
           -   **If Tests Fail**: You (Implementer) MUST fix the code and Ask QA to re-run. Repeat until Pass.
           -   **If Tests Pass**: Call **Critic** agent: 'Review code style and logic for [Component].'
       4.  **Refine**: Address Critic feedback immediately.
       5.  **Commit**: Mark the task as clean in your internal tracking.
       6.  **Next**: Move to the next component.
-      7.  **Finish**: When all components are built and verified, write `agent-output/reports/implementation-complete.md`."
+      7.  **Finish**: When all components are built and verified, Perform a final "Vision Check" against `product-brief.md`. If aligned, write `agent-output/reports/implementation-complete.md`."
 - **Output**: `agent-output/reports/implementation-complete.md` (Verified by QA/Critic during loop)
 
 ### Phase 6: Security Audit (Security, Critic)
@@ -133,7 +133,7 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 
 - **Input**: `agent-output/security/security-audit.md`
 - **Execution**: Use the `runSubagent` tool to run the **UAT** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read Product Vision. Perform walkthrough and value check. MUST use `ios-simulator` MCP for mobile applications and `playwright` MCP for web apps. Output `agent-output/uat/final-acceptance.md`."
+    -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Read Product Vision. Perform walkthrough and value check. MUST use `ios-simulator` MCP for mobile applications and `playwright` MCP for web apps. Does this feel like a 'Hero' product? Output `agent-output/uat/final-acceptance.md`."
     3.  **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to review `final-acceptance.md`.
         - Check: Was UAT rigorous? Did we just rubber-stamp it?
         - **Reject**: UAT re-verifies.

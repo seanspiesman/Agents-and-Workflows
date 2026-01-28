@@ -24,8 +24,8 @@ This workflow focuses on building high-fidelity, accessible, and reusable UI com
 - **Primary Agent**: Implementer
 - **Goal**: Build the component structure and styles.
 - **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Read `component-spec.md`. Implement the component using the project's styling system. Output source code."
-- **Output**: Component Source Code.
+    -   **Task**: "Read `component-spec.md`. Implement the component using the project's styling system. THEN, launch the app (`npm run dev`) and manually verify the component renders and behaves as expected in the browser. Output source code + Verification Screenshot/Log."
+- **Output**: Component Source Code + Verification Evidence.
 - **Handoff**: To Critic.
 
 ### Phase 3: The Polish Loop (Critic)
@@ -33,9 +33,10 @@ This workflow focuses on building high-fidelity, accessible, and reusable UI com
 - **Goal**: Ensure "Hero" grade quality. 
 - **Execution**: Use the `runSubagent` tool to run the **Critic** agent.
     - **Task**: "Review the component. Focus DEEPLY on:
-      1.  **Micro-interactions**: Does it feel alive? (Transitions, Scales).
-      2.  **Accessibility**: Are ARIA labels present? Is contrast correct?
-      3.  **Aesthetics**: Does it match the 'Premium' design rule?
+      1.  **Interaction**: Does it work in the browser? (Click, Type, Toggle).
+      2.  **Micro-interactions**: Does it feel alive? (Transitions, Scales).
+      3.  **Accessibility**: Are ARIA labels present? Is contrast correct?
+      4.  **Aesthetics**: Does it match the 'Premium' design rule?
       If issues found, Implementer MUST fix."
     - **Action**: Loop back to **Implementer** until perfect.
 - **Output**: Polished Component.

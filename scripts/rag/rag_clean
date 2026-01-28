@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Determine the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Source the setup script to ensure environment variables and python venv are set
+source "$SCRIPT_DIR/setup-rag.sh"
+
+# Run the python cleaning script
+python3 "$SCRIPT_DIR/clean.py" "$@"

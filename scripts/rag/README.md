@@ -43,6 +43,16 @@ Pass specific files or directories as arguments.
 
 *Note: For synced projects, the script is located at `.github/rag/rag_ingest`.*
 
+### Cleaning (Reset)
+
+If your RAG database is cluttered or out of date, you can wipe it clean.
+
+**Clean Database:**
+```bash
+./scripts/rag/rag_clean
+```
+This will remove the ChromaDB directory. You should run `rag_ingest` afterwards to rebuild it.
+
 ### Manual Search (via MCP)
 Can be run via an MCP client.
 
