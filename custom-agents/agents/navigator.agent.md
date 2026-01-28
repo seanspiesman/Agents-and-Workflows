@@ -80,5 +80,5 @@ The user needs an easy to read, concise and focused Exploration Report. Follow t
 
 IMPORTANT rules:
 - Focus on OBSERVABLE behavior.
-- Output Navigator logs in `agent-output/logs/` or `agent-output/qa/`.
+- Output Navigator logs in `agent-output/qa/`.
 </navigator_style_guide>
