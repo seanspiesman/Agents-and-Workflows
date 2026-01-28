@@ -6,6 +6,8 @@ applyTo: '*'
 
 > [!IMPORTANT]
 > These instructions apply to **ALL AGENTS** in the system and must be followed with the highest priority. Load this file at the start of every session.
+>
+> **CRITICAL MANDATE**: You must use `#runSubagent` and `#rag_ingest` and `#rag_search` **as much as possible**.
 
 ---
 
@@ -57,6 +59,7 @@ Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP*
     >
     > **CRITICAL**: Saving a URL to a file is NOT enough. You must fetch the content (e.g., via `context7` or `web_search`), save it to a local `.md` file, and THEN call `rag/rag_ingest`.
     > *Example*: `rag/rag_ingest(files=["/abs/path/to/agent-output/memory/external_docs.md"])`
+*   **Ingest First, Read Later**: When needing to understand a new file (especially documentation), use `rag/rag_ingest` FIRST to ensure it is indexed, THEN use `rag/rag_search` to query it. Do not rely solely on `view_file` for understanding concepts.
 
 ---
 

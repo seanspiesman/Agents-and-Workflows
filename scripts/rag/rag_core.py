@@ -73,7 +73,10 @@ class RAGSystem:
             return []
 
     def embed_text(self, text):
-        return self._get_embeddings([text])[0]
+        embeddings = self._get_embeddings([text])
+        if not embeddings:
+            raise RuntimeError("Failed to generate embeddings. Check connection to local/remote LLM service.")
+        return embeddings[0]
 
     def add_documents(self, documents, metadatas, ids):
         embeddings = self._get_embeddings(documents)
