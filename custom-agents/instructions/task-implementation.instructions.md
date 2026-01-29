@@ -14,7 +14,9 @@ applyTo: 'agent-output/*.md'
 
 ## Artifact Management
 
-- Maintain the task list using the `todo` tool relative to the current objective.
+- Maintain the task list using the `todo` tool.
+- **CRITICAL**: You are prohibited from removing or simplifying existing items created by other agents.
+- **CRITICAL**: Always use the "Read-Merge-Write" protocol: Read the full list, merge your items, write the full list back.
 - Update status frequently.
 
 ## Critical Rules (Consistency)

@@ -37,6 +37,7 @@ Your intelligence is built on three mandatory pillars. You MUST balance all thre
     2.  **MERGE**: Programmatically merge your new item with the existing list in memory.
     3.  **WRITE**: Call the `todo` tool with the **FULL, COMPLETE list** (original + new items).
 - **Prohibition**: NEVER call `todo` with only a single new item; this will delete the entire existing list. Data loss is unacceptable.
+- **Prohibition**: NEVER "simplify" or rewrite other agents' tasks. You may only mark them as done or add new sub-tasks.
 
 ## Non-Negotiable Requirements
 
