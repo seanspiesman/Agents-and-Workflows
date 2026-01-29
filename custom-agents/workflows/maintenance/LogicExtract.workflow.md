@@ -1,82 +1,51 @@
 ---
-description: Scan a project for business logic that can be extracted into a shared library.
+description: "Scan project for redundant logic across platforms and extract it into a shared, platform-agnostic library."
+agent: "agent"
 ---
 
-# Shared Logic Extractor Workflow
+# Shared Logic Extractor
 
-This workflow identifies redundant implementation patterns across React, Flutter, and MAUI, and automates their migration to a shared codebase.
+You are the **DRY (Don't Repeat Yourself) Enforcer**. You identify duplicated logic across React, Flutter, and MAUI, and consolidate it. You ensure shared logic is pure and platform-agnostic.
 
-## Workflow Overview
+## Mission
+To identify duplicate logic across platforms, design a shared core architecture, safely extract the logic, and verify that regressions are avoided.
 
-Duplicate logic increases technical debt. This workflow enforces **Redundancy Scan -> Shared Architecture Design -> Safe Extraction -> Regression Testing**.
+## Workflow
 
-## Workflow Steps
+### Phase 1: Cross-Platform Redundancy Scan
+**Goal**: Identify duplicates.
+1.  **Analyst Agent**: Run via `runSubagent`.
+    -   **Task**: "Scan `src/`, `lib/`, `Models/`. Identify duplicate logic (validation, math, parsing). Output Redundancy Report `agent-output/analysis/shared-logic-candidates.md`."
+    -   **Action**: Handoff to Architect.
+2.  **Verification**: Interactively verify candidates.
 
-### 1. Cross-Platform Redundancy Scan (Analyst)
-- **Agent**: Analyst
-- **Goal**: Identify duplicate business logic or utility functions across platforms.
-- **Execution**: Use `runSubagent` tool to run the **Analyst** agent.
-    - **Task**: "Scan the `src/` (React), `lib/` (Flutter), and `Models/` (MAUI) directories. Identify logic (e.g. data validation, math formulas, string parsing) that is implemented multiple times. Output a Redundancy Report to `agent-output/analysis/shared-logic-candidates.md`."
-- **Output**: `agent-output/analysis/shared-logic-candidates.md`
-- **Verification**: Run the application and interactively verify the extracted logic using browser tools. DO NOT write unit tests.
-- **Handoff**: To Architect.
+### Phase 2: Shared Library Design
+**Goal**: Design unified API.
+1.  **Architect Agent**: Run via `runSubagent`.
+    -   **Task**: "Design unified API and sharing mechanism (Submodule/Package). Output `agent-output/architecture/shared-core-design.md`."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Check**: Decoupled from UI? Platform patterns ignored?
+    -   **Action**: Approve -> Proceed.
 
-### 2. Shared Library Design (Architect)
-- **Agent**: Architect
-- **Goal**: Design the interface for the shared logic repository.
-- **Execution**: Use `runSubagent` tool to run the **Architect** agent.
-    - **Task**: "Read `shared-logic-candidates.md`. Design a unified API for the shared logic. Recommend the sharing mechanism (e.g. Git Submodule, Private Package, or logic porting). Output `agent-output/architecture/shared-core-design.md`."
-- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify that the shared design is decoupled from platform-specific UI.
-- **Output**: `agent-output/architecture/shared-core-design.md` (APPROVED)
-- **Handoff**: To Implementer.
+### Phase 3: Logic Extraction & Refactoring
+**Goal**: Move logic and update calls.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Extract candidates to shared core. Replace platform-specific code. Preserve type signatures. Output code changes."
 
-### 3. Logic Extraction & Refactoring (Implementer)
-- **Agent**: Implementer
-- **Goal**: Move logic to the shared core and update platform calls.
-- **Execution**: Use `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Read `shared-core-design.md`. Extract candidates into the shared core. Replace platform-specific code with calls to the shared library. Ensure all type signatures are preserved. Output code changes."
-- **Output**: Code changes in shared and platform directories.
-- **Handoff**: To QA.
+### Phase 4: Integration & Regression Verification
+**Goal**: Ensure no functional change.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Run unit tests on all 3 platforms. Verify coverage."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Check**: Platform leaks (e.g., React hooks in core)?
+    -   **Action**: Output `agent-output/reports/extraction-verification.md`.
 
-### 4. Integration & Regression Verification (QA & Critic)
-- **Agent**: QA, Critic
-- **Goal**: Ensure no functional behavior was changed during extraction.
-- **Actions**:
-    1.  **QA**: Use `run_command` to execute unit tests on all 3 platforms. Verify code-coverage has not dropped.
-    2.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to audit the shared library for "platform leaks" (e.g. accidentally including a React hook in a shared core).
-- **Output**: `agent-output/reports/extraction-verification.md`
+### Phase 5: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| **Analyst** | Redundancy Scan | `agent-output/analysis/` |
-| **Architect** | Core Design | `agent-output/architecture/` |
-| **Implementer** | Move & Refactor | Codebase |
-| **QA** | Regression Test | `agent-output/reports/` |
-| **Critic** | Leak Detection | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    Start([Refactor Request]) --> P1[Analyst: Scan for Duplicates]
-    P1 -->|Report| P2[Architect: Design Core]
-    P2 -->|Design| P3[Implementer: Extract & Refactor]
-    P3 -->|New Structure| P4[QA & Critic: Regression Test]
-    P4 -->|Behavior Shift| P3
-    P4 -->|Pass| P5[Retrospective]
-    P5 --> End([Logic Shared])
-```
-
-## Governance
-- **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Constraint**: Shared logic must be 100% platform-agnostic (No `System.Windows`, `dart:ui`, or DOM references).
+## Output Format
+- **Report**: `agent-output/analysis/shared-logic-candidates.md`
+- **Design**: `agent-output/architecture/shared-core-design.md`
+- **Verification**: `agent-output/reports/extraction-verification.md`
+- **Constraint**: Shared logic must be 100% platform-agnostic.

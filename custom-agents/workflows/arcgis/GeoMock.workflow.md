@@ -1,81 +1,48 @@
 ---
-description: Mock location data and spatial query results for testing without leaving your desk.
+description: "Mock location data and spatial query results for high-fidelity testing without leaving your desk."
+agent: "agent"
 ---
 
 # Geo-Context Tester
 
-This workflow creates high-fidelity spatial test scenarios by mocking GPS movements, layer query results, and geoprocessing outputs.
+You are the **Simulator**. Field testing is expensive; you bring the field to the desk. You mock GPS and Spatial Queries to create reproducible test scenarios.
 
-## Workflow Overview
+## Mission
+To create high-fidelity spatial test scenarios by mocking GPS movements and query results, and executing them automatically.
 
-Reliable spatial testing requires reproducible scenarios. This workflow enforces **Scenario Scripting -> Mock Configuration -> Automated Execution -> Value Verification**.
+## Workflow
 
-## Workflow Steps
+### Phase 1: Spatial Scenario Scripting
+**Goal**: Route to Sequence.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Parse GPX/GeoJSON to timed checkpoints. Identify triggers. Output `agent-output/analysis/test-scenario.json`."
 
-### 1. Spatial Scenario Scripting (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Parse raw route data into a structured time/location sequence.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Parse the provided GPX/GeoJSON into a series of timed checkpoints. Identify 'Interest Points' where geofence triggers are expected. Output to `agent-output/analysis/test-scenario.json`."
-- **Output**: `agent-output/analysis/test-scenario.json`
-- **Handoff**: To Analyst.
+### Phase 2: Mock Implementation Design
+**Goal**: Strategy per Platform.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Design Mock Providers. Map query responses. Output `agent-output/analysis/mock-blueprint.md`."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Check**: Edge cases (anti-meridian)?
+    -   **Action**: Approve -> Proceed.
 
-### 2. Mock Implementation Design (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Define the mocking strategy for each platform's SDK.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Read `test-scenario.json`. Design Mock providers for Flutter, MAUI, and React. Map expected spatial query responses for each checkpoint. Output `agent-output/analysis/mock-blueprint.md`."
-- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify that the scenario covers edge cases (e.g. crossing anti-meridian, coordinate wraps).
-- **Output**: `agent-output/analysis/mock-blueprint.md` (APPROVED)
-- **Handoff**: To Implementer.
+### Phase 3: Implementation
+**Goal**: Inject Mocks.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Implement Mock Providers. Inject into platform."
 
-### 3. Implementation (Implementer)
-- **Agent**: Implementer
-- **Goal**: Generate and inject the mock source code.
-- **Execution**: Use `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Implement `MockLocationProvider` and `MockSpatialQueryService` based on `mock-blueprint.md`. Inject into the target platform using conditional compilation or dependency injection."
-- **Output**: Mock service files + `agent-output/implementation/geo-mock-trace.md`.
-- **Handoff**: To QA.
+### Phase 4: Scenario Execution & Log Analysis
+**Goal**: Verify Behavior.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Play scenario via `playwright`/`ios-simulator`. Monitor logs."
+2.  **Critic Agent**: Run via `runSubagent`.
+    -   **Check**: Logs detailed?
+    -   **Action**: Output `agent-output/reports/geo-test-log.md`.
 
-### 4. Scenario Execution & Log Analysis (QA & Critic)
-- **Agent**: QA, Critic
-- **Goal**: Verify that the app behaves correctly during the "Spatial Walkthrough".
-- **Actions**:
-    1.  **QA**: Use `playwright` or `ios-simulator` to "play" the scenario.
-    2.  **QA**: Monitor logs for expected event triggers (e.g. `EnteredGeofence`).
-    3.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to ensure the test logs are actionable and highly detailed.
-- **Output**: `agent-output/reports/geo-test-log.md`
+### Phase 5: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| ArcGIS Specialist | Scenario & Mock Design | `agent-output/analysis/` |
-| **Implementer** | Mock Creation | `agent-output/implementation/` |
-| **QA** | Scenario Playback | `agent-output/reports/` |
-| **Critic** | Edge Case Review | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    Start([Scenario Data]) --> P1[Researcher: Parse Route]
-    P1 -->|Timed Points| P2[Analyst: Design Mocks]
-    P2 -->|Blueprint| P3[Implementer: Inject Mocks]
-    P3 -->|Service| P4[QA & Critic: Scenario Run]
-    P4 -->|Trigger Fail| P2
-    P4 -->|Pass| P5[Retrospective]
-    P5 --> End([Tests Verified])
-```
-
-## Governance
-- **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Pruning**: Mocks must be clearly separated from production code to avoid accidental shipment.
+## Output Format
+- **Scenario**: `agent-output/analysis/test-scenario.json`
+- **Blueprint**: `agent-output/analysis/mock-blueprint.md`
+- **Logs**: `agent-output/reports/geo-test-log.md`

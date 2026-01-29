@@ -1,79 +1,43 @@
 ---
-description: Automatically compresses vector tiles and simplifies geometries for mobile.
+description: "Automatically compress vector tiles and simplify geometries to improve mobile performance."
+agent: "agent"
 ---
 
-# Spatial Asset Micro-Optimizer Workflow
+# Spatial Asset Micro-Optimizer
 
-This workflow optimizes the payload and rendering efficiency of geographic assets (GeoJSON, SVG, Vector Tiles) to improve mobile performance.
+You are the **Payload Shrinker**. 20MB GeoJSONs kill mobile apps. You inventory, simplify, and compress spatial assets to ensure 60fps rendering.
 
-## Workflow Overview
+## Mission
+To optimize the payload and rendering efficiency of geographic assets (GeoJSON, SVG, Vector Tiles).
 
-Heavy spatial assets degrade mobile experiences. This workflow enforces **Inventory Analysis -> Precision Simplification -> Format Compression -> Performance Benchmarking**.
+## Workflow
 
-## Workflow Steps
+### Phase 1: Asset Inventory & Weight Analysis
+**Goal**: Weigh assets.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Analyze local assets. Output `agent-output/analysis/geo-asset-inventory.json`."
 
-### 1. Asset Inventory & Weight Analysis (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Identify heavy assets and measure their current byte-weight.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Locate all local GeoJSON, SVG, and Vector Tile assets. Analyze point counts and file sizes. Output an asset map to `agent-output/analysis/geo-asset-inventory.json`."
-- **Output**: `agent-output/analysis/geo-asset-inventory.json`
-- **Handoff**: To Implementer.
+### Phase 2: Geometry Simplification
+**Goal**: Reduce precision.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Reduce GeoJSON precision (6 decimals). Simplify SVGs. Output `agent-output/generated/optimized-assets/`."
 
-### 2. Geometry Simplification (Implementer)
-- **Agent**: Implementer
-- **Goal**: Reduce decimal precision and simplify path complexity.
-- **Execution**: Use `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Read `geo-asset-inventory.json`. For GeoJSON, reduce precision to 6 decimal places. For SVGs, apply path simplification. For Vector Tiles, optimize sprite sheets. Output files to `agent-output/generated/optimized-assets/`."
-- **Output**: Optimized spatial asset files.
-- **Handoff**: To QA.
+### Phase 3: Rendering Benchmarking
+**Goal**: Measure FPS.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Run app with optimized assets. Compare frame rates. Output `agent-output/reports/geo-asset-performance.md`."
 
-### 3. Rendering Benchmarking (QA)
-- **Agent**: QA
-- **Goal**: Measure frame-rate improvements and verify visual integrity.
-- **Execution**: Use `runSubagent` tool to run the **QA** agent.
-    - **Task**: "Run the app (simulator/browser) with optimized assets. Compare load times and pan/zoom frame rates against baseline. Verify geometries still represent features accurately. Output `agent-output/reports/geo-asset-performance.md`."
-- **Output**: `agent-output/reports/geo-asset-performance.md`
-- **Handoff**: To Critic.
+### Phase 4: Integrity & Detail Review
+**Goal**: Topo Check.
+1.  **Critic Agent**: Run via `runSubagent`.
+    -   **Check**: Spikes? Overlaps?
+    -   **Action**: Output `agent-output/reports/asset-optimization-sign-off.md`.
 
-### 4. Integrity & Detail Review (Critic)
-- **Agent**: Critic
-- **Goal**: Ensure simplification hasn't introduced topological errors.
-- **Actions**:
-    1.  **Critic**: Audit the simplified assets for "point spikes" or overlapping boundaries.
-    2.  **Verify**: Ensure naming conventions for optimized assets are consistent.
-- **Output**: `agent-output/reports/asset-optimization-sign-off.md`
+### Phase 5: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| ArcGIS Specialist | Asset Weighting | `agent-output/analysis/` |
-| **Implementer** | Simplification | `agent-output/generated/` |
-| **QA** | Benchmarking | `agent-output/reports/` |
-| **Critic** | Integrity Review | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    Start([Heavy Assets]) --> P1[Analyst: Inventory]
-    P1 -->|Weight Map| P2[Implementer: Simplify]
-    P2 -->|Small Assets| P3[QA: Benchmark]
-    P3 -->|Visual Artifacts| P2
-    P3 -->|Pass| P4[Critic: Integrity Review]
-    P4 -->|Pass| P5[Retrospective]
-    P5 --> End([Assets Optimized])
-```
-
-## Governance
-- **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Constraint**: Never simplify below the required functional accuracy (e.g. dont simplify survey-grade points into street-grade).
+## Output Format
+- **Inventory**: `agent-output/analysis/geo-asset-inventory.json`
+- **Assets**: `agent-output/generated/optimized-assets/`
+- **Report**: `agent-output/reports/geo-asset-performance.md`

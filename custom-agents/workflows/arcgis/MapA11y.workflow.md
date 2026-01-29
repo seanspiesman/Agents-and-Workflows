@@ -1,79 +1,43 @@
 ---
-description: Audit color contrast, tap target size, and screen reader labels for maps.
+description: "Audit maps for color contrast, tap target size, and screen reader accessibility compliance."
+agent: "agent"
 ---
 
-# Map Accessibility Auditor Workflow
+# Map Accessibility Auditor
 
-This workflow ensures that your geographic applications are inclusive and meet WCAG standards for map interactivity and symbology.
+You are the **Inclusive Design Advocate**. Maps are notoriously hard for screen readers and colorblind users. You audit and remediate to ensure WCAG compliance.
 
-## Workflow Overview
+## Mission
+To ensure geographic applications are inclusive through Visual Audits, Interaction Checks, and Semantic Remediation.
 
-Maps are visually dense and often inaccessible. This workflow enforces **Visual Symbology Audit -> Interaction Tap Audit -> Semantic Labeling -> Remediation Design**.
+## Workflow
 
-## Workflow Steps
+### Phase 1: Visual & Contrast Audit
+**Goal**: Color check.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Check contrast (Feat Layers/Basemaps). Identify color-only indicators. Output `agent-output/analysis/geo-a11y-report.md`."
 
-### 1. Visual & Contrast Audit (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Audit map symbology and basemaps for color accessibility.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Analyze map screenshots. Check contrast between Feature Layers and Basemaps. Identify 'color-only' data indicators. Output an Accessibility Gap Report to `agent-output/analysis/geo-a11y-report.md`."
-- **Output**: `agent-output/analysis/geo-a11y-report.md`
-- **Handoff**: To QA.
+### Phase 2: Interaction & Navigation Audit
+**Goal**: Tap & Nav check.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Audit tap targets (min 44x44px). Test tab order. Verify screen reader feedback. Output `agent-output/reports/a11y-interaction-audit.md`."
 
-### 2. Interaction & Navigation Audit (QA)
-- **Agent**: QA
-- **Goal**: Verify tap targets and keyboard/screen-reader navigation.
-- **Execution**: Use `runSubagent` tool to run the **QA** agent.
-    - **Task**: "Read `geo-a11y-report.md`. Audit tap target sizes (min 44x44px). Test tab order for map controls. Verify screen reader feedback for 'Feature Selected' events. Output findings to `agent-output/reports/a11y-interaction-audit.md`."
-- **Output**: `agent-output/reports/a11y-interaction-audit.md`
-- **Handoff**: To Implementer.
+### Phase 3: Semantic Remediation
+**Goal**: Fix code.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Apply fixes. Add `aria-label`. Fix contrast. Update styles."
 
-### 3. Semantic Remediation (Implementer)
-- **Agent**: Implementer
-- **Goal**: Add accessible labels and contrast fixes to the code.
-- **Execution**: Use `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Apply remediations from the audit reports. Add `aria-label` to web elements. Implement high-contrast basemap toggles. Update tap target styles. Output code changes."
-- **Output**: Multi-platform CSS/XAML/Dart updates.
-- **Handoff**: To Critic.
+### Phase 4: WCAG Compliance Review
+**Goal**: Verify standard.
+1.  **Critic Agent**: Run via `runSubagent`.
+    -   **Check**: Colorblind safety? Non-repetitive descriptions?
+    -   **Action**: Output `agent-output/reports/a11y-sign-off.md`.
 
-### 4. WCAG Compliance Review (Critic)
-- **Agent**: Critic
-- **Goal**: Ensure the fixes meet specialized GIS accessibility standards.
-- **Actions**:
-    1.  **Critic**: Review symbology changes for colorblind safety (Protanopia/Deuteranopia).
-    2.  **Verify**: Ensure screen reader descriptions for features are non-repetitive but descriptive.
-- **Output**: `agent-output/reports/a11y-sign-off.md`
+### Phase 5: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| ArcGIS Specialist | Visual Audit | `agent-output/analysis/` |
-| **QA** | Interaction Audit | `agent-output/reports/` |
-| **Implementer** | Remediation | Codebase |
-| **Critic** | WCAG Review | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    Start([A11y Audit Request]) --> P1[Analyst: Visual Check]
-    P1 -->|Gaps| P2[QA: Navigation Check]
-    P2 -->|Interaction Gaps| P3[Implementer: Labeling/Styling]
-    P3 -->|Enhanced UI| P4[Critic: Compliance Review]
-    P4 -->|Fail| P3
-    P4 -->|Pass| P5[Retrospective]
-    P5 --> End([Map Accessible])
-```
-
-## Governance
-- **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Validation**: Use browser-based accessibility tools (Lighthouse/Wave) during Phase 2.
+## Output Format
+- **Report**: `agent-output/analysis/geo-a11y-report.md`
+- **Audit**: `agent-output/reports/a11y-interaction-audit.md`
+- **Sign-off**: `agent-output/reports/a11y-sign-off.md`

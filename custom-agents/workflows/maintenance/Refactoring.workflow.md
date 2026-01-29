@@ -1,121 +1,57 @@
-# Refactoring & Tech Debt Paydown Workflow
+---
+description: "Systematic, safe approach to addressing technical debt with strict regression testing."
+agent: "agent"
+---
 
-This workflow defines a systematic, safe approach to addressing technical debt. It prioritizes stability and regression testing over speed.
+# Refactoring & Tech Debt Paydown
 
-## Workflow Overview
+You are the **Technical Debt Collector**. You do not "hack" changes. You follow a rigorous **Analysis -> Design -> Implementation -> Verification** cycle. Your goal is to change structure *without* changing behavior.
 
-Refactoring is high-risk if done ad-hoc. This workflow enforces a cycle of **Analysis -> Design -> Implementation -> Verification**, ensuring that structure changes without altering behavior.
+## Mission
+To pay down technical debt by identifying hotspots, designing better patterns, planning atomic refactoring steps, and verifying no regressions occur.
 
-## Workflow Steps
+## Workflow
 
-### 1. Hotspot Identification (Analyst Agent)
-- **Agent**: Analyst
-- **Input**: Codebase, complexity metrics, or "gut feel" from developers.
-- **Execution**: Use the `runSubagent` tool to run the **Analyst** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Identify hotspots (complexity, legacy patterns). Output Refactoring Opportunity Doc."
-- **Handoff**: `agent-output/handoffs/refactor-phase-1-handoff.md` (Template: Data-Only, No Fluff)
+### Phase 1: Hotspot Identification
+**Goal**: Find debt.
+1.  **Analyst Agent**: Run via `runSubagent`.
+    -   **Task**: "Identify hotspots (complexity, legacy). Output Refactoring Opportunity Doc."
 
-### 2. Pattern Selection (Architect Agent)
-- **Agent**: Architect
-- **Input**: `agent-output/handoffs/refactor-phase-1-handoff.md` AND `agent-output/analysis/refactoring-opp.md`
-- **Execution**: Use the `runSubagent` tool to run the **Architect** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Propose new structure/design patterns. Output Architecture Decision Record (ADR)."
-- **Output**: An Architecture Decision Record (ADR) or Design Sketch in `agent-output/architecture/adr.md`.
-- **Handoff**: `agent-output/handoffs/refactor-phase-2-handoff.md` (Template: Data-Only, No Fluff)
+### Phase 2: Pattern Selection
+**Goal**: Define target state.
+1.  **Architect Agent**: Run via `runSubagent`.
+    -   **Task**: "Propose new patterns/structure. Output Architecture Decision Record (ADR) to `agent-output/architecture/adr.md`."
 
-### 3. Step-by-Step Planning (Planner Agent)
-- **Agent**: Planner
-- **Input**: `agent-output/handoffs/refactor-phase-2-handoff.md` AND `agent-output/architecture/adr.md`
-- **Execution**: Use the `runSubagent` tool to run the **Planner** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Break refactoring into atomic, safe steps that maintain compiling state. Output Refactoring Plan."
-- **Constraint**: Each step must leave the system in a compiling, passing state.
-- **Output**: A Refactoring Plan in `agent-output/planning/refactor-plan.md`.
-- **Handoff**: `agent-output/handoffs/refactor-phase-3-handoff.md` (Template: Data-Only, No Fluff)
+### Phase 3: Step-by-Step Planning
+**Goal**: Atomic steps.
+1.  **Planner Agent**: Run via `runSubagent`.
+    -   **Task**: "Break refactoring into atomic, compiling steps. Output `agent-output/planning/refactor-plan.md`."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Check**: Steps vague? Unsafe?
+    -   **Action**: Reject -> Planner refines. Approve -> Proceed.
 
-### 3a. Method Critique (Critic Agent)
-- **Agent**: Critic
-- **Input**: Refactoring Plan.
-- **Action**: Use the `runSubagent` tool to run the Critic agent to verify the plan follows the pattern correctly and maintains safety.
-- **Iteration**: Return to **Planner** if unsafe.
+### Phase 4: Safe Implementation
+**Goal**: Refactor safely.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Execute plan: Test -> Refactor -> Test cycle. Output Code changes."
+2.  **Code Review**: Run **Critic** agent.
+    -   **Check**: Code Quality, Complexity.
+    -   **Action**: Reject -> Implementer fixes. Approve -> Proceed.
 
-### 3b. Documentation Detail Verification (Critic Agent)
-- **Agent**: Critic
-- **Input**: `agent-output/planning/refactor-plan.md`
-- **Action**: **CRITICAL**: Use the `runSubagent` tool to run the Critic agent to review specifically for "lack of detail". Refactoring requires atomic precision. Ensure no step is vague.
-- **Iteration**: Return to **Planner** if lacking detail.
-- **Handoff**: To Implementer.
+### Phase 5: Regression Verification
+**Goal**: Zero behavior change.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Run full regression suite. `run_command` tests, `playwright`/`ios-simulator` for UI. Verify library usage with `context7`."
+    -   **Action**: Fail -> Revert/Fix. Pass -> Success.
 
-### 4. Safe Implementation (Implementer Agent)
-- **Agent**: Implementer
-- **Input**: `agent-output/handoffs/refactor-phase-3-handoff.md` AND `agent-output/planning/refactor-plan.md`
-- **Execution**: Use the `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Execute plan safely (Test -> Refactor -> Test cycle). Output Code changes."
-- **Output**: Code changes + `agent-output/implementation/refactor-impl.md`
-- **Handoff**: `agent-output/handoffs/refactor-phase-4-handoff.md` (Template: Data-Only, No Fluff)
+### Phase 6: Project Completion
+1.  **Orchestrator**: Archive artifacts. Generate `agent-output/reports/[ID]-completion-report.md`.
 
-### 4b. Code Review & Refinement (Critic Agent)
-- **Agent**: Critic
-- **Input**: Code changes.
-- **Action**: Use the `runSubagent` tool to run the Critic agent to check for regression in code quality or readability.
-- **Checks**:
-  - Code Style & Standards.
-  - Complexity metrics.
-- **Iteration**: Any findings must be addressed by **Implementer** before QA.
-- **Handoff**: To QA.
+### Phase 7: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Regression Verification (QA Agent)
-- **Agent**: QA
-- **Input**: `agent-output/handoffs/refactor-phase-4-handoff.md` AND `agent-output/implementation/refactor-impl.md`
-- **Action**: Use the `runSubagent` tool to run the QA agent to run the full regression suite. Verify no behavior changes.
-- **Mandatory MCP Usage**:
-  - Use `run_command` to execute test suites.
-  - Use `playwright` (Web) or `ios-simulator` (Mobile) to verify UI behavior if applicable. **(For ios-simulator: check [Troubleshooting Guide](https://github.com/joshuayoes/ios-simulator-mcp/blob/main/TROUBLESHOOTING.md) / [LLM Guide](https://raw.githubusercontent.com/joshuayoes/ios-simulator-mcp/refs/heads/main/TROUBLESHOOTING.md))**
-  - Use `context7` to verify refactored code usage against library documentation.
-  - Use `view_code_item` to manually verify signatures if needed.
-- **Iteration Loop**:
-  - **FAIL**: Return to **Implementer**. The refactoring broke something. Revert or Fix.
-  - **PASS**: Refactor successful. Create `agent-output/handoffs/refactor-phase-5-handoff.md` (Template: Data-Only, No Fluff).
-
-### 6. Project Completion (Orchestrator)
-- **Agent**: Orchestrator
-- **Action**: Archive artifacts and generate final report.
-- **Output**:
-  - Move terminal artifacts to `agent-output/closed/`
-  - Generate **Single** Project Completion Report: `agent-output/reports/[ID]-completion-report.md`
-  - Generate **Single** Project Completion Report: `agent-output/reports/[ID]-completion-report.md`
-  - Proceed to Phase 7.
-
-### 7. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-- **Stop**: End of Workflow.
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| **Analyst** | Identify Debt | `agent-output/analysis/` |
-| **Architect** | Define Target State | `agent-output/architecture/` |
-| **Planner** | Atomic Steps | `agent-output/planning/` |
-| **Implementer** | Execute Refactor | Codebase |
-| **QA** | Regression Test | `agent-output/qa/` |
-| **Orchestrator** | Final Report | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    A[Codebase Hotspot] --> B[Analyst Analysis]
-    B -->|Opportunity Doc| C[Architect Design]
-    C -->|Pattern/ADR| D[Planner Strategy]
-    D -->|Atomic Plan| E[Safe Implementation]
-    E -->|Code Change| F[QA Regression]
-    F -->|Tests Fail| E
-    F -->|Tests Pass| G[Success]
-    G --> H[Project Completion]
-    H --> I[Retrospective]
-    I --> J[End]
-```
+## Output Format
+- **ADR**: `agent-output/architecture/adr.md`
+- **Plan**: `agent-output/planning/refactor-plan.md`
+- **Constraint**: Each step must leave system in compiling state.

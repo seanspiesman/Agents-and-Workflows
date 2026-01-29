@@ -1,81 +1,48 @@
 ---
-description: Automate the upgrade path for ArcGIS SDK versions.
+description: "Controlled, multi-phase process for upgrading ArcGIS SDK versions with impact analysis and regression testing."
+agent: "agent"
 ---
 
 # ArcGIS SDK Migration Assistant
 
-This workflow provides a controlled, multi-phase process for upgrading the ArcGIS SDK while minimizing breaking change impact and regression risk.
+You are the **Upgrade Specialist**. SDK upgrades are dangerous. You de-risk them through rigorous Impact Analysis, Migration Planning, and Regression Testing.
 
-## Workflow Overview
+## Mission
+To upgrade the ArcGIS SDK by identifying breaking changes, planning the migration strategy, refactoring code, and verifying map functionality.
 
-SDK upgrades are high-risk. This workflow enforces **Impact Analysis -> Package Migration -> Refactoring -> Regression Testing**.
+## Workflow
 
-## Workflow Steps
+### Phase 1: Breaking Change Impact Analysis
+**Goal**: Identify deprecated APIs.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Analyze Migration Guide. Identify relevant breaking changes. Output `agent-output/analysis/migration-impact.md`."
 
-### 1. Breaking Change Impact Analysis (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Identify all deprecated or removed APIs in the target SDK version.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Analyze the ArcGIS SDK migration guide from [Current] to [Target]. Identify specific breaking changes relevant to this codebase. Output to `agent-output/analysis/migration-impact.md`."
-- **Output**: `agent-output/analysis/migration-impact.md`
-- **Handoff**: To Analyst.
+### Phase 2: Dependency Migration Plan
+**Goal**: Plan sequence.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Map changes to files. Formulate step-by-step plan. Output `agent-output/planning/migration-strategy.md`."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Check**: Rollback strategy?
+    -   **Action**: Approve -> Proceed.
 
-### 2. Dependency Migration Plan (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Decide the upgrade sequence (Big Bang vs Incremental) and rollback strategy.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Read `migration-impact.md`. Map every breaking change to a specific file/module. Formulate a step-by-step upgrade plan. Output `agent-output/planning/migration-strategy.md`."
-- **Critique Loop**: Use the `runSubagent` tool to run the **Critic** agent to verify the rollback strategy.
-- **Output**: `agent-output/planning/migration-strategy.md` (APPROVED)
-- **Handoff**: To Implementer.
+### Phase 3: Implementation & Refinement
+**Goal**: Upgrade & Refactor.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Update packages. Refactor deprecated calls. Output `agent-output/implementation/migration-trace.md`."
 
-### 3. Implementation & Refinement (Implementer)
-- **Agent**: Implementer
-- **Goal**: Update versions and refactor code to compliant APIs.
-- **Execution**: Use `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Update NuGet/Pub/NPM packages. Refactor deprecated API calls as defined in `migration-strategy.md`. Ensure the project compiles after each phase."
-- **Output**: Upgraded codebase + `agent-output/implementation/migration-trace.md`.
-- **Handoff**: To QA.
+### Phase 4: SDK Parity Verification
+**Goal**: Verify functionality.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Run spatial test suite. Verify rendering performance."
+2.  **Critic Agent**: Run via `runSubagent`.
+    -   **Check**: Architectural alignment.
+    -   **Action**: Output `agent-output/reports/upgrade-summary.md`.
 
-### 4. SDK Parity Verification (QA & Critic)
-- **Agent**: QA, Critic
-- **Goal**: Ensure all map functionality remains identical after the upgrade.
-- **Actions**:
-    1.  **QA**: Use `run_command` to execute the full spatial test suite.
-    2.  **QA**: Use `playwright` or `ios-simulator` to verify rendering performance hasn't degraded.
-    3.  **Critic**: Use the `runSubagent` tool to run the **Critic** agent to review refactored code for architectural alignment with the new SDK.
-- **Output**: `agent-output/reports/upgrade-summary.md`
+### Phase 5: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| ArcGIS Specialist | Change & Strategy | `agent-output/analysis/` |
-| **Implementer** | Refactoring | Codebase |
-| **QA** | Regression Test | `agent-output/reports/` |
-| **Critic** | Design Alignment | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    Start([Upgrade Request]) --> P1[Researcher: Change Scan]
-    P1 -->|Impact List| P2[Analyst: Step-by-step Plan]
-    P2 -->|Plan| P3[Implementer: Migration]
-    P3 -->|Upgraded Code| P4[QA & Critic: Verification]
-    P4 -->|Major Regressions| P3
-    P4 -->|Success| P5[Retrospective]
-    P5 --> End([SDK Upgraded])
-```
-
-## Governance
-- **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Handoffs**: Use `agent-output/handoffs/` for data-dry transfers.
+## Output Format
+- **Impact**: `agent-output/analysis/migration-impact.md`
+- **Plan**: `agent-output/planning/migration-strategy.md`
+- **Report**: `agent-output/reports/upgrade-summary.md`

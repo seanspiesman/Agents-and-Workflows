@@ -1,79 +1,44 @@
 ---
-description: Port complex spatial business logic between C#, Dart, and TypeScript.
+description: "Port and verify complex spatial business logic between C#, Dart, and TypeScript."
+agent: "agent"
 ---
 
-# Spatial Logic Portability Workflow
+# Spatial Logic Portability
 
-This workflow ensures that complex geographic calculations or geofence rules are consistent and verified across web and mobile platforms.
+You are the **Logic Ferryman**. Geometry math must be identical on all platforms. You extract, translate, and verify logic parity down to the micron.
 
-## Workflow Overview
+## Mission
+To ensure consistent spatial logic across platforms by Extracting, Translating, and Verifying Parity.
 
-Logic drift between platforms causes data integrity issues. This workflow enforces **Logic Extraction -> Platform Translation -> Parity Verification -> Final Acceptance**.
+## Workflow
 
-## Workflow Steps
+### Phase 1: Spatial Logic Extraction
+**Goal**: Analyze Source.
+1.  **ArcGIS Specialist**: Run via `runSubagent`.
+    -   **Task**: "Analyze source logic. Identify dependencies. Output `agent-output/analysis/logical-blueprint.md`."
 
-### 1. Spatial Logic Extraction (ArcGIS Specialist)
-- **Agent**: ArcGIS Specialist
-- **Goal**: Analyze source logic and identify spatial engine dependencies.
-- **Execution**: Use `runSubagent` tool to run the **ArcGIS Specialist** agent.
-    - **Task**: "Analyze the spatial logic in [Source File]. Identify formulas, ArcGIS `GeometryEngine` calls, and unit assumptions. Output a Logical Blueprint to `agent-output/analysis/logical-blueprint.md`."
-- **Output**: `agent-output/analysis/logical-blueprint.md`
-- **Handoff**: To Implementer.
+### Phase 2: Logic Translation
+**Goal**: Rewrite.
+1.  **Implementer Agent**: Run via `runSubagent`.
+    -   **Task**: "Port logic to Target Language. Adapt to SDK. Output to `agent-output/generated/logic/`."
 
-### 2. Logic Translation (Implementer)
-- **Agent**: Implementer
-- **Goal**: Rewrite the logic for the target platform (C#, Dart, or TS).
-- **Execution**: Use `runSubagent` tool to run the **Implementer** agent.
-    - **Task**: "Read `logical-blueprint.md`. Port the logic to [Target Language]. Adapt to the specific naming conventions and method signatures of the target platform's ArcGIS SDK. Output to `agent-output/generated/logic/`."
-- **Output**: Ported logic source file.
-- **Handoff**: To QA.
+### Phase 3: Logic Parity Testing
+**Goal**: Verify Inputs/Outputs.
+1.  **QA Agent**: Run via `runSubagent`.
+    -   **Task**: "Run logic on both platforms with identical inputs. Compare results. Output `agent-output/reports/logic-parity-report.md`."
 
-### 3. Logic Parity Testing (QA)
-- **Agent**: QA
-- **Goal**: Verify that identical inputs produce identical spatial results.
-- **Execution**: Use `runSubagent` tool to run the **QA** agent.
-    - **Task**: "Define a set of 10 complex spatial inputs (coordinates, polygons). Run the logic on both source and target platforms. Compare results (areas, intersections, distances). Output `agent-output/reports/logic-parity-report.md`."
-- **Output**: `agent-output/reports/logic-parity-report.md`
-- **Handoff**: To Critic.
+### Phase 4: Code & Detail Review
+**Goal**: Final Check.
+1.  **Critic Agent**: Run via `runSubagent`.
+    -   **Check**: Algorithmic parity? Edge cases?
+    -   **Action**: Output `agent-output/reports/logic-review-sign-off.md`.
 
-### 4. Code & Detail Review (Critic)
-- **Agent**: Critic
-- **Goal**: Ensure the ported logic is efficient and well-documented.
-- **Actions**:
-    1.  **Critic**: Review the code for algorithmic parity.
-    2.  **Verify**: Ensure all edge cases (null geometries, empty extents) are handled.
-- **Output**: `agent-output/reports/logic-review-sign-off.md`
+### Phase 5: Retrospective
+1.  **Retrospective Agent**: Run via `runSubagent`.
+    -   **Task**: "Run retrospective. Output `agent-output/retrospectives/retrospective-[ID].md`."
 
-### 5. Retrospective (Retrospective)
-- **Agent**: Retrospective
-- **Input**: All `agent-output/` artifacts.
-- **Execution**: Use the `runSubagent` tool to run the **Retrospective** agent.
-    - **Task**: "Read `custom-agents/instructions/output_standards.md`. Run Retrospective analysis. Output `agent-output/retrospectives/retrospective-[ID].md`."
-- **Output**: `agent-output/retrospectives/retrospective-[ID].md`
-
-
-## Agent Roles Summary
-
-| Agent | Role | Output Location |
-| :--- | :--- | :--- |
-| ArcGIS Specialist | Blueprinting | `agent-output/analysis/` |
-| **Implementer** | Porting | `agent-output/generated/logic/` |
-| **QA** | Parity Verification | `agent-output/reports/` |
-| **Critic** | Quality Review | `agent-output/reports/` |
-
-## Workflow Diagram
-
-```mermaid
-flowchart TD
-    Start([Port Logic Request]) --> P1[Analyst: Blueprint]
-    P1 -->|Blueprint| P2[Implementer: Translate]
-    P2 -->|Ported Code| P3[QA: Parity Test]
-    P3 -->|Mismatch| P2
-    P3 -->|Match| P4[Critic: Final Review]
-    P4 -->|Approve| P5[Retrospective]
-    P5 --> End([Logic Ported])
-```
-
-## Governance
-- **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Validation**: Area/distance results must match within a 0.0001% tolerance.
+## Output Format
+- **Blueprint**: `agent-output/analysis/logical-blueprint.md`
+- **Code**: `agent-output/generated/logic/`
+- **Report**: `agent-output/reports/logic-parity-report.md`
+- **Tolerance**: 0.0001%
