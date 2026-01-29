@@ -1,104 +1,50 @@
 ---
-description: 'Color usage guidelines and styling rules for HTML elements to ensure accessible, professional designs.'
-applyTo: '**/*.html, **/*.css, **/*.js, agent-output/**/*.md'
+description: 'Core web styling and structural guidelines'
+applyTo: '**/*.html, **/*.css, **/*.scss'
 ---
 
-# HTML CSS Style Color Guide
+# HTML & CSS Style Guide
 
-Follow these guidelines when updating or creating HTML/CSS styles for browser rendering. Color names
-represent the full spectrum of their respective hue ranges (e.g., "blue" includes navy, sky blue, etc.).
+## Structure and Semantics
 
-## Color Definitions
+- Use semantic HTML tags (`<nav>`, `<main>`, `<article>`, `<footer>`) instead of generic `<div>`.
+- Ensure proper heading hierarchy (h1 -> h2 -> h3).
+- Use `button` for actions and `a` for navigation.
 
-- **Hot Colors**: Oranges, reds, and yellows
-- **Cool Colors**: Blues, greens, and purples
-- **Neutral Colors**: Grays and grayscale variations
-- **Binary Colors**: Black and white
-- **60-30-10 Rule**
-  - **Primary Color**: Use 60% of the time (*cool or light color*)
-  - **Secondary Color**: Use 30% of the time (*cool or light color*)
-  - **Accent**: Use 10% of the time (*complementary hot color*)
+## CSS Architecture
 
-## Color Usage Guidelines
+- Use a consistent naming convention (BEM is recommended).
+- Prefer classes over ID selectors for styling.
+- Use CSS Variables (`--custom-prop`) for theming and repeated values.
 
-Balance the colors used by applying the **60-30-10 rule** to graphic design elements like backgrounds,
-buttons, cards, etc...
+## Naming Conventions
 
-### Background Colors
+- Use kebab-case for CSS class names (e.g., `.main-navigation`).
+- Use descriptive names that reflect purpose, not appearance (e.g., `.alert-error` not `.red-box`).
 
-**Never Use:**
+## Critical Rules (Consistency)
 
-- Purple or magenta
-- Red, orange, or yellow
-- Pink
-- Any hot color
+- NEVER use inline styles (`style="..."`) unless for dynamic coordinate values.
+- NEVER use `!important` unless overriding 3rd party libraries absolutely requires it.
+- NEVER use generic tag selectors (e.g., `div { ... }`) in global scope.
+- NEVER skip `alt` attributes on images.
+- NEVER use fixed units (`px`) for font sizes; use `rem` or `em`.
 
-**Recommended:**
+## Responsive Design
 
-- White or off-white
-- Light cool colors (e.g., light blues, light greens)
-- Subtle neutral tones
-- Light gradients with minimal color shift
+- Design Mobile-First: Write base styles for mobile, use `@media (min-width)` for larger screens.
+- Use Flexbox and Grid for layouts. Avoid floats.
+- Ensure touch targets are at least 44x44px.
 
-### Text Colors
+## Accessibility (A11y)
 
-**Never Use:**
+- Ensure sufficient color contrast (WCAG AA).
+- Handle `:focus` states visibly.
+- Use ARIA attributes only when semantic HTML is insufficient.
+- Hide content accessible to screen readers using `.visually-hidden` class if needed.
 
-- Yellow (poor contrast and readability)
-- Pink
-- Pure white or light text on light backgrounds
-- Pure black or dark text on dark backgrounds
+## Performance
 
-**Recommended:**
-
-- Dark neutral colors (e.g., #1f2328, #24292f)
-- Near-black variations (#000000 to #333333)
-  - Ensure background is a light color
-- Dark grays (#4d4d4d, #6c757d)
-- High-contrast combinations for accessibility
-- Near-white variations (#ffffff to #f0f2f3)
-  - Ensure background is a dark color
-
-### Colors to Avoid
-
-Unless explicitly required by design specifications or user request, avoid:
-
-- Bright purples and magentas
-- Bright pinks and neon colors
-- Highly saturated hot colors
-- Colors with low contrast ratios (fails WCAG accessibility standards)
-
-### Colors to Use Sparingly
-
-**Hot Colors** (red, orange, yellow):
-
-- Reserve for critical alerts, warnings, or error messages
-- Use only when conveying urgency or importance
-- Limit to small accent areas rather than large sections
-- Consider alternatives like icons or bold text before using hot colors
-
-## Gradients
-
-Apply gradients with subtle color transitions to maintain professional aesthetics.
-
-### Best Practices
-
-- Keep color shifts minimal (e.g., #E6F2FF to #F5F7FA)
-- Use gradients within the same color family
-- Avoid combining hot and cool colors in a single gradient
-- Prefer linear gradients over radial for backgrounds
-
-### Appropriate Use Cases
-
-- Background containers and sections
-- Button hover states and interactive elements
-- Drop shadows and depth effects
-- Header and navigation bars
-- Card components and panels
-
-## Additional Resources
-
-- [Color Tool](https://civicactions.github.io/uswds-color-tool/)
-- [Government or Professional Color Standards](https://designsystem.digital.gov/design-tokens/color/overview/)
-- [UI Color Palette Best Practices](https://www.interaction-design.org/literature/article/ui-color-palette)
-- [Color Combination Resource](https://www.figma.com/resource-library/color-combinations/)
+- Minify CSS in production.
+- Avoid deeply nested selectors (> 3 levels).
+- precise usage of animations; prefer `transform` and `opacity` changes.

@@ -50,10 +50,11 @@ handoffs:
  
 **For any new feature code, you MUST verify it by interacting with the running application.**
 
-- Do NOT write unit tests (`*.spec.ts`) unless explicitly requested for internal logic libraries (rare).
+- Do NOT write unit tests (`*.spec.ts`) under ANY circumstances.
 - **Your verification loop**: Implement -> Run App -> Click/Type/Scroll -> Verify Result.
 - If you rely on `npm test` passing without looking at the app, you are failing.
 - "Implementation complete" means "The feature works in the app", not "Tests pass".
+- **Task Tracking**: You MUST update `management/task.md` as you complete each sub-task or feature.
 
 **Self-check**: Before handoff, ask: "Have I seen this feature work in the browser/simulator?"
 
@@ -76,7 +77,7 @@ handoffs:
 
 ### Interaction Verification
  
-**Unit Tests are DEPRECATED for Agents.** 
+**Unit Tests are PROHIBITED for Agents.** 
 Load `skills/webapp-testing` for Playwright/Puppeteer usage patterns.
  
 **Verification Cycle:**
@@ -85,7 +86,7 @@ Load `skills/webapp-testing` for Playwright/Puppeteer usage patterns.
 3. **Verify**: Use browser/simulator tools to confirm the feature works.
  
 **The Iron Laws:**
-1. **NEVER write unit tests** — Unless specifically identifying a pure calculation library.
+1. **NEVER write unit tests** — All logic must be verified via application side-effects.
 2. **NEVER mock reality** — Test against the running application.
 3. **NEVER trust a green test suite** — If you haven't seen it work, it doesn't work.
  
@@ -161,7 +162,7 @@ Best design meeting requirements without over-engineering. Pragmatic craft (good
 13. Execute version updates (package.json, CHANGELOG, etc.) when plan includes milestone. Don't defer to DevOps.
 14. **Cross-repo contracts**: Before implementing API endpoints or clients that span repos, load `cross-repo-contract` skill. Verify contract definitions exist and import types directly.
 15. Retrieve/store Project Memory.
-16. **Status tracking**: When starting implementation, update the plan's Status field to "In Progress" and add changelog entry. Keep agent-output docs' status current so other agents and users know document state at a glance.
+16. **Status tracking**: When starting implementation, update the plan's Status field to "In Progress" and add changelog entry. **Update `management/task.md`** to indicate the start of the item.
 17. **Persistence**: Load `workflow-adherence` skill. Execute all plan steps continuously until blocked or complete.
 18. **Async Safe Execution**: Load `non-blocking-execution` skill. Run servers and long-running tests in background mode.
 
@@ -430,6 +431,7 @@ The user needs a clear proposal of what you are about to do. Follow this templat
 1. **Implement**: `src/components/NewFeature.tsx`.
 2. **Launch**: `npm run dev`.
 3. **Verify**: Use Playwright to check UI.
+4. **Track**: Add "Verified NewFeature" to `management/task.md`.
  
 ### Approval
 - [ ] **READY TO EXECUTE**: User please type "Proceed" or "Yes".

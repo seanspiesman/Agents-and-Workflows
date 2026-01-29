@@ -25,12 +25,10 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
 - **Actions**:
     1.  **Initialize Backbone**:
         -   Create directories: `management`, `logs`, `reports`, `architecture`, `planning`, `analysis`, `context`.
-        -   Create files: `logs/cli_history.log`, `management/task.md`.
+        -   Create files: `management/task.md`.
     2.  **Read Standards**: Read `custom-agents/instructions/output_standards.md` to understand output requirements.
-    3.  **Check Tools**: Verify `node -v`, `npm -v`, `git --version`.
-    4.  **Check Permissions**: Verify write access to `agent-output/`.
-    5.  **Result**: Write `agent-output/logs/env-check.md`.
-    5.  **Rescue**: If any tool is missing, HALT immediately.
+    3.  **Check Permissions**: Verify write access to `agent-output/`.
+    4.  **Rescue**: If any tool is missing, HALT immediately.
 
 ### Phase 1: Inception & Strategy (Roadmap, Researcher, Critic)
 - **Primary Agents**: Roadmap (Strategy), Researcher (Content & Market Research)
@@ -102,9 +100,9 @@ This is not a linear path; it is a series of refinement cycles. No artifact move
       1.  **Read Plan**: Identify the next component to build from `master-implementation-plan.md`.
       2.  **Implement**: Write the code for the component.
       3.  **Verification Loop (Subagent Delegation)**:
-          -   Call **QA** agent: 'Tests MUST be interactive (Playwright/Puppeteer/Simulator). DO NOT write unit tests. Verify [Component] meets the Product Vision in `agent-output/context/product-brief.md`.'
+          -   Call **QA** agent: 'Tests MUST be interactive (Playwright/Puppeteer/Simulator). **DO NOT write files like `*.spec.ts`**. Verify [Component] meets the Product Vision in `agent-output/context/product-brief.md`.'
           -   **If Tests Fail**: You (Implementer) MUST fix the code and Ask QA to re-run. Repeat until Pass.
-          -   **If Tests Pass**: Call **Critic** agent: 'Review code style and logic for [Component].'
+          -   **If Tests Pass**: Update `management/task.md` with: `- [x] Verified [Component]`. Then Call **Critic** agent: 'Review code style and logic for [Component].'
       4.  **Refine**: Address Critic feedback immediately.
       5.  **Commit**: Mark the task as clean in your internal tracking.
       6.  **Next**: Move to the next component.
@@ -222,6 +220,6 @@ flowchart TD
 - **Diagrams**: EVERY phase must produce a Mermaid `flowchart`.
 
 ## Workflow Governance
-- **Logging**: All agents MUST log tool usage and CLI commands to `agent-output/logs/`.
-- **Output Structure**: Agents must ONLY write to their designated `agent-output/[role]/` directory. Root `agent-output/` must remain clean except for `management/`, `logs/`, `reports/`, `architecture/`, `analysis/`.
+- **Verification**: All critical steps must include a verification sub-step.
+- **Output Structure**: Agents must ONLY write to their designated `agent-output/[role]/` directory. Root `agent-output/` must remain clean except for `management/`, `reports/`, `architecture/`, `analysis/`.
 - **No Handoff Files**: Agents should read the authoritative artifacts (e.g., `system-architecture.md`) directly. Do not generate intermediate "handoff.md" files. Refer to `custom-agents/instructions/output_standards.md` for strict rules.

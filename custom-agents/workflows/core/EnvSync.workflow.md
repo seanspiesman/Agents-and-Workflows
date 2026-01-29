@@ -76,4 +76,4 @@ flowchart TD
 
 ## Governance
 - **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.
-- **Logging**: Log all changes to `agent-output/logs/env-changes.log`.
+- **Verification**: Confirm changes via diff or UI check.

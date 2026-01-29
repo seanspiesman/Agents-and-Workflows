@@ -60,7 +60,7 @@ Unlike "Zero to Hero" which builds an entire app, this workflow assumes an exist
     - **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `feature-implementation-plan.md`. Execute the Development Loop:
       1.  **Read Step**: Pick the next item from the plan.
       2.  **Implement**: Write/Modify code in the codebase.
-      3.  **Verification Loop (Subagent Delegation)**:
+      3.  **Verification**: Interactively verify the feature in the browser. Update `management/task.md`.
           -   Call **QA** agent: 'Tests MUST be interactive (Playwright/Puppeteer/Simulator). DO NOT write unit tests. Verify feature works in running app.'
           -   **If Verification Fails**: Fix code. Repeat.
           -   **If Verification Passes**: Use `runSubagent` to call the **Critic** agent: 'Review code style and integration.'

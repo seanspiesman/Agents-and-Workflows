@@ -76,5 +76,5 @@ flowchart TD
 ```
 
 ## Governance
-- **Logging**: All sync job parameters must be logged to `agent-output/logs/sync-trace.log`.
+- **Verification**: Verify sync job completion via app UI status.
 - **Standards**: Must adhere to `custom-agents/instructions/output_standards.md`.

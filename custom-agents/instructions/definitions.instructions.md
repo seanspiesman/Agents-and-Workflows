@@ -1,35 +1,31 @@
-# Shared Definitions & Terminology
+---
+description: 'Project-wide definitions and terminology'
+applyTo: '*'
+---
 
-> [!NOTE]
-> Use these definitions to ensure consistency across all agents and artifacts.
+# Project Definitions and Terminology
 
-## 1. Success Metrics
+## Core Terminology
 
-### Quality Targets
-- **Test Coverage**: 95%+ for critical paths.
-- **Performance**: Lighthouse score > 90 across all categories.
-- **Accessibility**: WCAG AA compliance (verified by axe-core).
-- **Security**: No critical vulnerabilities (OWASP Top 10).
+- **Agent**: An AI entity with a specific role.
+- **Workflow**: A defined sequence of steps to achieve a task.
+- **Instruction**: A set of rules effectively programming the agent's behavior.
+- **Artifact**: A file created by an agent (e.g., task.md, implementation_plan.md).
 
-### Performance Goals
-- **Load Time**: Initial load < 3 seconds.
-- **Interactive**: Time to Interactive (TTI) < 5 seconds.
-- **Audio Sync**: Within 50ms tolerance.
+## Naming Conventions
 
-## 2. Personas
+- Agents: Kebab-case filenames (e.g., `qa.agent.md`).
+- Instructions: `*.instructions.md`.
+- Workflows: `*.workflow.md`.
 
-- **The User**: The end-user harmonica player. Needs intuitive UI, responsive audio, and an immersive "Blues" aesthetic.
-- **The Developer**: Future maintainer. Needs clean code, comprehensive docs, and reliable tests.
-- **The Business**: The project owner/stakeholder. Needs "Zero to Hero" value delivery and adherence to roadmap.
-- **The Architect**: The system designer. Needs adherence to patterns and modularity.
+## Critical Rules (Consistency)
 
-## 3. Terminology
+- NEVER invent new terms for existing concepts.
+- NEVER conflict with industry-standard definitions unless explicitly documented.
+- NEVER circular references in definitions.
 
-| Term | Definition |
-|------|------------|
-| **Woodshed** | The Lessons/Practice module. Users track progress here. |
-| **Juke Joint** | The Community/Social module. Riff sharing and discussions. |
-| **Legacy of the Blues** | The History/Timeline module. Educational content. |
-| **Jam Buddy** | The AI interactive companion for practice. |
-| **Tablature Player** | The core interactive audio-visual tool for playing tabs. |
-| **Zero to Hero** | The overarching workflow methodology (Plan -> Implement -> Verify). |
+## Project Structure Definitions
+
+- `custom-agents/`: Contains all agent logic and config.
+- `agent-output/`: Directory for runtime artifacts and logs.
+- `.agent/workflows/`: User-accessible workflows.

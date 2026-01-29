@@ -68,7 +68,7 @@ flowchart TD
     Start([Stress Request]) --> P1[Analyst: Scenario Design]
     P1 -->|Vectors| P2[Implementer: Setup Mocks]
     P2 -->|Mocks Ready| P3[QA: Run Scenarios]
-    P3 -->|Logs/Results| P4[Critic: Resilience Review]
+    P3 -->|Results| P4[Critic: Resilience Review]
     P4 -->|Fragile| P2
     P4 -->|Resilient| P5[Retrospective]
     P5 --> End([Sync Hardened])

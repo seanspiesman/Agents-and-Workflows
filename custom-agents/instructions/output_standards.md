@@ -16,7 +16,6 @@ All agents participating in the Zero to Hero workflow MUST adhere to these stand
     -   `reports/`: Consolidated phase reports. ONE report per phase.
     -   `architecture/`: System design and ADRs.
     -   `planning/`: Implementation plans.
-    -   `logs/`: *Temporary* logs only.
 -   **No Duplicate Folders**: Do not use `handoffs/` if `reports/` already contains the status.
 
 ## 3. Handoff Protocol

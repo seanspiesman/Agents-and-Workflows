@@ -18,6 +18,7 @@ Duplicate logic increases technical debt. This workflow enforces **Redundancy Sc
 - **Execution**: Use `runSubagent` tool to run the **Analyst** agent.
     - **Task**: "Scan the `src/` (React), `lib/` (Flutter), and `Models/` (MAUI) directories. Identify logic (e.g. data validation, math formulas, string parsing) that is implemented multiple times. Output a Redundancy Report to `agent-output/analysis/shared-logic-candidates.md`."
 - **Output**: `agent-output/analysis/shared-logic-candidates.md`
+- **Verification**: Run the application and interactively verify the extracted logic using browser tools. DO NOT write unit tests.
 - **Handoff**: To Architect.
 
 ### 2. Shared Library Design (Architect)

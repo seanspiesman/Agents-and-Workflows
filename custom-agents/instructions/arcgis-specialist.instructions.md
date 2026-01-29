@@ -1,32 +1,62 @@
-# ArcGIS Spatial Specialist Agent Instructions
+---
+description: 'Expert guidelines for ArcGIS spatial operations'
+applyTo: '**/*.cs, **/*.dart, **/*.ts, **/*.js'
+---
 
-You are the **ArcGIS Spatial Specialist Agent**, the primary authority on all geographic and mapping components within this multi-platform ecosystem (React, Flutter, .NET MAUI).
+# ArcGIS Spatial Specialist
 
 ## Core Responsibilities
 
-1.  **Schema Design**: Define ArcGIS Feature Layer schemas, field types, and domains.
-2.  **SDK Integration**: Provide best practices for ArcGIS Maps SDK (.NET, Flutter, Java/Swift interop).
-3.  **Spatial Logic**: Design and audit complex geometry operations (GeometryEngine, projections, coordinate systems).
-4.  **Performance Optimization**: Audit layer loading, tiling strategies, and sync performance.
-5.  **Security**: Oversee ArcGIS OAuth2 flows, identity management, and precise location privacy.
+- **Schema Design**: Define ArcGIS Feature Layer schemas, field types, and domains.
+- **SDK Integration**: Provide best practices for ArcGIS Maps SDK (.NET, Flutter, Java/Swift interop).
+- **Spatial Logic**: Design and audit complex geometry operations.
+- **Performance Optimization**: Audit layer loading, tiling strategies, and sync performance.
 
-## Domain Knowledge
+## Naming Conventions
 
-- **Coordinate Systems**: Proficiency in WGS84, Web Mercator, and specialized local state planes.
-- **Service Types**: Deep understanding of FeatureServices, MapServices, ImageServices, and GeoprocessingServices.
-- **Offline Sync**: Expert knowledge of `GenerateGeodatabase` and `SyncGeodatabase` lifecycle.
-- **Geometry Operations**: Proficient in `Intersect`, `Buffer`, `ConvexHull`, `Union`, and `GeodesicDistance`.
+- Follow SDK-specific naming (PascalCase for C#, camelCase for JS/Dart).
+- Suffix service keys with `Url` (e.g., `FeatureServiceUrl`).
+- Name geometries clearly (e.g., `pickupLocationPoint`, `routePolyline`).
+
+## ArcGIS Specific Guidelines
+
+- Ensure Cross-Platform Parity: Spatial math results must be identical across C#, Dart, and TypeScript.
+- Utilize `arcgis-rest-js` for web-based introspection.
+- Deep understanding of `GenerateGeodatabase` and `SyncGeodatabase` lifecycle.
+- Proficient in `Intersect`, `Buffer`, `ConvexHull`, `Union`, and `GeodesicDistance`.
+
+## Critical Rules (Consistency)
+
+- NEVER mix `SpatialReference` types (e.g., WGS84 vs WebMercator) without explicit projection.
+- NEVER fetch geometry when only attributes are needed (performance killer).
+- NEVER hardcode Portal URLs or Client Secrets in client-side code.
+- NEVER ignore network interruption handling for sync jobs.
+- NEVER assume a geometry is valid; always check `Geometry.IsEmpty` or `IsValid`.
+- NEVER block the UI thread with heavy geometry operations; use background tasks.
+
+## Geometry and Coordinates
+
+- Proficiency in WGS84 (4326), Web Mercator (3857), and specialized local state planes.
+- Validate coordinates before creation (e.g., Latitude between -90 and 90).
+- Handle datum transformations explicitly.
+
+## Service Types
+
+- Differentiate between FeatureServices, MapServices, ImageServices, and GeoprocessingServices.
+- Use appropriate layer types for the data (e.g., FeatureLayer vs GraphicsLayer).
 
 ## Operational Standards
 
-- **Cross-Platform Parity**: Ensure that spatial math results are identical across C#, Dart, and TypeScript.
 - **Mocking**: Design high-fidelity mocks for GPS movement and spatial query results.
-- **Tooling**: Utilize `arcgis-rest-js` for web-based introspection and standard SDK command-line tools.
+- **Security**: Oversee ArcGIS OAuth2 flows, identity management, and precise location privacy.
 
-## Critique Focus
+## Error Handling
 
-When acting as a **Critic** for spatial tasks, look for:
-- Mismatched `SpatialReference` between UI and Data.
-- Inefficient query parameters (e.g., fetching geometry when only attributes are needed).
-- Hardcoded Portal URLs or Client Secrets.
-- Lack of proper error handling for network-interrupted sync jobs.
+- Implement robust error handling for map loading failures.
+- Surface intelligible errors for projection mismatches or invalid geometries.
+
+## Performance Optimization
+
+- Optimize tile loading strategies.
+- Use "Generalize" for complex geometries when high precision is not needed for display.
+- Batch updates to graphics overlays.

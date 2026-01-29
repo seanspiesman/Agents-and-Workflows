@@ -1,86 +1,52 @@
 ---
-description: 'Playwright test generation instructions'
-applyTo: '**/*.spec.ts, **/*.test.ts, **/tests/**/*.ts'
+description: 'Playwright for TypeScript testing guidelines'
+applyTo: '**/*.spec.ts, **/*.test.ts'
 ---
 
-## Test Writing Guidelines
+# Playwright TypeScript Testing
 
-### Code Quality Standards
-- **Locators**: Prioritize user-facing, role-based locators (`getByRole`, `getByLabel`, `getByText`, etc.) for resilience and accessibility. Use `test.step()` to group interactions and improve test readability and reporting.
-- **Assertions**: Use auto-retrying web-first assertions. These assertions start with the `await` keyword (e.g., `await expect(locator).toHaveText()`). Avoid `expect(locator).toBeVisible()` unless specifically testing for visibility changes.
-- **Timeouts**: Rely on Playwright's built-in auto-waiting mechanisms. Avoid hard-coded waits or increased default timeouts.
-- **Clarity**: Use descriptive test and step titles that clearly state the intent. Add comments only to explain complex logic or non-obvious interactions.
+## Playwright TS Code Style and Structure
 
+- Write idiomatic TypeScript test code using `@playwright/test`.
+- Use the `Page` object model pattern for maintainability.
+- Keep tests independent and deterministic.
+- Use `await expect(...)` for assertions to leverage auto-retrying.
 
-### Test Structure
-- **Imports**: Start with `import { test, expect } from '@playwright/test';`.
-- **Organization**: Group related tests for a feature under a `test.describe()` block.
-- **Hooks**: Use `beforeEach` for setup actions common to all tests in a `describe` block (e.g., navigating to a page).
-- **Titles**: Follow a clear naming convention, such as `Feature - Specific action or scenario`.
+## Naming Conventions
 
+- File names should end in `.spec.ts`.
+- Describe blocks should represent the feature/component.
+- Test names should read like sentences ("should login successfully").
 
-### File Organization
-- **Location**: Store all test files in the `tests/` directory.
-- **Naming**: Use the convention `<feature-or-page>.spec.ts` (e.g., `login.spec.ts`, `search.spec.ts`).
-- **Scope**: Aim for one test file per major application feature or page.
+## Playwright Specific Guidelines
 
-### Assertion Best Practices
-- **UI Structure**: Use `toMatchAriaSnapshot` to verify the accessibility tree structure of a component. This provides a comprehensive and accessible snapshot.
-- **Element Counts**: Use `toHaveCount` to assert the number of elements found by a locator.
-- **Text Content**: Use `toHaveText` for exact text matches and `toContainText` for partial matches.
-- **Navigation**: Use `toHaveURL` to verify the page URL after an action.
+- Use `Locator` objects strictly; avoid `ElementHandle`.
+- Use user-facing locators (`getByRole`, `getByText`) over CSS/XPath selectors.
+- Leverge `playwright.config.ts` for global configuration.
+- Use Fixtures for test setup and sharing state/context.
 
+## Critical Rules (Consistency)
 
-## Example Test Structure
+- NEVER use `page.waitForTimeout` or hard waits. Use web assertions.
+- NEVER share mutable state between tests without isolating via `test.beforeEach`.
+- NEVER use internal selectors (`>>`) if a semantic locator exists.
+- NEVER ignore existing fixtures; extend them if needed.
+- NEVER commit screenshots (snapshots) for visual regression without verifying they match the CI environment (platform differences).
 
-```typescript
-import { test, expect } from '@playwright/test';
+## Page Object Model
 
-test.describe('Movie Search Feature', () => {
-  test.beforeEach(async ({ page }) => {
-    // Navigate to the application before each test
-    await page.goto('https://debs-obrien.github.io/playwright-movies-app');
-  });
+- Encapsulate page-specific logic and locators.
+- Use `readonly` properties for locators in the constructor.
+- Return `this` or other Page Objects from actions for chaining.
 
-  test('Search for a movie by title', async ({ page }) => {
-    await test.step('Activate and perform search', async () => {
-      await page.getByRole('search').click();
-      const searchInput = page.getByRole('textbox', { name: 'Search Input' });
-      await searchInput.fill('Garfield');
-      await searchInput.press('Enter');
-    });
+## Debugging and Reporting
 
-    await test.step('Verify search results', async () => {
-      // Verify the accessibility tree of the search results
-      await expect(page.getByRole('main')).toMatchAriaSnapshot(`
-        - main:
-          - heading "Garfield" [level=1]
-          - heading "search results" [level=2]
-          - list "movies":
-            - listitem "movie":
-              - link "poster of The Garfield Movie The Garfield Movie rating":
-                - /url: /playwright-movies-app/movie?id=tt5779228&page=1
-                - img "poster of The Garfield Movie"
-                - heading "The Garfield Movie" [level=2]
-      `);
-    });
-  });
-});
-```
+- Use strict mode to catch multiple elements matching a locator.
+- Enable tracing on 'retain-on-failure' in config.
+- Use `console.log` sparingly; prefer Playwright's reporter API.
 
-## Test Execution Strategy
+## Parallel Execution
 
-1. **Initial Run**: Execute tests with `npx playwright test --project=chromium`
-2. **Debug Failures**: Analyze test failures and identify root causes
-3. **Iterate**: Refine locators, assertions, or test logic as needed
-4. **Validate**: Ensure tests pass consistently and cover the intended functionality
-5. **Report**: Provide feedback on test results and any issues discovered
-
-## Quality Checklist
-
-Before finalizing tests, ensure:
-- [ ] All locators are accessible and specific and avoid strict mode violations
-- [ ] Tests are grouped logically and follow a clear structure
-- [ ] Assertions are meaningful and reflect user expectations
-- [ ] Tests follow consistent naming conventions
-- [ ] Code is properly formatted and commented
+- Tests run in parallel by default; ensure isolation.
+- Use `test.describe.configure({ mode: 'parallel' })` explicitly if needed.
+- Avoid colliding on shared backend resources; use unique IDs for generated data.
