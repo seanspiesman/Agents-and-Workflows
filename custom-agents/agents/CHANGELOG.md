@@ -81,4 +81,4 @@ All notable changes to agent definitions in this directory.
 ## [Thu Jan 16 02:47:00 PST 2026] — Researcher Agent Restoration
 
 ### researcher.agent.md
-- **Created**: Agent restored as vital for "zero to hero" workflow, responsible for subject matter research using `context7`, `fetch`, and other sources.
+- **Created**: Agent restored as vital for "zero to hero" workflow, responsible for subject matter research using `io.github.upstash/context7/*`, `fetch`, and other sources.

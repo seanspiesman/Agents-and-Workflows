@@ -41,7 +41,7 @@ To pay down technical debt by identifying hotspots, designing better patterns, p
 ### Phase 5: Regression Verification
 **Goal**: Zero behavior change.
 1.  **QA Agent**: Run via `runSubagent`.
-    -   **Task**: "Run full regression suite. `run_command` tests, `playwright`/`ios-simulator` for UI. Verify library usage with `context7`."
+    -   **Task**: "Run full regression suite. `run_command` tests, `playwright`/`ios-simulator` for UI. Verify library usage with `io.github.upstash/context7/*`."
     -   **Action**: Fail -> Revert/Fix. Pass -> Success.
 
 ### Phase 6: Project Completion

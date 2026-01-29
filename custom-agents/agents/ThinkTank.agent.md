@@ -20,7 +20,7 @@ tools:
   - 'rag/rag_ingest'
   - 'sequential-thinking/*'
   - 'todo'
-  - 'context7'
+  - 'io.github.upstash/context7/*'
 
 handoffs:
   - label: Task Complete

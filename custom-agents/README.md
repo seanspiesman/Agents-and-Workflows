@@ -10,21 +10,21 @@ Specialized AI personas, each with a dedicated role and specific toolset. Agents
 | Agent | Role & Description | Primary Tools & Capabilities |
 | :--- | :--- | :--- |
 | **Orchestrator** | **Master Project Manager**. The central executive that drives the entire SDLC by coordinating specialist agents. | `agent/runSubagent`, Coordination, Handoff Management. |
-| **Analyst** | **Technical Investigator**. Specialist for code-level investigation, determination, and fit-gap analysis. | `vscode`, `search`, `web`, `context7`, Code exploration. |
-| **Architect** | **System Designer**. Maintains architectural coherence across features and reviews technical debt accumulation. | `rag/rag_search`, `context7`, ADR creation, Design Review. |
-| **Implementer** | **Execution Expert**. Coding agent that implements approved plans with a rigorous interaction verification loop. | `playwright`, `ios-simulator`, `rag/rag_search`, `context7`. |
-| **Planner** | **Strategy Assistant**. High-rigor planning for upcoming feature changes and atomic task breakdown. | `read/problems`, `search`, `web`, `context7`, Step-by-step planning. |
-| **Critic** | **Program Reviewer**. Constructive reviewer that stress-tests planning documents and code quality. | `read/problems`, `search`, `context7`, Rigorous review, Quality Gate. |
+| **Analyst** | **Technical Investigator**. Specialist for code-level investigation, determination, and fit-gap analysis. | `vscode`, `search`, `web`, `io.github.upstash/context7/*`, Code exploration. |
+| **Architect** | **System Designer**. Maintains architectural coherence across features and reviews technical debt accumulation. | `rag/rag_search`, `io.github.upstash/context7/*`, ADR creation, Design Review. |
+| **Implementer** | **Execution Expert**. Coding agent that implements approved plans with a rigorous interaction verification loop. | `playwright`, `ios-simulator`, `rag/rag_search`, `io.github.upstash/context7/*`. |
+| **Planner** | **Strategy Assistant**. High-rigor planning for upcoming feature changes and atomic task breakdown. | `read/problems`, `search`, `web`, `io.github.upstash/context7/*`, Step-by-step planning. |
+| **Critic** | **Program Reviewer**. Constructive reviewer that stress-tests planning documents and code quality. | `read/problems`, `search`, `io.github.upstash/context7/*`, Rigorous review, Quality Gate. |
 | **QA** | **Quality Assurance**. Verifies test coverage and execution before implementation approval. | `playwright`, `ios-simulator`, `rag/rag_search`, `edit/editNotebook`. |
-| **DevOps** | **Release Specialist**. responsible for packaging, versioning, deployment readiness, and release execution. | `execute`, `search`, `context7`, Deployment readiness. |
-| **Security** | **Audit Specialist**. Comprehensive security audits for architecture, code, dependencies, and compliance. | `read/problems`, `search`, `web`, `context7`, Security audit. |
+| **DevOps** | **Release Specialist**. responsible for packaging, versioning, deployment readiness, and release execution. | `execute`, `search`, `io.github.upstash/context7/*`, Deployment readiness. |
+| **Security** | **Audit Specialist**. Comprehensive security audits for architecture, code, dependencies, and compliance. | `read/problems`, `search`, `web`, `io.github.upstash/context7/*`, Security audit. |
 | **UAT** | **User Validator**. Product Owner persona conducting UAT to verify business value delivery. | `playwright`, `ios-simulator`, `search`, `todo`. |
-| **Navigator** | **UX Explorer**. Autonomous explorer that navigates applications and identifies blocking/non-blocking bugs. | `playwright`, `ios-simulator`, `rag/rag_search`, `context7`, UX exploration. |
-| **ArcGIS Specialist** | **Mapping SME**. Subject Matter Expert for all things ArcGIS, spatial data, and geographic logic. | `search`, `web`, `context7`, Spatial math, Schema design. |
-| **Researcher** | **Domain SME**. Subject Matter Expert that researches domain content, market data, and user needs (non-technical). | `search`, `web`, `context7`, Market research. |
-| **Retrospective** | **Pattern Capturer**. Captures lessons learned, architectural decisions, and patterns after implementation completes. | `edit/createFile`, `search`, `web`, `context7`, Pattern capture. |
-| **Roadmap** | **Vision Holder**. Strategic vision holder maintaining outcome-focused product roadmap aligned with releases. | `rag/rag_search`, `search`, `web`, `context7`, Strategic vision. |
-| **PI (Process Improvement)** | **Workflow Optimizer**. Analyzes retrospectives and systematically improves agent workflows. | `vscode`, `search`, `web`, `context7`, Workflow optimization. |
+| **Navigator** | **UX Explorer**. Autonomous explorer that navigates applications and identifies blocking/non-blocking bugs. | `playwright`, `ios-simulator`, `rag/rag_search`, `io.github.upstash/context7/*`, UX exploration. |
+| **ArcGIS Specialist** | **Mapping SME**. Subject Matter Expert for all things ArcGIS, spatial data, and geographic logic. | `search`, `web`, `io.github.upstash/context7/*`, Spatial math, Schema design. |
+| **Researcher** | **Domain SME**. Subject Matter Expert that researches domain content, market data, and user needs (non-technical). | `search`, `web`, `io.github.upstash/context7/*`, Market research. |
+| **Retrospective** | **Pattern Capturer**. Captures lessons learned, architectural decisions, and patterns after implementation completes. | `edit/createFile`, `search`, `web`, `io.github.upstash/context7/*`, Pattern capture. |
+| **Roadmap** | **Vision Holder**. Strategic vision holder maintaining outcome-focused product roadmap aligned with releases. | `rag/rag_search`, `search`, `web`, `io.github.upstash/context7/*`, Strategic vision. |
+| **PI (Process Improvement)** | **Workflow Optimizer**. Analyzes retrospectives and systematically improves agent workflows. | `vscode`, `search`, `web`, `io.github.upstash/context7/*`, Workflow optimization. |
 
 ---
 
