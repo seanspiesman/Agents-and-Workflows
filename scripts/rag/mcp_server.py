@@ -34,6 +34,10 @@ async def handle_list_tools() -> list[types.Tool]:
                         "type": "integer",
                         "description": "Number of results to return. Default is 5.",
                         "default": 5
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Optional tag to filter results by (e.g. 'zerotohero', 'project-x')."
                     }
                 },
                 "required": ["query"]
@@ -49,6 +53,14 @@ async def handle_list_tools() -> list[types.Tool]:
                         "type": "array",
                         "items": {"type": "string"},
                         "description": "List of absolute file paths to ingest."
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Tag to apply to the ingested documents (e.g. 'zerotohero')."
+                    },
+                    "clean": {
+                        "type": "boolean",
+                        "description": "If true, wipes the database before ingestion. Use for fresh starts."
                     }
                 },
                 "required": ["files"]
@@ -63,12 +75,13 @@ async def handle_call_tool(
     if name == "rag_search":
         query = arguments.get("query")
         n_results = arguments.get("n_results", 5)
+        tag = arguments.get("tag")
 
         if not query:
             raise ValueError("Missing 'query' argument")
 
         # Perform the search
-        results = rag_system.query(query, n_results=n_results)
+        results = rag_system.query(query, n_results=n_results, where={"tag": tag} if tag else None)
 
         # Format the output
         formatted_text = []
@@ -93,13 +106,16 @@ async def handle_call_tool(
 
     elif name == "rag_ingest":
         files = arguments.get("files")
+        tag = arguments.get("tag")
+        clean = arguments.get("clean", False)
+        
         if not files or not isinstance(files, list):
              raise ValueError("Missing or invalid 'files' argument. Must be a list of strings.")
         
         # Import run_ingest dynamically to avoid circular issues or early loading
         from ingest import run_ingest
         
-        count = run_ingest(files=files)
+        count = run_ingest(files=files, clean=clean, tag=tag)
         
         return [types.TextContent(type="text", text=f"Successfully ingested {count} files.")]
 

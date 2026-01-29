@@ -14,12 +14,13 @@ To build a modern, scalable, and secure application by systematically executing 
 
 ### Phase 0: Environment Validation & Initialization
 **Goal**: Ensure the environment is ready for "Hero" work.
-1.  **Initialize Backbone**:
+1.  **Clean Start**: Run `scripts/rag/rag_ingest --clean --tag "zerotohero"` to ensure fresh memory.
+2.  **Initialize Backbone**:
     -   Create directories: `management`, `logs`, `reports`, `architecture`, `planning`, `analysis`, `context`, `design`.
     -   Create files: (none).
-2.  **Read Standards**: Read `custom-agents/instructions/output_standards.md` to understand output requirements.
-3.  **Check Permissions**: Verify write access to `agent-output/`.
-4.  **Rescue**: If any tool is missing, HALT immediately.
+3.  **Read Standards**: Read `custom-agents/instructions/output_standards.md` to understand output requirements.
+4.  **Check Permissions**: Verify write access to `agent-output/`.
+5.  **Rescue**: If any tool is missing, HALT immediately.
 
 ### Phase 1: Inception & Strategy
 **Goal**: Define *what* to build and *why* it matters.

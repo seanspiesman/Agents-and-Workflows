@@ -1,6 +1,8 @@
 import os
 import glob
 import uuid
+import hashlib
+import time
 from rag_core import RAGSystem
 
 # Setup debug logging
@@ -37,6 +39,20 @@ def should_ignore(path):
         if part in IGNORE_DIRS:
             return True
     return False
+
+def calculate_file_hash(filepath):
+    """Calculate MD5 hash of a file."""
+    hasher = hashlib.md5()
+    try:
+        with open(filepath, 'rb') as f:
+            buf = f.read(65536)
+            while len(buf) > 0:
+                hasher.update(buf)
+                buf = f.read(65536)
+        return hasher.hexdigest()
+    except Exception as e:
+        print(f"Error calculating hash for {filepath}: {e}")
+        return None
 
 def get_files_to_ingest(root_dir):
     """
@@ -108,12 +124,19 @@ def chunk_file(file_path, chunk_size=1000, overlap=100):
     
     return chunks
 
-def run_ingest(files=None, root_dir=None):
+def run_ingest(files=None, root_dir=None, clean=False, tag=None):
     """
     Programmatic entry point for ingestion.
     :param files: List of absolute file paths to ingest.
     :param root_dir: Root directory of the project (default: 2 levels up).
+    :param clean: If True, wipe the database before ingestion.
+    :param tag: Optional tag to add to metadata (e.g. 'zerotohero').
     """
+    if clean:
+        print("Cleaning RAG database before ingestion...")
+        from clean import clean_database
+        clean_database(force=True)
+
     print("Initializing RAG System...")
     rag = RAGSystem()
     
@@ -161,6 +184,11 @@ def run_ingest(files=None, root_dir=None):
     
     for i, file_path in enumerate(target_files):
         log_debug(f"Processing ({i+1}/{len(target_files)}): {file_path}")
+        
+        # Calculate file metadata
+        file_hash = calculate_file_hash(file_path)
+        last_modified = os.path.getmtime(file_path)
+        
         chunks = chunk_file(file_path)
         if not chunks:
             continue
@@ -170,7 +198,16 @@ def run_ingest(files=None, root_dir=None):
         for j, chunk in enumerate(chunks):
             doc_id = f"{rel_path}::{j}"
             documents.append(chunk)
-            metadatas.append({"source": rel_path, "chunk_index": j})
+            metadata = {
+                "source": rel_path, 
+                "chunk_index": j,
+                "file_hash": file_hash if file_hash else "",
+                "last_modified": last_modified
+            }
+            if tag:
+                metadata["tag"] = tag
+            
+            metadatas.append(metadata)
             ids.append(doc_id)
             
         # Batch insert every 10 files to avoid memory explosion
@@ -191,10 +228,12 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description="Ingest files into the RAG system.")
     parser.add_argument('files', metavar='FILE', type=str, nargs='*', help='Specific files to ingest. If empty, scans all.')
+    parser.add_argument('--clean', action='store_true', help='Clean the database before ingestion')
+    parser.add_argument('--tag', type=str, help='Tag to apply to ingested documents', default=None)
     args = parser.parse_args()
 
     # Pass args.files (list of strings) directly to run_ingest
-    run_ingest(files=args.files)
+    run_ingest(files=args.files, clean=args.clean, tag=args.tag)
 
 if __name__ == "__main__":
     main()

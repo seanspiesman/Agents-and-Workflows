@@ -92,11 +92,12 @@ class RAGSystem:
             ids=ids
         )
 
-    def query(self, query_text, n_results=5):
+    def query(self, query_text, n_results=5, where=None):
         query_embedding = self.embed_text(query_text)
         
         results = self.collection.query(
             query_embeddings=[query_embedding],
-            n_results=n_results
+            n_results=n_results,
+            where=where
         )
         return results

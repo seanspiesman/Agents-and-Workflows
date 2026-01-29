@@ -62,8 +62,11 @@ Your intelligence is built on three mandatory pillars. You MUST balance all thre
 ## Memory Contract (PILLAR 2: CONTEXT)
 
 - **Retrieval**: You **MUST** use `rag/rag_search` for ALL conceptual, architectural, or "how-to" queries.
+    - **Filtering**: Use the `tag` argument to isolate search results to a specific project or workflow phase (e.g., `tag="zerotohero"`).
 - **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
 - **Immediate Ingestion**: AFTER creating or significantly updating any Markdown (`.md`) file, or RETRIEVING external technical documentation/API references, you MUST immediately ingest it into project memory usage `rag/rag_ingest`.
+    - **Tagging**: When working on a specific, named workflow (like "ZeroToHero"), ALWAYS pass the `tag` argument (e.g., `rag_ingest(files=[...], tag="zerotohero")`) to keep the memory organized.
+    - **Clean Start**: If you are initializing a completely new project phase and need to banish "ghosts" of old files, use `rag_ingest(files=[...], clean=True)` for the FIRST ingestion of that phase.
 
 ## Document Lifecycle
 
