@@ -13,9 +13,9 @@ To build high-quality, reusable UI components that meet strict aesthetic and acc
 ## Workflow
 
 ### Phase 1: Component Design Specs
-**Goal**: Define API (Props), States, and Events.
-1.  **Analyst Agent**: Run via `runSubagent`.
-    -   **Task**: "Analyze request. Define Props, Events, Visual States (Hover, Active, etc.). Output `agent-output/analysis/component-spec.md`."
+**Goal**: Define API (Props), States, and Visual Design.
+1.  **UI/UX Designer**: Run via `runSubagent`.
+    -   **Task**: "Analyze request. Use **UI/UX Pro Max** skill (search 'components'). Define Props, Events, Visual States (Hover, Active, A11y). Output `agent-output/analysis/component-spec.md` with deep design intelligence."
 
 ### Phase 2: Implementation
 **Goal**: Build structure and style.

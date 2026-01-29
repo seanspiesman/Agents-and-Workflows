@@ -7,23 +7,11 @@ def clean_database(force=False):
     """
     Removes the RAG database directory.
     """
-    # Initialize RAGSystem just to get the db_path
-    # We don't want to create the collection if it doesn't exist, but __init__ might.
-    # actually __init__ creates the client but doesn't necessarily create collection until we ask?
-    # Looking at rag_core.py: 
-    # self.client = chromadb.PersistentClient(path=self.db_path)
-    # self.collection = self.client.get_or_create_collection(...)
-    # So simply instantiating it might create stuff. 
-    # Let's just use the logic from rag_core.py to find the path without instantiating if possible, 
-    # OR just instantiate it and then close/delete.
-    
-    # Replicating path logic to avoid side effects of instantiation if possible, 
-    # but reusing logic is better.
-    # Let's try to just import the path logic or instantiate. 
-    # Instantiating is safe enough, we are about to delete it anyway.
-    
-    rag = RAGSystem()
-    db_path = rag.db_path
+    # Calculate path manually to avoid instantiating RAGSystem (which creates locks)
+    # Assuming this script is in scripts/rag/clean.py
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.abspath(os.path.join(current_dir, '../..'))
+    db_path = os.path.join(project_root, "agent-output/memory/chroma_db")
     
     print(f"RAG Database Path: {db_path}")
     

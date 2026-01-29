@@ -6,5 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Source the setup script to ensure environment variables and python venv are set
 source "$SCRIPT_DIR/setup-rag.sh"
 
+# Kill any running MCP servers for this specific project to release locks/memory
+echo "Stopping background RAG servers..."
+pkill -f "$SCRIPT_DIR/mcp_server.py" || true
+
 # Run the python cleaning script
 python3 "$SCRIPT_DIR/clean.py" "$@"

@@ -20,7 +20,15 @@ To implement a specific feature request by analyzing the current context, planni
     -   **Check**: Missed existing patterns? correct integration point?
     -   **Action**: Reject -> Analyst refines. Approve -> Proceed.
 
-### Phase 2: Feature Implementation Plan
+### Phase 2: UI/UX Design
+**Goal**: Define visual alignment and interaction patterns.
+1.  **UI/UX Designer**: Run via `runSubagent`.
+    -   **Task**: "Read `feature-context-analysis.md`. Use **UI/UX Pro Max** skill to ensure the new feature matches the existing design system. Define colors, components, and user flows for the addition. Output `agent-output/design/feature-design.md`."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Check**: Consistent with existing UI? Premium feel?
+    -   **Action**: Reject -> Designer refines. Approve -> Proceed.
+
+### Phase 3: Feature Implementation Plan
 **Goal**: Create a step-by-step task list.
 1.  **Planner Agent**: Run via `runSubagent`.
     -   **Task**: "Read `feature-context-analysis.md`. Break feature into atomic tasks. Define 'Definition of Done'. Output `agent-output/planning/feature-implementation-plan.md`."
@@ -28,7 +36,7 @@ To implement a specific feature request by analyzing the current context, planni
     -   **Check**: Vague steps? Logical flow?
     -   **Action**: Reject -> Planner refines. Approve -> Proceed.
 
-### Phase 3: The Development Loop
+### Phase 4: The Development Loop
 **Goal**: Implement and verify iteratively.
 1.  **Implementer Agent**: Run via `runSubagent`.
     -   **Task**: "Execute loop from `feature-implementation-plan.md`:
@@ -39,7 +47,7 @@ To implement a specific feature request by analyzing the current context, planni
         5.  **Refine**: Fix issues.
         6.  **Done**: Write `agent-output/reports/feature-complete.md` when finished."
 
-### Phase 4: User Acceptance (UAT)
+### Phase 5: User Acceptance (UAT)
 **Goal**: Verify USER perspective.
 1.  **UAT Agent**: Run via `runSubagent`.
     -   **Task**: "Perform final user-centric validation. Does it solve the problem? Output `agent-output/uat/feature-acceptance.md`."
@@ -47,11 +55,11 @@ To implement a specific feature request by analyzing the current context, planni
     -   **Check**: Did we solve the user's problem?
     -   **Action**: Reject -> Fix. Approve -> Proceed.
 
-### Phase 5: Documentation & Completion
+### Phase 6: Documentation & Completion
 1.  **Analyst Agent**: Run via `runSubagent`.
     -   **Task**: "Update README and docs. Output `agent-output/reports/feature-integration-report.md`."
 
-### Phase 6: Retrospective
+### Phase 7: Retrospective
 1.  **Retrospective Agent**: Run via `runSubagent`.
     -   **Task**: "Analyze cycle. Output `agent-output/retrospectives/retrospective-[id].md`."
 

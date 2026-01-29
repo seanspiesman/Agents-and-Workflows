@@ -147,8 +147,29 @@ for target_dir in "${TARGET_DIRS[@]}"; do
         if rsync -av --delete "$RAG_SOURCE_DIR/" "$target_rag_dir/"; then
              echo -e "    ✓ RAG scripts synced"
         else
-             echo -e "    ${RED}✗ RAG scripts sync failed${NC}"
              local_fail=1
+        fi
+    fi
+    
+    # 5. Sync .vscode/mcp.json for RAG functionality
+    # This ensures the local project has the correct RAG configuration
+    SOURCE_MCP="$ROOT_DIR/.vscode/mcp.json"
+    if [ -f "$SOURCE_MCP" ]; then
+        TARGET_VSCODE="$PROJECT_ROOT/.vscode"
+        TARGET_MCP="$TARGET_VSCODE/mcp.json"
+        
+        if [ "$SOURCE_MCP" == "$TARGET_MCP" ]; then
+            echo -e "    ✓ mcp.json synced (skipped self)"
+        else
+            echo -e "  Syncing .vscode/mcp.json..."
+            mkdir -p "$TARGET_VSCODE"
+            
+            if cp "$SOURCE_MCP" "$TARGET_MCP"; then
+                 echo -e "    ✓ mcp.json synced"
+            else
+                 echo -e "    ${RED}✗ mcp.json sync failed${NC}"
+                 local_fail=1
+            fi
         fi
     fi
 

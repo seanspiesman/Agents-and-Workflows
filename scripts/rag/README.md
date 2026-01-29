@@ -59,10 +59,10 @@ Can be run via an MCP client.
 ## VS Code Configuration
 To use this MCP server automatically in VS Code (with an MCP client extension), add the following to your `${workspaceFolder}/.vscode/mcp.json`. 
 
-**Universal Configuration Features:**
+**Safe Configuration Features:**
 -   **Portable**: Works in both the primary repository and any synced projects.
 -   **Zero-Config Sync**: Once synced via `sync-agents.sh`, this configuration works out-of-the-box in the target repo.
--   **Smart Discovery**: Uses Mac's Spotlight (`mdfind`) as a fallback to locate the RAG script if the server starts in a different directory.
+-   **Project-Scoped**: STRICTLY looks for the script in the current project or `.github` folder. Fails safely if not found, preventing it from accidentally checking out other projects.
 -   **Centralized**: Automatically uses the shared virtual environment in `~/Library/Application Support/Code - Insiders/rag_env`.
 
 ```json
@@ -72,9 +72,10 @@ To use this MCP server automatically in VS Code (with an MCP client extension), 
       "command": "bash",
       "args": [
         "-c",
-        "for p in 'scripts/rag/start-rag-mcp.sh' '.github/rag/start-rag-mcp.sh'; do if [ -f \"$p\" ]; then bash \"$p\"; exit; fi; done; SCRIPT=$(mdfind \"kMDItemFSName == 'start-rag-mcp.sh'\" | xargs ls -ut 2>/dev/null | head -n 1); if [ -n \"$SCRIPT\" ]; then bash \"$SCRIPT\"; else echo 'RAG startup script not found' >&2; exit 1; fi"
+        "if [ -f 'scripts/rag/start-rag-mcp.sh' ]; then bash 'scripts/rag/start-rag-mcp.sh'; elif [ -f '.github/rag/start-rag-mcp.sh' ]; then bash '.github/rag/start-rag-mcp.sh'; else echo 'RAG startup script not found in current project' >&2; exit 1; fi"
       ],
-      "env": { "PYTHONUNBUFFERED": "1" }
+      "env": { "PYTHONUNBUFFERED": "1" },
+      "cwd": "${workspaceFolder}"
     }
   }
 }

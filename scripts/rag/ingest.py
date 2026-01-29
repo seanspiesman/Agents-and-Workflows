@@ -1,8 +1,13 @@
-
 import os
 import glob
 import uuid
 from rag_core import RAGSystem
+
+# Setup debug logging
+def log_debug(msg):
+    with open(os.path.join(os.path.dirname(__file__), 'rag_debug.log'), 'a') as f:
+        f.write(f"{msg}\n")
+
 
 # Configuration
 IGNORE_DIRS = {'.git', '.venv', 'node_modules', '__pycache__', '.idea', '.vscode', 'dist', 'build', 'coverage', "bun","obj"}
@@ -118,15 +123,16 @@ def run_ingest(files=None, root_dir=None):
     target_files = []
     
     if files:
-        print(f"Incremental Ingestion: Processing {len(files)} target(s)...")
+        log_debug(f"Incremental Ingestion: Processing {len(files)} target(s)...")
         for f in files:
             abs_path = os.path.abspath(f)
+            log_debug(f"Checking path: {abs_path}")
             if not os.path.exists(abs_path):
-                print(f"Warning: Target not found: {f}")
+                log_debug(f"Warning: Target not found: {f}")
                 continue
             
             if os.path.isdir(abs_path):
-                print(f"Scanning directory: {abs_path}")
+                log_debug(f"Scanning directory: {abs_path}")
                 # Recursively find files in this directory
                 for root, _, filenames in os.walk(abs_path):
                     if should_ignore(root):
@@ -142,19 +148,19 @@ def run_ingest(files=None, root_dir=None):
                 if ext in INCLUDE_EXTENSIONS:
                     target_files.append(abs_path)
                 else:
-                    print(f"Skipping {f}: Extension {ext} not in whitelist.")
+                    log_debug(f"Skipping {f}: Extension {ext} not in whitelist.")
     else:
-        print(f"Full Scan: Scanning directory: {root_dir}")
+        log_debug(f"Full Scan: Scanning directory: {root_dir}")
         target_files = get_files_to_ingest(root_dir)
     
-    print(f"Found {len(target_files)} files to ingest.")
+    log_debug(f"Found {len(target_files)} files to ingest.")
     
     documents = []
     metadatas = []
     ids = []
     
     for i, file_path in enumerate(target_files):
-        print(f"Processing ({i+1}/{len(target_files)}): {file_path}")
+        log_debug(f"Processing ({i+1}/{len(target_files)}): {file_path}")
         chunks = chunk_file(file_path)
         if not chunks:
             continue
@@ -178,7 +184,7 @@ def run_ingest(files=None, root_dir=None):
     if documents:
         rag.add_documents(documents, metadatas, ids)
 
-    print("Ingestion Complete.")
+    log_debug("Ingestion Complete.")
     return len(target_files)
 
 def main():

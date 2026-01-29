@@ -39,7 +39,16 @@ To build a modern, scalable, and secure application by systematically executing 
     -   **Check**: Modern tools? Risks addressed?
     -   **Action**: Reject -> Analyst refines. Approve -> Proceed.
 
-### Phase 3: Architectural Design
+### Phase 3: UI/UX Design
+**Goal**: Define the visual language and user experience.
+1.  **UI/UX Designer**: Run via `runSubagent`.
+    -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `technical-feasibility.md` and `product-brief.md`. Use **UI/UX Pro Max** skill (search 'style' and 'design-system'). Define Color Palette, Typography, and Component Styles. Create Mermaid User Flows. Output `agent-output/design/ui-ux-design.md`."
+2.  **Critique Loop**: Run **Critic** agent.
+    -   **Review**: `agent-output/design/ui-ux-design.md`.
+    -   **Check**: Premium aesthetics? Accessible (WCAG)? Detailed?
+    -   **Action**: Reject -> Designer refines. Approve -> Proceed.
+
+### Phase 4: Architectural Design
 **Goal**: Design system structure and data flow.
 1.  **Architect Agent**: Run via `runSubagent`.
     -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `technical-feasibility.md`. Define System Design & Data Models. Create Mermaid flowcharts. Use **QA** agent to audit. Extract Design System to `agent-output/architecture/design-system.md`. Output `agent-output/architecture/system-architecture.md`."
@@ -48,7 +57,7 @@ To build a modern, scalable, and secure application by systematically executing 
     -   **Check**: Scalable? Clean? Strict flowchart syntax?
     -   **Action**: Reject -> Architect redesigns. Approve -> Proceed.
 
-### Phase 4: Master Planning
+### Phase 5: Master Planning
 **Goal**: Create a step-by-step execution guide.
 1.  **Planner Agent**: Run via `runSubagent`.
     -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Read `system-architecture.md`. Break project into phases. Define granular tasks with 'Definition of Done'. Align with `product-brief.md`. Output `agent-output/planning/master-implementation-plan.md`."
@@ -58,7 +67,7 @@ To build a modern, scalable, and secure application by systematically executing 
     -   **Action**: Reject -> Planner details. Approve -> Proceed.
 3.  **Rescue**: If Plan is missing/empty, HALT.
 
-### Phase 5: The Implementation Loop
+### Phase 6: The Implementation Loop
 **Goal**: Build and verify components.
 1.  **Implementer Agent**: Run via `runSubagent`.
     -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Execute the loop:
@@ -72,7 +81,7 @@ To build a modern, scalable, and secure application by systematically executing 
         6.  **Loop**: Next component.
         7.  **Finish**: Vision check against `product-brief.md`. Write `agent-output/reports/implementation-complete.md`."
 
-### Phase 6: Security Audit
+### Phase 7: Security Audit
 **Goal**: Ensure safety and compliance.
 1.  **Security Agent**: Run via `runSubagent`.
     -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Static analysis, CVE checks (XSS, LocalStorage, Dependencies). Output `agent-output/security/security-audit.md`."
@@ -81,7 +90,7 @@ To build a modern, scalable, and secure application by systematically executing 
     -   **Check**: Actionable? Missed vectors?
     -   **Action**: Reject -> Rescan. Approve -> Fixes applied.
 
-### Phase 7: User Acceptance (UAT)
+### Phase 8: User Acceptance (UAT)
 **Goal**: Verify "Hero" status.
 1.  **UAT Agent**: Run via `runSubagent`.
     -   **Task**: "Read `custom-agents/instructions/output_standards.md`. Read Product Vision. Perform walkthrough w/ `ios-simulator` or `playwright`. Does it feel premium? Output `agent-output/uat/final-acceptance.md`."
@@ -90,14 +99,14 @@ To build a modern, scalable, and secure application by systematically executing 
     -   **Check**: Rigorous?
     -   **Action**: Reject -> Re-verify. Approve -> Proceed.
 
-### Phase 8: Documentation & Completion
+### Phase 9: Documentation & Completion
 1.  **Analyst Agent**: Run via `runSubagent`.
     -   **Task**: "Create beautiful READMEs with screenshots."
 2.  **Critique Loop**: Run **Critic** agent.
     -   **Review**: Final Documentation.
     -   **Action**: Approve -> Proceed.
 
-### Phase 9: Retrospective
+### Phase 10: Retrospective
 1.  **Retrospective Agent**: Run via `runSubagent`.
     -   **Task**: "Read all artifacts. Identify improvements. Output `agent-output/retrospectives/retrospective-[id].md`."
 
