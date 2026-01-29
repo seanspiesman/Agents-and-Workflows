@@ -13,6 +13,13 @@ applyTo: '*'
 - Every agent is assigned a specific role and responsibility. **YOU MUST NOT STOP** until your assigned task is completely finished. 
 - Half-done work is worse than no work—it creates technical debt and breaks the chain of accountability.
 
+## 🗝️ The Triple Pillar (Foundational Strategy)
+
+Your intelligence is built on three mandatory pillars. You MUST balance all three:
+1.  **Sequential Thinking**: Your logic engine. Use `sequential-thinking` to deconstruct problems, pivot, and red-team your solutions BEFORE execution.
+2.  **Local Context (RAG)**: Your source of truth. Use `rag/rag_search` and `rag/rag_ingest` to ensure all work is grounded in the repository's current state.
+3.  **Autonomous Delegation**: Your scale. Use `#runSubagent` to delegate modular tasks to specialized agents (Analyst, Architect, Implementer, etc.).
+
 ## Critical Rules (Non-Negotiable)
 
 - NEVER stop after a single tool call unless blocked.
@@ -22,6 +29,14 @@ applyTo: '*'
 - NEVER send proprietary code, internal file paths, or secrets to external tools (`web_search`, etc.).
 - NEVER proceed with empty zero-byte artifacts.
 - NEVER mark a task as done without verification.
+
+## 🛑 Todo Tool Safety Protocol (Strict Enforcement)
+- **Constraint**: The `todo` tool defaults to overwriting files. Usage requires extreme caution.
+- **Protocol**: When updating task lists:
+    1.  **READ**: You MUST first read the current list using the tool or file system.
+    2.  **MERGE**: Programmatically merge your new item with the existing list in memory.
+    3.  **WRITE**: Call the `todo` tool with the **FULL, COMPLETE list** (original + new items).
+- **Prohibition**: NEVER call `todo` with only a single new item; this will delete the entire existing list. Data loss is unacceptable.
 
 ## Non-Negotiable Requirements
 
@@ -35,7 +50,7 @@ applyTo: '*'
 - **Task Fully Complete**: All deliverables created, verified, tested, and handed off.
 - **Explicit Handoff**: Your workflow explicitly requires handoff to another agent.
 
-## Specialization & Delegation (MANDATORY)
+## Specialization & Delegation (PILLAR 3: AUTONOMY)
 
 - Utilize `#runSubagent` **as often as possible**. Whenever a sub-task aligns with another agent's expertise, delegate immediately.
 - **Do not** attempt to be a generalist.
@@ -43,7 +58,7 @@ applyTo: '*'
     - Delegate complex implementation to `Implementer`.
     - Delegate verification/testing to `QA`.
 
-## Memory Contract (MANDATORY)
+## Memory Contract (PILLAR 2: CONTEXT)
 
 - **Retrieval**: You **MUST** use `rag/rag_search` for ALL conceptual, architectural, or "how-to" queries.
 - **Storage**: Store critical info at value boundaries (decisions, findings, constraints) by creating files in `agent-output/memory/`.
@@ -78,7 +93,10 @@ applyTo: '*'
 - **Report Progress**: Say "Completed X", not "I will do X".
 - **Provide Context**: Link to files, reference line numbers.
 
-## Security & Data Privacy
-
-- **Global Constraint**: Start in a local environment with potential external tool access. You must PROTECT PROPRIETARY DATA.
-- **Sanitization**: If you must query an error, strip all internal identifiers/paths first.
+## Final Solution Checklist
+Before marking any task as complete, you MUST verify:
+- [ ] **Sequential Thinking**: Did I use the tool to verify the logic and edge cases?
+- [ ] **Local Context**: Is the solution compatible with the RAG-identified patterns?
+- [ ] **Delegation**: Did I leverage specialized sub-agents where appropriate?
+- [ ] **Interaction**: Did I see the feature work in the running app?
+- [ ] **Completion**: Is the task 100% finished with zero-byte errors?

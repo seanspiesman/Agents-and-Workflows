@@ -10,7 +10,8 @@ applyTo: '*'
 - **Agent**: An AI entity with a specific role.
 - **Workflow**: A defined sequence of steps to achieve a task.
 - **Instruction**: A set of rules effectively programming the agent's behavior.
-- **Artifact**: A file created by an agent (e.g., task.md, implementation_plan.md).
+- **Artifact**: A file created by an agent (e.g., implementation_plan.md).
+- **The Triple Pillar**: The mandatory foundational strategy for all agents, consisting of **Sequential Thinking**, **Local Context (RAG)**, and **Autonomous Delegation (#runSubagent)**.
 
 ## Naming Conventions
 

@@ -7,16 +7,15 @@ All agents participating in the Zero to Hero workflow MUST adhere to these stand
     -   ✅ `technical-feasibility.md`
     -   ❌ `Technical-Feasibility.md`, `TechnicalFeasibility.md`, `technical feasibility.md`
 -   **No Redundant IDs**: Avoid generic IDs in filenames.
-    -   ✅ `phase-1-report.md`
-    -   ❌ `PHASE_1_COMPLETE_FINAL.md`
+    -   ✅ `product-brief.md`
+    -   ❌ `PRODUCT_BRIEF_FINAL.md`
 
 ## 2. Directory Structure
 -   **Flat & Categorical**:
     -   `context/`: Input specs and briefs.
-    -   `reports/`: Consolidated phase reports. ONE report per phase.
     -   `architecture/`: System design and ADRs.
     -   `planning/`: Implementation plans.
--   **No Duplicate Folders**: Do not use `handoffs/` if `reports/` already contains the status.
+-   **No Redundant Reports**: Do not create summary or status reports for completed phases. Information should be stored in the primary deliverables or memory.
 
 ## 3. Handoff Protocol
 -   **Link, Don't Copy**: A handoff is a *signal*. It should contain links to the relevant artifacts, not a copy of their content.

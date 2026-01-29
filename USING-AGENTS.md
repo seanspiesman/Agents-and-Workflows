@@ -167,7 +167,7 @@ That's it! The agents handle the rest automatically.
 
 **Tips**:
 - Start here! The Orchestrator knows who to call next.
-- It manages `task.md` as the source of truth.
+- It manages the task list as the source of truth.
 
 ---
 

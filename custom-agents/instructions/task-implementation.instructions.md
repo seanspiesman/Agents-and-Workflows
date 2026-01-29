@@ -14,7 +14,7 @@ applyTo: 'agent-output/*.md'
 
 ## Artifact Management
 
-- Maintain `task.md` relative to the current objective.
+- Maintain the task list using the `todo` tool relative to the current objective.
 - Update status frequently.
 
 ## Critical Rules (Consistency)

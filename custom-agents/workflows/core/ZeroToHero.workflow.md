@@ -15,8 +15,8 @@ To build a modern, scalable, and secure application by systematically executing 
 ### Phase 0: Environment Validation & Initialization
 **Goal**: Ensure the environment is ready for "Hero" work.
 1.  **Initialize Backbone**:
-    -   Create directories: `management`, `logs`, `reports`, `architecture`, `planning`, `analysis`, `context`.
-    -   Create files: `management/task.md`.
+    -   Create directories: `management`, `logs`, `reports`, `architecture`, `planning`, `analysis`, `context`, `design`.
+    -   Create files: (none).
 2.  **Read Standards**: Read `custom-agents/instructions/output_standards.md` to understand output requirements.
 3.  **Check Permissions**: Verify write access to `agent-output/`.
 4.  **Rescue**: If any tool is missing, HALT immediately.
@@ -75,11 +75,11 @@ To build a modern, scalable, and secure application by systematically executing 
         2.  **Build**: Write code.
         3.  **Verify (QA)**: Call **QA** agent. 'Interactive tests (Playwright/Puppeteer). Verify against `product-brief.md`.'
             -   **Fail**: Fix and Re-run.
-            -   **Pass**: Update `management/task.md`.
+            -   **Pass**: Update task list via `todo` tool.
         4.  **Review (Critic)**: Call **Critic** agent. 'Review code style/logic.'
         5.  **Refine**: Address feedback.
         6.  **Loop**: Next component.
-        7.  **Finish**: Vision check against `product-brief.md`. Write `agent-output/reports/implementation-complete.md`."
+        7.  **Finish**: Vision check against `product-brief.md`."
 
 ### Phase 7: Security Audit
 **Goal**: Ensure safety and compliance.
@@ -105,10 +105,6 @@ To build a modern, scalable, and secure application by systematically executing 
 2.  **Critique Loop**: Run **Critic** agent.
     -   **Review**: Final Documentation.
     -   **Action**: Approve -> Proceed.
-
-### Phase 10: Retrospective
-1.  **Retrospective Agent**: Run via `runSubagent`.
-    -   **Task**: "Read all artifacts. Identify improvements. Output `agent-output/retrospectives/retrospective-[id].md`."
 
 ## Output Format
 - **Strict Directory Structure**: Agents write only to `agent-output/[role]/` or specific allow-listed directories.

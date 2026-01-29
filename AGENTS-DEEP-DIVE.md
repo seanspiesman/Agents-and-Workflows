@@ -374,7 +374,7 @@ Memory is the connective tissue that makes multi-agent workflows coherent.
 
 **Key Responsibilities**:
 - **Lifecycle Management**: Drives requests through Inception -> Planning -> Execution -> Verification -> Closure.
-- **Artifact Management**: Ensures `task.md` is updated and files are organized.
+- **Artifact Management**: Ensures task list is updated and files are organized.
 - **Context Enforcement**: Ensures agents have the necessary context (e.g., "Implementer, read Plan #12").
 - **Gatekeeping**: Enforces quality gates (e.g., "QA failed, back to Implementer").
 
@@ -386,7 +386,7 @@ Memory is the connective tissue that makes multi-agent workflows coherent.
 5. **Closure**: Delegate to DevOps/Retrospective.
 
 **Outputs**:
-- `task.md` updates
+- Task list updates
 - High-level status reports
 - Handoff instructions
 
@@ -784,7 +784,7 @@ You can have project-specific agent variants:
 ### Memory Issues
 
 **Q: Memory not working**
-- Is workspace initialized? Check `task.md` exists.
+- Is workspace initialized? Check task list is initialized.
 - Check Output panel for agent errors
 
 **Q: Retrievals return nothing**
